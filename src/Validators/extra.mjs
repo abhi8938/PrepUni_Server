@@ -1,4 +1,4 @@
-import { DUR, JoiDUR } from "../Validators/common.mjs";
+import { DUR } from "../Validators/common.mjs";
 
 import Joi from "joi";
 import mongoose from "mongoose";
@@ -20,7 +20,7 @@ export const BMessage = mongoose.model(
     },
     body: {
       type: String,
-      required,
+      required:true,
     },
     actions: [String],
     created_At: {
@@ -62,11 +62,11 @@ export const Course = mongoose.model(
     subjects: [String],
     total_semesters: {
       type: Number,
-      required,
+      required:true,
     },
     cover: {
       type: String,
-      required,
+      required:true,
     },
     created_At: {
       type: Date,
@@ -74,7 +74,7 @@ export const Course = mongoose.model(
     },
     last_update: {
       type: Date,
-      required,
+      required:true,
     },
     DUR: DUR,
   })
@@ -102,16 +102,16 @@ export const ValidateCourse = (course) => {
 export const Legal = mongoose.model(
   "Legal",
   new mongoose.Schema({
-    tandc: [{ type: String, required }],
-    about: [{ type: String, required }],
-    privacy: [{ type: String, required }],
+    tandc: [{ type: String, required:true, }],
+    about: [{ type: String, required:true, }],
+    privacy: [{ type: String, required:true, }],
     created_At: {
       type: Date,
       defaul: Date.now,
     },
     last_update: {
       type: Date,
-      required,
+      required:true,
     },
     DUR: DUR,
   })

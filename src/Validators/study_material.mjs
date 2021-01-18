@@ -44,15 +44,15 @@ const bookmarkSchema = mongoose.Schema({
   },
   page_number: {
     type: Number,
-    required,
+    required:true,
   },
   data_location: {
     type: String,
-    required,
+    required:true,
   },
   cfi: {
     type: String,
-    required,
+    required:true,
   },
   created_At: {
     type: Date,
@@ -63,27 +63,27 @@ const bookmarkSchema = mongoose.Schema({
 const notesSchema = mongoose.Schema({
   chapter_name: {
     type: String,
-    required,
+    required:true,
   },
   data: {
     type: String,
-    required,
+    required:true,
   },
   page_number: {
     type: Number,
-    required,
+    required:true,
   },
   color: {
     type: String,
-    required,
+    required:true,
   },
   data_location: {
     type: String,
-    required,
+    required:true,
   },
   cfi: {
     type: String,
-    required,
+    required:true,
   },
   created_At: {
     type: Date,
@@ -94,23 +94,23 @@ const notesSchema = mongoose.Schema({
 const highlightsSchema = mongoose.Schema({
   chapter_name: {
     type: String,
-    required,
+    required:true,
   },
   data: {
     type: String,
-    required,
+    required:true,
   },
   page_number: {
     type: Number,
-    required,
+    required:true,
   },
   color: {
     type: String,
-    required,
+    required:true,
   },
   data_location: {
     type: String,
-    required,
+    required:true,
   },
   cfi: {
     type: String,
@@ -126,11 +126,11 @@ export const Study_Material = mongoose.model(
   new mongoose.Schema({
     STID: {
       type: mongoose.Schema.ObjectId,
-      required,
+      required:true,
     },
     PPID: {
       type: mongoose.Schema.ObjectId,
-      required,
+      required:true,
     },
     bookmarks: [bookmarkSchema],
     notes: [notesSchema],
@@ -142,7 +142,7 @@ export const Study_Material = mongoose.model(
     },
     last_updated: {
       type: Date,
-      required,
+      required:true,
     },
     DUR: DUR,
   })

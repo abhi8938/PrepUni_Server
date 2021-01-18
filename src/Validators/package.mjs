@@ -1,4 +1,5 @@
 import Joi from "joi";
+import { DUR } from "../Validators/common.mjs";
 import mongoose from "mongoose";
 
 //TODO:Create Schema
@@ -27,7 +28,7 @@ export const Package = mongoose.model(
       minlength: 3,
     },
     price: {
-      type: number,
+      type: Number,
       required: true,
       minlength: 3,
     },
