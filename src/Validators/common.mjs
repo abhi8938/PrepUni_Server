@@ -1,15 +1,15 @@
 export const DUR = {
   key: {
     type: String,
-    required,
+    required:true,
   },
   prev: {
     type: String,
-    required,
+    required:true,
   },
   current: {
     type: String,
-    required,
+    required:true,
   },
   last_updated: {
     type: Date,

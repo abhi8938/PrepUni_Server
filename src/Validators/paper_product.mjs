@@ -21,19 +21,19 @@ export const Paper_Product = mongoose.model(
     },
     link: {
       type: String,
-      required,
+      required:true,
     },
     course: {
       type: String,
-      required,
+      required:true,
     },
     semester: {
       type: Number,
-      required,
+      required:true,
     },
     subject: {
       type: String,
-      required,
+      required:true,
     },
     created_at: {
       type: Date,
@@ -41,7 +41,7 @@ export const Paper_Product = mongoose.model(
     },
     last_updated: {
       type: Date,
-      required,
+      required:true,
     },
     DUR: DUR,
   })

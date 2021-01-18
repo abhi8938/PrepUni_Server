@@ -1,4 +1,5 @@
 import Joi from "joi";
+import { DUR } from "../Validators/common.mjs";
 import mongoose from "mongoose";
 
 //TODO:Create Schema
@@ -36,7 +37,7 @@ export const Subscription = mongoose.model(
     PPID: [
       {
         type: mongoose.Schema.ObjectId,
-        required,
+        required:true,
         minlength: 2,
         maxlength: 30,
       },
@@ -46,7 +47,7 @@ export const Subscription = mongoose.model(
       required: true,
     },
     PAID: {
-      type: ObjectId,
+      type: mongoose.Schema.ObjectId,
       required: true,
     },
     expiration: {

@@ -12,7 +12,13 @@ export const post_subscription = async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let subscriptions = new Subscription({
-    name: req.body.name,
+    PID: req.body.PID,
+    STID:req.body.STID,
+    PPID:req.body.PPID,
+    Type:req.body.Type,
+    PAID:req.body.PAID,
+    status:req.body.status,
+
   });
 
   subscriptions = await subscriptions.save();

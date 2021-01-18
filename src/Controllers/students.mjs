@@ -1,4 +1,4 @@
-import { Student, validate } from "../Validators/student.mjs";
+import { Student, validate,validateUpdate } from "../Validators/student.mjs";
 
 export const get_students = async (req, res) => {
   //TODO: Complete Request
@@ -13,6 +13,19 @@ export const post_student = async (req, res) => {
 
   let student = new Student({
     first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    gender:req.body.gender,
+    contact:req.body.contact,
+    display_name:req.body.display_name,
+    dob:req.body.dob,
+    email:req.body.email,
+    password:req.body.password,
+    device_token: req.body.device_token,
+    course:req.body.course,
+    college:req.body.college,
+    semester:req.body.semester,
+    university:req.body.university,
+    type:req.body.type,
   });
 
   student = await student.save();
@@ -22,14 +35,11 @@ export const post_student = async (req, res) => {
 
 export const update_student = async (req, res) => {
   //TODO: Complete Request
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
+  const { error } = validateUpdate(req.body);
+  if (error) return res.status(400).send(error.details[0].message)
   const student = await Student.findByIdAndUpdate(
     req.params.id,
-    {
-      first_name: req.body.first_name,
-    },
+    req.body,
     { new: true }
   );
 
