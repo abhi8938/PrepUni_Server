@@ -6,7 +6,7 @@ import {
 
 import { Pack } from "../Validators/package.mjs";
 import { Paper_Product } from "../Validators/paper_product.mjs";
-import { Students } from "../Validators/student.mjs";
+import { Student } from "../Validators/student.mjs";
 
 export const get_subscriptions = async (req, res) => {
   const subscriptions = await Subscription.find().sort("type");
@@ -24,7 +24,7 @@ export const post_subscription = async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const student = await Students.findById(req.user._id);
+  const student = await Student.findById(req.user._id);
   if (!student) return res.status(404).send("No Student found with given id");
 
   const pack = await Pack.findById(req.body.PID);

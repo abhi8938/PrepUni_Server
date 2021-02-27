@@ -15,11 +15,7 @@ import express from "express";
 
 const router = express.Router();
 
-router.get(
-  "/",
-  [auth, admin],
-  async (req, res) => await get_students(req, res)
-);
+router.get("/", [auth], async (req, res) => await get_students(req, res));
 
 router.post("/", async (req, res) => await post_student(req, res));
 

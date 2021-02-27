@@ -1,11 +1,9 @@
 import { DUR } from "./common.mjs";
 import Joi from "joi";
 import config from "config";
+import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-//TODO:Create Schema
-// last_name
-// email
-// phone
+
 const studentSchema = new mongoose.Schema({
   first_name: {
     type: String,
@@ -57,7 +55,7 @@ const studentSchema = new mongoose.Schema({
     required: true,
   },
   course: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
     required: true,
     minlength: 3,
   },
@@ -105,15 +103,15 @@ const studentSchema = new mongoose.Schema({
   DUR: [DUR],
 });
 
-studentSchema.methods.generateAuthToken = function () {
+studentSchema.method("generateAuthToken", function () {
   const token = jwt.sign(
     { _id: this._id, isAdmin: this.isAdmin },
     config.get("jwtPrivateKey")
   );
   return token;
-};
+});
 
-export const Students = mongoose.model("Students", studentSchema);
+export const Student = mongoose.model("Student", studentSchema);
 
 export const validate = (student) => {
   //TODO:Create Schema
@@ -122,12 +120,12 @@ export const validate = (student) => {
     first_name: Joi.string().required(),
     last_name: Joi.string().required(),
     gender: Joi.string().valid("MALE", "FEMALE"),
-    contact: Joi.number().required().min(10).max(10),
+    contact: Joi.number().required(),
     display_name: Joi.string().required(),
     dob: Joi.date().required(),
     email: Joi.string().min(5).required().email(),
     password: Joi.string().min(5).max(1024).required(),
-    device_token: Joi.string(),
+    device_token: Joi.string().required(),
     course: Joi.string().required(),
     college: Joi.string().required(),
     semester: Joi.number().required(),
@@ -140,11 +138,10 @@ export const validate = (student) => {
 };
 
 export const validateUpdate = (student) => {
-  //TODO:Create Schema
   const schema = Joi.object({
-    contact: Joi.number().min(10).max(10),
+    contact: Joi.number(),
     email: Joi.string().min(5).email(),
-    password: Joi.string().min(5).max(255),
+    password: Joi.string().min(5).max(1024),
     device_token: Joi.string(),
     semester: Joi.number(),
   });
@@ -153,7 +150,6 @@ export const validateUpdate = (student) => {
 };
 
 export const validateAuth = (student) => {
-  //TODO:Create Schema
   const schema = Joi.object({
     email: Joi.string().min(5).email().required(),
     password: Joi.string().min(5).max(1024).required(),
