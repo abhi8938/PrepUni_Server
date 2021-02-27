@@ -1,8 +1,5 @@
 import axios from "axios";
-import nodemailer from 'nodemailer';
-export const generateInvoice = () => {
-  return `<h1>Invoice Email Template</h1>`;
-};
+import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -13,19 +10,24 @@ const transporter = nodemailer.createTransport({
     pass: "firsematpuchna13.", // generated ethereal password
   },
 });
-export const sendMail = (email,subject,body) => {
-   try {
-      const info = await transporter.sendMail({
-        from: "theprepuni@gmail.com", // sender address
-        to: email, // list of receivers
-        subject: subject,
-        html: body, // html body
-      });
-      console.log("Message sent: ", info.response);
-      return;
-    } catch (e) {
-      throw new Error(e);
-    }
+
+export const generateInvoice = () => {
+  return `<h1>Invoice Email Template</h1>`;
+};
+
+export const sendMail = async (email, subject, body) => {
+  try {
+    const info = await transporter.sendMail({
+      from: "theprepuni@gmail.com", // sender address
+      to: email, // list of receivers
+      subject: subject,
+      html: body, // html body
+    });
+    console.log("Message sent: ", info.response);
+    return;
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 
 export const generateKeywords = (data) => {
@@ -41,11 +43,17 @@ export const generateKeywords = (data) => {
   return keywords;
 };
 
-export const generateDUR = (key, prev, current) => {
-   const DUR = {
-     key,prev,current,created_At:Date.now()
-   }
-  return DUR;
+export const handleUpdate = (document, body) => {
+  return Object.keys(body).map(function (key, index) {
+    const DUR = {
+      key: key,
+      prev: document[key],
+      current: body[key],
+      created_at: Date.now(),
+    };
+    document[key] = body[key];
+    document.DUR.push(DUR);
+  });
 };
 
 export const sendNotification = async (Title, Body, id) => {
@@ -77,4 +85,3 @@ export const sendNotification = async (Title, Body, id) => {
 export const sendSMS = (contact, message) => {
   return `SMS SENT`;
 };
-

@@ -8,6 +8,7 @@ import {
   validateLegalUpdate,
 } from "../Validators/extra.mjs";
 
+import { handleUpdate } from "../Services/algo.mjs";
 /*
  * *
  * *
@@ -67,7 +68,6 @@ export const get_courses = async (req, res) => {
 };
 
 export const get_course = async (req, res) => {
-  console.log("req.params", req.params);
   const course = await Course.findById(req.params.id);
   if (!course)
     return res
@@ -87,14 +87,13 @@ export const post_course = async (req, res) => {
 export const update_course = async (req, res) => {
   if (req.body.cover === undefined || !req.body.syllabus === undefined)
     return res.status(400).send("No request body");
-  const course = await Course.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  const course = await Course.findById(req.params.id);
   if (!course)
     return res
       .status(404)
       .send("The course with the given id is not available");
-
+  handleUpdate(student, req.body);
+  course = await course.save();
   res.status(200).send(course);
 };
 

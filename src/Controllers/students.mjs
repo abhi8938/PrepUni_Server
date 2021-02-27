@@ -11,6 +11,7 @@ import { Paper_Product } from "../Validators/paper_product.mjs";
 import { Subscription } from "../Validators/subscription.mjs";
 import _ from "lodash";
 import bcrypt from "bcrypt";
+import { handleUpdate } from "../Services/algo.mjs";
 
 export const get_students = async (req, res) => {
   const students = await Student.find().sort("first_name");
@@ -51,15 +52,13 @@ export const post_student = async (req, res) => {
 export const update_student = async (req, res) => {
   const { error } = validateUpdate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
-  const student = await Student.findByIdAndUpdate(req.user._id, req.body, {
-    new: true,
-  });
-
+  let student = await Student.findById(req.user._id);
   if (!student)
     return res
       .status(404)
       .send("The Student with the given id is not available");
-
+  handleUpdate(student, req.body);
+  student = await student.save();
   res.send(_.omit(student, ["password"]));
 };
 
@@ -91,6 +90,3 @@ export const get_all = async (req, res) => {
     broadcast,
   });
 };
-// export const delete_student = (req, res) => {
-//TODO Request
-// };
