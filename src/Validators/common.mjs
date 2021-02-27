@@ -11,8 +11,8 @@ export const DUR = {
     type: String,
     required: true,
   },
-  last_updated: {
+  created_At: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
 };

@@ -45,19 +45,18 @@ export const Paper_Product = mongoose.model(
     },
     created_at: {
       type: Date,
-      default: Date.now,
+      default: Date.now(),
     },
-    last_updated: {
+    last_update: {
       type: Date,
-      required: true,
+      default: Date.now(),
     },
-    DUR: DUR,
+    DUR: [DUR],
   })
 );
 
 export const validate = (paper_product) => {
-  //TODO:Create Schema
-  const schema = {
+  const schema = Joi.object({
     name: Joi.string().min(2).max(30).required(),
     link: Joi.string().required(),
     course: Joi.string().required(),
@@ -65,17 +64,16 @@ export const validate = (paper_product) => {
     subject: Joi.string().required(),
     cover: Joi.string().required(),
     university: Joi.string().required(),
-  };
+  });
 
-  return Joi.validate(paper_product, schema);
+  return schema.validate(paper_product);
 };
 export const validateUpdate = (paper_product) => {
-  //TODO:Create Schema
-  const schema = {
+  const schema = Joi.object({
     name: Joi.string().min(2).max(30),
     link: Joi.string(),
     cover: Joi.string(),
-  };
+  });
 
-  return Joi.validate(paper_product, schema);
+  return schema.validate(paper_product);
 };

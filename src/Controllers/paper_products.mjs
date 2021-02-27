@@ -5,19 +5,16 @@ import {
 } from "../Validators/paper_product.mjs";
 //* req.body = {limit, semester, course, university, subject}
 export const get_paper_products = async (req, res) => {
-  //TODO: Complete Request
   const paper_products = await Paper_Product.find().sort("name");
   res.send(paper_products);
 };
 
 export const get_paper_product = async (req, res) => {
-  //TODO: Complete Request
   const paper_products = await Paper_Product.findById(req.params.id);
   res.send(paper_products);
 };
 
 export const post_paper_products = async (req, res) => {
-  //TODO: Complete Request
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -29,7 +26,6 @@ export const post_paper_products = async (req, res) => {
 };
 
 export const update_paper_products = async (req, res) => {
-  //TODO: Complete Request
   const { error } = validateUpdate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -46,7 +42,3 @@ export const update_paper_products = async (req, res) => {
 
   res.send(paper_products);
 };
-
-// export const delete_student = (req, res) => {
-//TODO Request
-// };

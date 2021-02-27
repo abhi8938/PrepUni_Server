@@ -2,12 +2,6 @@ import { DUR } from "../Validators/common.mjs";
 import Joi from "joi";
 import mongoose from "mongoose";
 
-//TODO:Create BMESSAGE
-//* title - string
-//* body - string
-//* actions - [String]
-//* CA
-
 export const BMessage = mongoose.model(
   "BMessage",
   new mongoose.Schema({
@@ -38,15 +32,6 @@ export const ValidateBMessage = (bmessage) => {
 
   return schema.validate(bmessage);
 };
-
-//TODO: Create COURSE
-//* name - string
-//* subjects - [string]
-//* total_semesters - number
-//* cover
-//* CA
-//* LU
-//* DUR
 
 export const Course = mongoose.model(
   "Course",
@@ -82,9 +67,7 @@ export const Course = mongoose.model(
       type: String,
       required: true,
     },
-    DUR: {
-      type: DUR,
-    },
+    DUR: [DUR],
   })
 );
 
@@ -101,13 +84,6 @@ export const ValidateCourse = (course) => {
   return schema.validate(course);
 };
 
-//TODO:Create LEGAL Schema
-//* tandc - [string],
-//* about - [string],
-//* privacy - [string],
-//* CA
-//* LU
-//* DUR
 export const Legal = mongoose.model(
   "Legal",
   new mongoose.Schema({
@@ -122,7 +98,7 @@ export const Legal = mongoose.model(
       type: Date,
       required: true,
     },
-    DUR: DUR,
+    DUR: [DUR],
   })
 );
 
