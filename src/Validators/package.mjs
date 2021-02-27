@@ -36,6 +36,8 @@ export const Pack = mongoose.model(
       type: Date,
       default: Date.now(),
     },
+    keywords: [String],
+
     DUR: [DUR],
   })
 );

@@ -43,6 +43,8 @@ export const Paper_Product = mongoose.model(
       type: Date,
       default: Date.now(),
     },
+    keywords: [String],
+
     DUR: [DUR],
   })
 );

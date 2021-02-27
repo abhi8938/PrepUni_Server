@@ -100,6 +100,8 @@ const studentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  keywords: [String],
+
   DUR: [DUR],
 });
 

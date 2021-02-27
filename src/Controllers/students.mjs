@@ -4,6 +4,7 @@ import {
   validateAuth,
   validateUpdate,
 } from "../Validators/student.mjs";
+import { generateKeywords, handleUpdate } from "../Services/algo.mjs";
 
 import { Annotations } from "../Validators/annotations.mjs";
 import { BMessage } from "../Validators/extra.mjs";
@@ -11,7 +12,6 @@ import { Paper_Product } from "../Validators/paper_product.mjs";
 import { Subscription } from "../Validators/subscription.mjs";
 import _ from "lodash";
 import bcrypt from "bcrypt";
-import { handleUpdate } from "../Services/algo.mjs";
 
 export const get_students = async (req, res) => {
   const students = await Student.find().sort("first_name");
@@ -41,6 +41,12 @@ export const post_student = async (req, res) => {
   student = new Student(req.body);
   const salt = await bcrypt.genSalt(13);
   student.password = await bcrypt.hash(student.password, salt);
+  let keywords = generateKeywords(
+    `${req.body.first_name} ${req.body.last_name}`
+  )
+    .concat(generateKeywords(req.body.contact))
+    .concat(generateKeywords(req.body.email));
+  student.keywords = keywords;
   student = await student.save();
   const token = student.generateAuthToken();
   return res

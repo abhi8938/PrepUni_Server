@@ -3,8 +3,7 @@ import {
   validate,
   validateUpdate,
 } from "../Validators/paper_product.mjs";
-
-import { handleUpdate } from "../Services/algo.mjs";
+import { generateKeywords, handleUpdate } from "../Services/algo.mjs";
 
 //* req.body = {limit, semester, course, university, subject}
 export const get_paper_products = async (req, res) => {
@@ -22,7 +21,11 @@ export const post_paper_products = async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   let paper_product = new Paper_Product(req.body);
-
+  let keywords = generateKeywords(req.body.name)
+    .concat(generateKeywords(req.body.semester))
+    .concat(generateKeywords(req.body.course))
+    .concat(generateKeywords(req.body.university));
+  paper_product.keywords = keywords;
   paper_product = await paper_product.save();
 
   res.send(paper_product);

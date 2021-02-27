@@ -7,8 +7,8 @@ import {
   ValidateLegal,
   validateLegalUpdate,
 } from "../Validators/extra.mjs";
+import { generateKeywords, handleUpdate } from "../Services/algo.mjs";
 
-import { handleUpdate } from "../Services/algo.mjs";
 /*
  * *
  * *
@@ -80,6 +80,10 @@ export const post_course = async (req, res) => {
   const { error } = ValidateCourse(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   let course = new Course(req.body);
+  let keywords = generateKeywords(req.body.name).concat(
+    generateKeywords(req.body.university)
+  );
+  course.keywords = keywords;
   course = await course.save();
   res.send(course);
 };

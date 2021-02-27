@@ -33,7 +33,7 @@ export const sendMail = async (email, subject, body) => {
 export const generateKeywords = (data) => {
   const keywords = [];
   let curName = "";
-  data
+  `${data}`
     .toLowerCase()
     .split("")
     .forEach((alpha) => {

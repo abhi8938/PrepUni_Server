@@ -67,6 +67,7 @@ export const Course = mongoose.model(
       type: String,
       required: true,
     },
+    keywords: [String],
     DUR: [DUR],
   })
 );
