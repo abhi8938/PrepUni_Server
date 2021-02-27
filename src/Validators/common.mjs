@@ -1,17 +1,18 @@
 export const DUR = {
   key: {
     type: String,
-    required:true,
+    required: true,
   },
   prev: {
     type: String,
-    required:true,
+    required: true,
   },
   current: {
     type: String,
-    required:true,
+    required: true,
   },
   last_updated: {
     type: Date,
+    default: Date.now,
   },
 };

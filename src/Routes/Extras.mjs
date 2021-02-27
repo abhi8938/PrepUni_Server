@@ -1,8 +1,9 @@
 //*Controller
 import {
   get_bmessage,
+  get_course,
   get_courses,
-  get_legals,
+  get_legal,
   post_bmessage,
   post_course,
   post_legal,
@@ -11,9 +12,14 @@ import {
   update_legal,
 } from "../Controllers/extras.mjs";
 
+import admin from "../Middlewares/admin.mjs";
+import auth from "../Middlewares/auth.mjs";
 import express from "express";
+import fileUpload from "../Middlewares/fileUpload.mjs";
+import multer from "multer";
 
 const router = express.Router();
+let upload = multer({ dest: "uploads/" });
 
 /*
  * *
@@ -54,9 +60,18 @@ router.put(
 
 router.get("/courses", async (req, res) => await get_courses(req, res));
 
-router.post("/courses", async (req, res) => await post_course(req, res));
+router.post("/courses", upload.single("cover"), async (req, res) => {
+  req.body.subjects = JSON.parse(req.body.subjects);
+  req.body.cover = req.file.filename;
+  await post_course(req, res);
+});
 
-router.put("/courses/:id", async (req, res) => await update_course(req, res));
+router.put("/courses/:id", upload.single("cover"), async (req, res) => {
+  req.body.cover = req.file.filename;
+  await update_course(req, res);
+});
+
+router.get("/courses/:id", async (req, res) => await get_course(req, res));
 
 /*
  * *
@@ -72,10 +87,18 @@ router.put("/courses/:id", async (req, res) => await update_course(req, res));
 
 //* Legals
 
-router.get("/legals", async (req, res) => await get_legals(req, res));
+router.get("/legal", auth, async (req, res) => await get_legal(req, res));
 
-router.post("/legals", async (req, res) => await post_legal(req, res));
+router.post(
+  "/legals",
+  [auth, admin],
+  async (req, res) => await post_legal(req, res)
+);
 
-router.put("/legals/:id", async (req, res) => await update_legal(req, res));
+router.put(
+  "/legals/:id",
+  [admin, auth],
+  async (req, res) => await update_legal(req, res)
+);
 
 export default router;

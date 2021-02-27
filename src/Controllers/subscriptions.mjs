@@ -1,41 +1,76 @@
-import { Subscription, validate } from "../Validators/subscription.mjs";
+import {
+  Subscription,
+  validate,
+  validateUpdate,
+} from "../Validators/subscription.mjs";
+
+import { Package } from "../Validators/package.mjs";
+import { Paper_Product } from "../Validators/paper_product.mjs";
+import { Students } from "../Validators/student.mjs";
 
 export const get_subscriptions = async (req, res) => {
-  //TODO: Complete Request
-  const subscriptions = await Subscription.find().sort("name");
+  const subscriptions = await Subscription.find().sort("type");
   res.send(subscriptions);
+};
+
+export const get_subscription = async (req, res) => {
+  const subscription = await Subscription.findOne({ STID: req.user._id });
+  if (!subscription)
+    return res.status(400).send("No Subscription found with given id");
+  res.send(subscription);
 };
 
 export const post_subscription = async (req, res) => {
-  //TODO: Complete Request
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let subscriptions = new Subscription({
-    PID: req.body.PID,
-    STID:req.body.STID,
-    PPID:req.body.PPID,
-    Type:req.body.Type,
-    PAID:req.body.PAID,
-    status:req.body.status,
+  const student = await Students.findById(req.user._id);
+  if (!student) return res.status(404).send("No Student found with given id");
 
+  const _package = await Package.findById(req.body.PID);
+  if (!_package) return res.status(404).send("No Package found with given id");
+
+  const paper_products = await Paper_Product.find({
+    university: student.university,
+    course: student.course,
+    semester: student.semester,
   });
+  if (paper_products.length === 0)
+    return res
+      .status(404)
+      .send("No Papers found for the following student data");
 
-  subscriptions = await subscriptions.save();
+  const PPIDS = [];
+  let subInstance = {
+    STID: student._id,
+    PID: _package._id,
+    type: _package.type,
+    expiration: "321312321", // calculate time
+  };
+  subInstance.status = _package.type === "TRIAL" ? "ACTIVE" : "INACTIVE";
+  paper_products.map((item) => PPIDS.push(item._id));
+  subInstance.PPIDS = PPIDS;
 
-  res.send(subscriptions);
+  let subscription = new Subscription(subInstance);
+  subscription = await subscription.save();
+  if (subscription.type === "TRIAL") {
+    return res
+      .status(201)
+      .send(`Your Trial package is active till ${subscription.expiration}`);
+  } else if (subscription.type === "PAID") {
+    return res.status(201).send(`http://127.0. 0.1:3001/ccavRequestHandler`);
+  }
+
+  res.send(subscription);
 };
 
 export const update_subscription = async (req, res) => {
-  //TODO: Complete Request
-  const { error } = validate(req.body);
+  const { error } = validateUpdate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const subscription = await Subscription.findByIdAndUpdate(
     req.params.id,
-    {
-      name: req.body.name,
-    },
+    req.body,
     { new: true }
   );
 
@@ -46,7 +81,3 @@ export const update_subscription = async (req, res) => {
 
   res.send(subscription);
 };
-
-// export const delete_student = (req, res) => {
-//TODO Request
-// };

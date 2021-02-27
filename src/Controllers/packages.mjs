@@ -1,35 +1,34 @@
-import { Package, validate } from "../Validators/package.mjs";
+import { Package, validate, validateUpdate } from "../Validators/package.mjs";
 export const get_packages = async (req, res) => {
-  //TODO: Complete Request
   const packages = await Package.find().sort("first_name");
   res.send(pacakges);
 };
 
+export const get_package = async (req, res) => {
+  const _package = await Package.findById(req.params.id);
+  if (!_package) return res.status(400).send("No package with given id.");
+  res.send(_pacakge);
+};
+
 export const post_package = async (req, res) => {
-  //TODO: Complete Request
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
-
-  let _package = new Package({
-    type: req.body.type,
-  });
-
+  let _package = new Package(req.body.data);
   _package = await _package.save();
 
   res.send(_package);
 };
 
 export const update_package = async (req, res) => {
-  //TODO: Complete Request
-  const { error } = validate(req.body);
+  const { error } = validateUpdate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const _package = await Package.findByIdAndUpdate(
     req.params.id,
+    req.body.data,
     {
-      type: req.body.type,
-    },
-    { new: true }
+      new: true,
+    }
   );
 
   if (!_package)
@@ -39,7 +38,3 @@ export const update_package = async (req, res) => {
 
   res.send(_package);
 };
-
-// export const delete_student = (req, res) => {
-//TODO Request
-// };

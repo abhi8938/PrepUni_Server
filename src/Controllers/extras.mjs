@@ -5,16 +5,10 @@ import {
   ValidateBMessage,
   ValidateCourse,
   ValidateLegal,
+  validateLegalUpdate,
 } from "../Validators/extra.mjs";
 
 /*
- * *
- * *
- * *
- * *
- * *
- * *
- * *
  * *
  * *
  */
@@ -27,8 +21,7 @@ export const get_bmessage = async (req, res) => {
 };
 
 export const post_bmessage = async (req, res) => {
-  //TODO: Complete Request
-  const { error } = validate(req.body);
+  const { error } = ValidateBMessage(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   let bmessage = new BMessage({
@@ -41,7 +34,6 @@ export const post_bmessage = async (req, res) => {
 };
 
 export const update_bmessage = async (req, res) => {
-  //TODO: Complete Request
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -61,18 +53,7 @@ export const update_bmessage = async (req, res) => {
   res.send(bmessage);
 };
 
-// export const delete_student = (req, res) => {
-//TODO Request
-// };
-
 /*
- * *
- * *
- * *
- * *
- * *
- * *
- * *
  * *
  * *
  */
@@ -80,77 +61,61 @@ export const update_bmessage = async (req, res) => {
 //* Courses
 
 export const get_courses = async (req, res) => {
-  //TODO: Complete Request
-  const courses = await Course.find().sort("first_name");
+  //* req.params = { limit, university , subjects }
+  const courses = await Course.find().sort("name");
   res.send(courses);
 };
 
+export const get_course = async (req, res) => {
+  console.log("req.params", req.params);
+  const course = await Course.findById(req.params.id);
+  if (!course)
+    return res
+      .status(404)
+      .send("The course with givern id in not present OR wrong course doc id");
+  res.send(course);
+};
+
 export const post_course = async (req, res) => {
-  //TODO: Complete Request
-  const { error } = validate(req.body);
+  const { error } = ValidateCourse(req.body);
   if (error) return res.status(400).send(error.details[0].message);
-
-  let course = new Course({
-    type: req.body.type,
-  });
-
+  let course = new Course(req.body);
   course = await course.save();
-
   res.send(course);
 };
 
 export const update_course = async (req, res) => {
-  //TODO: Complete Request
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
-  const course = await Course.findByIdAndUpdate(
-    req.params.id,
-    {
-      type: req.body.type,
-    },
-    { new: true }
-  );
-
+  if (req.body.cover === undefined || !req.body.syllabus === undefined)
+    return res.status(400).send("No request body");
+  const course = await Course.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
   if (!course)
     return res
       .status(404)
       .send("The course with the given id is not available");
 
-  res.send(course);
+  res.status(200).send(course);
 };
 
-// export const delete_student = (req, res) => {
-//TODO Request
-// };
-
 /*
- * *
- * *
- * *
- * *
- * *
- * *
- * *
  * *
  * *
  */
 
 //* Legals
-export const get_legals = async (req, res) => {
-  //TODO: Complete Request
-  const legals = await Package.find().sort("name");
-  res.send(legals);
+export const get_legal = async (req, res) => {
+  const legal = await Package.findById(req.params.id);
+  if (!legal)
+    return res.status(400).send("The legal with the given id is not available");
+  res.send(legal);
 };
 
 export const post_legal = async (req, res) => {
-  //TODO: Complete Request
-  const { error } = validate(req.body);
+  const { error } = ValidateLegal(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let legal = new Legal({
-    type: req.body.type,
-  });
+  let legal = new Legal(req.body);
 
   legal = await legal.save();
 
@@ -158,24 +123,15 @@ export const post_legal = async (req, res) => {
 };
 
 export const update_legal = async (req, res) => {
-  //TODO: Complete Request
-  const { error } = validate(req.body);
+  const { error } = validateLegalUpdate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const legal = await Legal.findByIdAndUpdate(
-    req.params.id,
-    {
-      type: req.body.type,
-    },
-    { new: true }
-  );
+  const legal = await Legal.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
 
   if (!legal)
     return res.status(404).send("The legal with the given id is not available");
 
   res.send(legal);
 };
-
-// export const delete_student = (req, res) => {
-//TODO Request
-// };

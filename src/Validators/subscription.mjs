@@ -1,5 +1,5 @@
-import Joi from "joi";
 import { DUR } from "../Validators/common.mjs";
+import Joi from "joi";
 import mongoose from "mongoose";
 
 //TODO:Create Schema
@@ -22,22 +22,22 @@ import mongoose from "mongoose";
 export const Subscription = mongoose.model(
   "Subscription",
   new mongoose.Schema({
-    PID: {
-      type: mongoose.Schema.ObjectId,
-      required: true,
-      minlength: 2,
-      maxlength: 30,
-    },
     STID: {
       type: mongoose.Schema.ObjectId,
       required: true,
       minlength: 2,
       maxlength: 30,
     },
-    PPID: [
+    PID: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+      minlength: 2,
+      maxlength: 30,
+    },
+    PPIDS: [
       {
         type: mongoose.Schema.ObjectId,
-        required:true,
+        required: true,
         minlength: 2,
         maxlength: 30,
       },
@@ -46,7 +46,7 @@ export const Subscription = mongoose.model(
       type: String,
       required: true,
     },
-    PAID: {
+    PA_ID: {
       type: mongoose.Schema.ObjectId,
       required: true,
     },
@@ -60,6 +60,7 @@ export const Subscription = mongoose.model(
       type: String,
       required: true,
       enum: ["ACTIVE", "INACTIVE"],
+      default: "INACTIVE",
     },
     created_at: {
       type: Date,
@@ -78,11 +79,19 @@ export const validate = (subscription) => {
   const schema = {
     //TODO:Create Schema
     PID: Joi.string().required(),
-    STID: Joi.string().required(),
-    PPID: Joi.string().required(),
-    Type: Joi.string().required(),
-    PAID: Joi.string().required(),
-    status: Joi.string().required(),
+    PPIDS: Joi.array().items(Joi.string()),
+    Type: Joi.string(),
+    PA_ID: Joi.string(),
+    status: Joi.string(),
+  };
+
+  return Joi.validate(subscription, schema);
+};
+
+export const validateUpdate = (subscription) => {
+  const schema = {
+    //TODO:Create Schema
+    PID: Joi.string().required(),
   };
 
   return Joi.validate(subscription, schema);

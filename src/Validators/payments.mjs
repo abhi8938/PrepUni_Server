@@ -15,19 +15,31 @@ export const Payment = mongoose.model(
   new mongoose.Schema({
     type: {
       type: String,
+      enum: ["ONLINE", "CREDIT", "DEBIT", "UPI"],
       required: true,
-      minlength: 2,
-      maxlength: 30,
     },
-    features: {
-      type: [String],
+    STID: {
+      type: mongoose.Schema.ObjectId,
       required: true,
-      minlength: 3,
     },
-    price: {
-      type: number,
+    transactionID: {
+      type: String,
+    },
+    amount: {
+      type: String,
       required: true,
-      minlength: 3,
+    },
+    CA: {
+      type: String,
+      required: true,
+    },
+    SID: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["SUCCESS", "FAIL", "PENDING"],
     },
   })
 );
@@ -36,6 +48,7 @@ export const validate = (payment) => {
   //TODO:Create Schema
   const schema = {
     type: Joi.string().min(2).max(30).required(),
+    amount: Joi.string().required(),
   };
 
   return Joi.validate(payment, schema);

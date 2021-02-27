@@ -1,7 +1,18 @@
-import { Paper_Product, validate } from "../Validators/paper_product.mjs";
+import {
+  Paper_Product,
+  validate,
+  validateUpdate,
+} from "../Validators/paper_product.mjs";
+//* req.body = {limit, semester, course, university, subject}
 export const get_paper_products = async (req, res) => {
   //TODO: Complete Request
-  const paper_products = await Paper_Product.find().sort("first_name");
+  const paper_products = await Paper_Product.find().sort("name");
+  res.send(paper_products);
+};
+
+export const get_paper_product = async (req, res) => {
+  //TODO: Complete Request
+  const paper_products = await Paper_Product.findById(req.params.id);
   res.send(paper_products);
 };
 
@@ -10,9 +21,7 @@ export const post_paper_products = async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let paper_products = new Paper_Product({
-    name: req.body.name,
-  });
+  let paper_products = new Paper_Product(req.body);
 
   paper_products = await paper_products.save();
 
@@ -21,14 +30,12 @@ export const post_paper_products = async (req, res) => {
 
 export const update_paper_products = async (req, res) => {
   //TODO: Complete Request
-  const { error } = validate(req.body);
+  const { error } = validateUpdate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const paper_products = await Paper_Product.findByIdAndUpdate(
     req.params.id,
-    {
-      name: req.body.name,
-    },
+    req.body,
     { new: true }
   );
 

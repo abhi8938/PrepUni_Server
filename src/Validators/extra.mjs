@@ -1,5 +1,4 @@
 import { DUR } from "../Validators/common.mjs";
-
 import Joi from "joi";
 import mongoose from "mongoose";
 
@@ -12,7 +11,7 @@ import mongoose from "mongoose";
 export const BMessage = mongoose.model(
   "BMessage",
   new mongoose.Schema({
-    tittle: {
+    title: {
       type: String,
       required: true,
       minlength: 2,
@@ -20,7 +19,7 @@ export const BMessage = mongoose.model(
     },
     body: {
       type: String,
-      required:true,
+      required: true,
     },
     actions: [String],
     created_At: {
@@ -31,14 +30,13 @@ export const BMessage = mongoose.model(
 );
 
 export const ValidateBMessage = (bmessage) => {
-  //TODO:Create Schema
-  const schema = {
+  const schema = Joi.object({
     title: Joi.string().min(2).max(30).required(),
     body: Joi.string().min(10).max(1000).required(),
     actions: Joi.array().required(),
-  };
+  });
 
-  return Joi.validate(bmessage, schema);
+  return schema.validate(bmessage);
 };
 
 //TODO: Create COURSE
@@ -62,34 +60,45 @@ export const Course = mongoose.model(
     subjects: [String],
     total_semesters: {
       type: Number,
-      required:true,
+      required: true,
     },
     cover: {
       type: String,
-      required:true,
+      required: true,
     },
     created_At: {
       type: Date,
-      default: Date.now,
+      default: Date.now(),
     },
     last_update: {
       type: Date,
-      required:true,
+      required: true,
+      default: Date.now(),
     },
-    DUR: DUR,
+    syllabus: {
+      type: Array,
+    },
+    university: {
+      type: String,
+      required: true,
+    },
+    DUR: {
+      type: DUR,
+    },
   })
 );
 
 export const ValidateCourse = (course) => {
-  const schema = {
+  const schema = Joi.object({
     name: Joi.string().min(2).max(30).required(),
     subjects: Joi.array().required(),
     total_semesters: Joi.number().required(),
     cover: Joi.string().required(),
-    DUR: Joi.object().required(),
-  };
+    university: Joi.string().required(),
+    DUR: Joi.object(),
+  });
 
-  return Joi.validate(course, schema);
+  return schema.validate(course);
 };
 
 //TODO:Create LEGAL Schema
@@ -102,16 +111,16 @@ export const ValidateCourse = (course) => {
 export const Legal = mongoose.model(
   "Legal",
   new mongoose.Schema({
-    tandc: [{ type: String, required:true, }],
-    about: [{ type: String, required:true, }],
-    privacy: [{ type: String, required:true, }],
+    tandc: [{ type: String, required: true }],
+    about: [{ type: String, required: true }],
+    privacy: [{ type: String, required: true }],
     created_At: {
       type: Date,
       defaul: Date.now,
     },
     last_update: {
       type: Date,
-      required:true,
+      required: true,
     },
     DUR: DUR,
   })
@@ -119,12 +128,22 @@ export const Legal = mongoose.model(
 
 export const ValidateLegal = (legal) => {
   //TODO:Create Schema
-  const schema = {
+  const schema = Joi.object({
     tandc: Joi.array().required(),
     about: Joi.array().required(),
     privacy: Joi.array().required(),
-    DUR: Joi.object().required(),
-  };
+  });
 
-  return Joi.validate(legal, schema);
+  return schema.validate(legal);
+};
+
+export const validateLegalUpdate = (legal) => {
+  //TODO:Create Schema
+  const schema = Joi.object({
+    tandc: Joi.array(),
+    about: Joi.array(),
+    privacy: Joi.array(),
+  });
+
+  return schema.validate(legal);
 };

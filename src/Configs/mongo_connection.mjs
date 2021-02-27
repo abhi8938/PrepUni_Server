@@ -5,6 +5,7 @@ export const connect_db = () => {
     .connect("mongodb://localhost/prepuni", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     })
     .then(() => console.log("connected to Database...."))
     .catch((err) =>

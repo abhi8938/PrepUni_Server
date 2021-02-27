@@ -1,17 +1,6 @@
-import Joi from "joi";
 import { DUR } from "../Validators/common.mjs";
+import Joi from "joi";
 import mongoose from "mongoose";
-
-//TODO:Create Schema
-//* features - Array of string
-//* price - number
-//* expiration - date 5 months after the creation of subscription
-//* STID - student id - object reference
-//* discount - number - greater than 0 less than 100
-//* type - TRIAL / PAID
-//* created_at
-//* last_updated
-//* DUR -
 
 export const Package = mongoose.model(
   "Packages",
@@ -32,7 +21,7 @@ export const Package = mongoose.model(
       required: true,
       minlength: 3,
     },
-    expiration: {
+    life: {
       type: Date,
       required: true,
       default: Date.now,
@@ -72,6 +61,23 @@ export const validate = (_package) => {
   //TODO:Create Schema
   const schema = {
     type: Joi.string().min(2).max(30).required(),
+    life: Joi.date().required(),
+    price: Joi.number().required(),
+    features: Joi.array().items(Joi.string()).required(),
+    discount: Joi.number(),
+  };
+
+  return Joi.validate(_package, schema);
+};
+
+export const validateUpdate = (_package) => {
+  //TODO:Create Schema
+  const schema = {
+    type: Joi.string().min(2).max(30),
+    life: Joi.date(),
+    price: Joi.number(),
+    features: Joi.array().items(Joi.string()),
+    discount: Joi.number(),
   };
 
   return Joi.validate(_package, schema);
