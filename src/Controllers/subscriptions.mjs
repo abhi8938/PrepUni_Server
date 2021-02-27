@@ -4,7 +4,7 @@ import {
   validateUpdate,
 } from "../Validators/subscription.mjs";
 
-import { Package } from "../Validators/package.mjs";
+import { Pack } from "../Validators/package.mjs";
 import { Paper_Product } from "../Validators/paper_product.mjs";
 import { Students } from "../Validators/student.mjs";
 
@@ -27,8 +27,8 @@ export const post_subscription = async (req, res) => {
   const student = await Students.findById(req.user._id);
   if (!student) return res.status(404).send("No Student found with given id");
 
-  const _package = await Package.findById(req.body.PID);
-  if (!_package) return res.status(404).send("No Package found with given id");
+  const pack = await Pack.findById(req.body.PID);
+  if (!pack) return res.status(404).send("No Package found with given id");
 
   const paper_products = await Paper_Product.find({
     university: student.university,
@@ -43,11 +43,11 @@ export const post_subscription = async (req, res) => {
   const PPIDS = [];
   let subInstance = {
     STID: student._id,
-    PID: _package._id,
-    type: _package.type,
+    PID: pack._id,
+    type: pack.type,
     expiration: "321312321", // calculate time
   };
-  subInstance.status = _package.type === "TRIAL" ? "ACTIVE" : "INACTIVE";
+  subInstance.status = pack.type === "TRIAL" ? "ACTIVE" : "INACTIVE";
   paper_products.map((item) => PPIDS.push(item._id));
   subInstance.PPIDS = PPIDS;
 

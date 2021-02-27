@@ -1,40 +1,37 @@
-import { Package, validate, validateUpdate } from "../Validators/package.mjs";
+import { Pack, validate, validateUpdate } from "../Validators/package.mjs";
+
 export const get_packages = async (req, res) => {
-  const packages = await Package.find().sort("first_name");
-  res.send(pacakges);
+  const packs = await Pack.find().sort("life");
+
+  return res.send(packs);
 };
 
 export const get_package = async (req, res) => {
-  const _package = await Package.findById(req.params.id);
-  if (!_package) return res.status(400).send("No package with given id.");
-  res.send(_pacakge);
+  const pack = await Pack.findById(req.params.id);
+  if (!pack) return res.status(400).send("No package with given id.");
+  res.send(pack);
 };
 
 export const post_package = async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
-  let _package = new Package(req.body.data);
-  _package = await _package.save();
-
-  res.send(_package);
+  let pack = new Pack(req.body);
+  pack = await pack.save();
+  res.send(pack);
 };
 
 export const update_package = async (req, res) => {
   const { error } = validateUpdate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const _package = await Package.findByIdAndUpdate(
-    req.params.id,
-    req.body.data,
-    {
-      new: true,
-    }
-  );
+  const pack = await Pack.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
 
-  if (!_package)
+  if (!pack)
     return res
       .status(404)
       .send("The Package with the given id is not available");
 
-  res.send(_package);
+  res.send(pack);
 };

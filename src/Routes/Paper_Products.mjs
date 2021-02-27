@@ -7,12 +7,11 @@ import {
 } from "../Controllers/paper_products.mjs";
 
 import express from "express";
-import fileUpload from "../Middlewares/fileUpload.mjs";
+// import fileUpload from "../Middlewares/fileUpload.mjs";
 import multer from "multer";
 
 const router = express.Router();
 let upload = multer({ dest: "uploads/" });
-// let ebookUpload = multer({ dest: "papers/" });
 
 router.get("/", async (req, res) => await get_paper_products(req, res));
 

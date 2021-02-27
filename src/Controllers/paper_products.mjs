@@ -3,6 +3,7 @@ import {
   validate,
   validateUpdate,
 } from "../Validators/paper_product.mjs";
+
 //* req.body = {limit, semester, course, university, subject}
 export const get_paper_products = async (req, res) => {
   const paper_products = await Paper_Product.find().sort("name");
@@ -10,35 +11,35 @@ export const get_paper_products = async (req, res) => {
 };
 
 export const get_paper_product = async (req, res) => {
-  const paper_products = await Paper_Product.findById(req.params.id);
-  res.send(paper_products);
+  const paper_product = await Paper_Product.findById(req.params.id);
+  res.send(paper_product);
 };
 
 export const post_paper_products = async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let paper_products = new Paper_Product(req.body);
+  let paper_product = new Paper_Product(req.body);
 
-  paper_products = await paper_products.save();
+  paper_product = await paper_product.save();
 
-  res.send(paper_products);
+  res.send(paper_product);
 };
 
 export const update_paper_products = async (req, res) => {
   const { error } = validateUpdate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const paper_products = await Paper_Product.findByIdAndUpdate(
+  const paper_product = await Paper_Product.findByIdAndUpdate(
     req.params.id,
     req.body,
     { new: true }
   );
 
-  if (!paper_products)
+  if (!paper_product)
     return res
       .status(404)
       .send("The paper_products with the given id is not available");
 
-  res.send(paper_products);
+  res.send(paper_product);
 };

@@ -1,7 +1,7 @@
+import { DUR } from "./common.mjs";
 import Joi from "joi";
 import config from "config";
 import mongoose from "mongoose";
-
 //TODO:Create Schema
 // last_name
 // email
@@ -94,6 +94,15 @@ const studentSchema = new mongoose.Schema({
     default: true,
   },
   isAdmin: Boolean,
+  created_at: {
+    type: Date,
+    default: Date.now(),
+  },
+  last_update: {
+    type: Date,
+    default: Date.now(),
+  },
+  DUR: [DUR],
 });
 
 studentSchema.methods.generateAuthToken = function () {

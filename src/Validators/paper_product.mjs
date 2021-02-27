@@ -1,15 +1,7 @@
 import { DUR } from "../Validators/common.mjs";
 import Joi from "joi";
 import mongoose from "mongoose";
-//TODO:Create Schema
-//* name
-//* link
-//* course
-//* semester - Number
-//* subject
-//* created_at
-//* last_updated
-//* DUR
+
 export const Paper_Product = mongoose.model(
   "Paper_Product",
   new mongoose.Schema({
@@ -68,6 +60,7 @@ export const validate = (paper_product) => {
 
   return schema.validate(paper_product);
 };
+
 export const validateUpdate = (paper_product) => {
   const schema = Joi.object({
     name: Joi.string().min(2).max(30),
