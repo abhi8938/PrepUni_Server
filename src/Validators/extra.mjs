@@ -18,7 +18,7 @@ export const BMessage = mongoose.model(
     actions: [String],
     created_At: {
       type: Date,
-      default: Date.now,
+      default: Date.now(),
     },
   })
 );

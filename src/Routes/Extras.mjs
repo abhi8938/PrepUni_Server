@@ -35,12 +35,21 @@ let upload = multer({ dest: "uploads/" });
 
 //* BMESSAGES
 
-router.get("/bmessage", async (req, res) => await get_bmessage(req, res));
+router.get(
+  "/bmessage",
+  [auth, admin],
+  async (req, res) => await get_bmessage(req, res)
+);
 
-router.post("/bmessage", async (req, res) => await post_bmessage(req, res));
+router.post(
+  "/bmessage",
+  [auth, admin],
+  async (req, res) => await post_bmessage(req, res)
+);
 
 router.put(
   "/bmessage/:id",
+  [auth, admin],
   async (req, res) => await update_bmessage(req, res)
 );
 

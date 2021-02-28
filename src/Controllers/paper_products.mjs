@@ -4,6 +4,11 @@ import {
   validateUpdate,
 } from "../Validators/paper_product.mjs";
 import { generateKeywords, handleUpdate } from "../Services/algo.mjs";
+import path, { dirname, format } from "path";
+
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 //* req.body = {limit, semester, course, university, subject}
 export const get_paper_products = async (req, res) => {
@@ -44,4 +49,15 @@ export const update_paper_products = async (req, res) => {
   handleUpdate(paper_product, req.body);
   paper_product = await paper_product.save();
   res.send(paper_product);
+};
+
+export const download_file = (req, res) => {
+  const fileName = req.params.name;
+  res.download(`uploads/${fileName}`, (err) => {
+    if (err) {
+      res.status(500).send({
+        message: "File can not be downloaded: " + err,
+      });
+    }
+  });
 };

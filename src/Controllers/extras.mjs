@@ -16,7 +16,6 @@ import { generateKeywords, handleUpdate } from "../Services/algo.mjs";
 
 //* BMESSAGE
 export const get_bmessage = async (req, res) => {
-  //TODO: Complete Request
   const bmessage = await BMessage.find().sort("title");
   res.send(bmessage);
 };
@@ -25,9 +24,7 @@ export const post_bmessage = async (req, res) => {
   const { error } = ValidateBMessage(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let bmessage = new BMessage({
-    title: req.body.title,
-  });
+  let bmessage = new BMessage(req.body);
 
   bmessage = await bmessage.save();
 
