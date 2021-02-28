@@ -12,7 +12,7 @@ export const get_paper_products = async (req, res) => {
 };
 
 export const get_paper_product = async (req, res) => {
-  const paper_product = await Paper_Product.findById(req.params.id);
+  const paper_product = await Paper_Product.find();
   res.send(paper_product);
 };
 

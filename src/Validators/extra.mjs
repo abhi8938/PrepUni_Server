@@ -79,7 +79,6 @@ export const ValidateCourse = (course) => {
     total_semesters: Joi.number().required(),
     cover: Joi.string().required(),
     university: Joi.string().required(),
-    DUR: Joi.object(),
   });
 
   return schema.validate(course);
@@ -93,11 +92,11 @@ export const Legal = mongoose.model(
     privacy: [{ type: String, required: true }],
     created_At: {
       type: Date,
-      defaul: Date.now,
+      defaul: Date.now(),
     },
     last_update: {
       type: Date,
-      required: true,
+      default: Date.now(),
     },
     DUR: [DUR],
   })

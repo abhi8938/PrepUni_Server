@@ -21,7 +21,7 @@ router.get(
 router.post("/", auth, async (req, res) => await post_subscription(req, res));
 
 router.put(
-  "/:id",
+  "/me",
   auth,
   async (req, res) => await update_subscription(req, res)
 );

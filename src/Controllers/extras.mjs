@@ -108,7 +108,7 @@ export const update_course = async (req, res) => {
 
 //* Legals
 export const get_legal = async (req, res) => {
-  const legal = await Package.findById(req.params.id);
+  const legal = await Legal.findById(req.params.id);
   if (!legal)
     return res.status(400).send("The legal with the given id is not available");
   res.send(legal);

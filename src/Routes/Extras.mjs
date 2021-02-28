@@ -87,7 +87,7 @@ router.get("/courses/:id", async (req, res) => await get_course(req, res));
 
 //* Legals
 
-router.get("/legal", auth, async (req, res) => await get_legal(req, res));
+router.get("/legals/:id", auth, async (req, res) => await get_legal(req, res));
 
 router.post(
   "/legals",
@@ -97,7 +97,7 @@ router.post(
 
 router.put(
   "/legals/:id",
-  [admin, auth],
+  [auth, admin],
   async (req, res) => await update_legal(req, res)
 );
 

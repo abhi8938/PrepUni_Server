@@ -9,7 +9,7 @@ import { generateKeywords, handleUpdate } from "../Services/algo.mjs";
 import { Annotations } from "../Validators/annotations.mjs";
 import { BMessage } from "../Validators/extra.mjs";
 import { Paper_Product } from "../Validators/paper_product.mjs";
-import { Subscription } from "../Validators/subscription.mjs";
+import { Subscript } from "../Validators/subscription.mjs";
 import _ from "lodash";
 import bcrypt from "bcrypt";
 
@@ -63,8 +63,25 @@ export const update_student = async (req, res) => {
     return res
       .status(404)
       .send("The Student with the given id is not available");
+  if (req.body.semester) {
+    //UPDATE PPIDS if semester is updated
+    const PPIDS = [];
+    try {
+      const paper_products = await Paper_Product.find({
+        university: student.university,
+        course: student.course,
+        semester: student.semester,
+      });
+      paper_products.map((item) => PPIDS.push(item._id));
+      await Subscript.findOneAndUpdate({ STID: student._id }, { PPIDS });
+    } catch (e) {
+      return res.status(500).send(e.message);
+    }
+  }
   handleUpdate(student, req.body);
   student = await student.save();
+  if (req.body.semester)
+    return res.status(201).send(`http://127.0. 0.1:3001/ccavRequestHandler`);
   res.send(_.omit(student, ["password"]));
 };
 
