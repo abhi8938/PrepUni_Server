@@ -36,7 +36,6 @@ const studentSchema = new mongoose.Schema({
   },
   dob: {
     type: Date,
-    required: true,
   },
   email: {
     type: String,
@@ -52,10 +51,10 @@ const studentSchema = new mongoose.Schema({
   },
   device_token: {
     type: String,
-    required: true,
   },
   course: {
-    type: mongoose.Schema.ObjectId,
+    type: String,
+    // type: mongoose.Schema.ObjectId,
     required: true,
     minlength: 3,
   },
@@ -65,7 +64,7 @@ const studentSchema = new mongoose.Schema({
     minlength: 3,
   },
   semester: {
-    type: Number,
+    type: String,
     required: true,
   },
   university: {
@@ -75,7 +74,6 @@ const studentSchema = new mongoose.Schema({
   },
   specialization: {
     type: String,
-    required: true,
   },
   type: {
     type: String,
@@ -116,23 +114,21 @@ studentSchema.method("generateAuthToken", function () {
 export const Student = mongoose.model("Student", studentSchema);
 
 export const validate = (student) => {
-  //TODO:Create Schema
   const schema = Joi.object({
-    salutation: Joi.string().required(),
+    // salutation: Joi.string().required(),
     first_name: Joi.string().required(),
     last_name: Joi.string().required(),
     gender: Joi.string().valid("MALE", "FEMALE"),
     contact: Joi.number().required(),
     display_name: Joi.string().required(),
-    dob: Joi.date().required(),
+    // dob: Joi.date().required(),
     email: Joi.string().min(5).required().email(),
     password: Joi.string().min(5).max(1024).required(),
-    device_token: Joi.string().required(),
+    device_token: Joi.string(),
     course: Joi.string().required(),
     college: Joi.string().required(),
-    semester: Joi.number().required(),
+    semester: Joi.string().required(),
     university: Joi.string().required(),
-    specialization: Joi.string().required(),
     type: Joi.string().valid("STU"),
   });
 

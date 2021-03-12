@@ -1,13 +1,14 @@
 import axios from "axios";
 import nodemailer from "nodemailer";
-
+import twilio from "twilio";
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false, // true for 465, false for other ports
+  host: "mail.prepuni.in",
+  port: 465,
+  secure: true, // true for 465, false for other ports
   auth: {
-    user: "theprepuni@gmail.com", // generated ethereal user
-    pass: "firsematpuchna13.", // generated ethereal password
+    type: "login",
+    user: "info@prepuni.in", // generated ethereal user
+    pass: "Hello12345.", // generated ethereal password
   },
 });
 
@@ -18,13 +19,13 @@ export const generateInvoice = () => {
 export const sendMail = async (email, subject, body) => {
   try {
     const info = await transporter.sendMail({
-      from: "theprepuni@gmail.com", // sender address
+      from: "info@prepuni.in", // sender address
       to: email, // list of receivers
       subject: subject,
       html: body, // html body
     });
     console.log("Message sent: ", info.response);
-    return;
+    return info;
   } catch (e) {
     throw new Error(e);
   }
@@ -83,5 +84,17 @@ export const sendNotification = async (Title, Body, id) => {
 };
 
 export const sendSMS = (contact, message) => {
-  return `SMS SENT`;
+  const sid = "ACd26732609a30ce4db7ce06e61b297f7b";
+  const token = "7f33997dc0e4fb72defbcaae4a258f01";
+  const sender = "+19158008128";
+  const client = twilio(sid, token);
+
+  return client.messages
+    .create({
+      to: `+91${contact}`,
+      from: sender,
+      body: message,
+    })
+    .then((message) => message)
+    .catch((error) => error);
 };

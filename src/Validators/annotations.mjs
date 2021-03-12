@@ -9,17 +9,20 @@ const annotationSchema = mongoose.Schema({
     required: true,
   },
   pageCfi: {
-    type: String,
+    type: String, //epubcfi(/6/14[chap05ref]!)
     required: true,
   },
   location: { offsetX: Number, offsetY: Number },
   epubCfi: {
-    type: String,
+    type: String, //"epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]])"
   },
   color: String,
   text: {
     type: String,
     required: true,
+  },
+  pageNumber: {
+    type: String,
   },
   note: String,
 });

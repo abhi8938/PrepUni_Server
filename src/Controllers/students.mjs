@@ -31,12 +31,15 @@ export const get_student = async (req, res) => {
 
 export const post_student = async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-  let student = await Student.findOne({ email: req.body.email });
+  if (error) return res.status(201).send(`${error.details[0].message}`);
+  let student = await Student.findOne({
+    email: req.body.email,
+    contact: req.body.contact,
+  });
   if (student)
     return res
-      .status(400)
-      .send("User with same email id already exists, try logging in.");
+      .status(201)
+      .send("User with same email or contact already exists, try logging in.");
 
   student = new Student(req.body);
   const salt = await bcrypt.genSalt(13);
@@ -87,9 +90,9 @@ export const update_student = async (req, res) => {
 
 export const authenticate = async (req, res) => {
   const { error } = validateAuth(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(201).send(error.details[0].message);
   let student = await Student.findOne({ email: req.body.email });
-  if (!student) return res.status(400).send("Invalid email");
+  if (!student) return res.status(201).send("Invalid email");
   const validPassword = await bcrypt.compare(
     req.body.password,
     student.password

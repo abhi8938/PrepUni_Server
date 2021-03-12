@@ -20,7 +20,7 @@ export const Paper_Product = mongoose.model(
       required: true,
     },
     course: {
-      type: String,
+      type: mongoose.Schema.ObjectId,
       required: true,
     },
     semester: {

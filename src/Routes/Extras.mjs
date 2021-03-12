@@ -4,12 +4,19 @@ import {
   get_course,
   get_courses,
   get_legal,
+  get_universities,
+  get_university,
   post_bmessage,
+  post_code,
   post_course,
   post_legal,
+  post_mail,
+  post_sms,
+  post_university,
   update_bmessage,
   update_course,
   update_legal,
+  update_university,
 } from "../Controllers/extras.mjs";
 
 import admin from "../Middlewares/admin.mjs";
@@ -110,4 +117,52 @@ router.put(
   async (req, res) => await update_legal(req, res)
 );
 
+/*
+ * *
+ * *
+ * *
+ * *
+ * *
+ * *
+ * *
+ * *
+ * *
+ */
+
+//* SendMail / sendMessage
+router.post("/sendCode", async (req, res) => await post_code(req, res));
+router.post("/sendSMS", async (req, res) => await post_sms(req, res));
+router.post("/sendMail", auth, async (req, res) => await post_mail(req, res));
+
 export default router;
+
+/*
+ * *
+ * *
+ * *
+ * *
+ * *
+ * *
+ * *
+ * *
+ * *
+ */
+
+//* University
+
+router.get("/university", async (req, res) => await get_universities(req, res));
+
+router.post("/university", upload.single("logo"), async (req, res) => {
+  req.body.logo = req.file.filename;
+  await post_university(req, res);
+});
+
+router.put("/university/:id", upload.single("logo"), async (req, res) => {
+  req.body.logo = req.file.filename;
+  await update_university(req, res);
+});
+
+router.get(
+  "/university/:id",
+  async (req, res) => await get_university(req, res)
+);

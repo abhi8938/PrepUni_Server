@@ -33,6 +33,39 @@ export const ValidateBMessage = (bmessage) => {
   return schema.validate(bmessage);
 };
 
+const semester = new mongoose.Schema({
+  id: {
+    type: Number,
+    required: true,
+  },
+  total_marks: {
+    type: Number,
+    required: true,
+  },
+  subjects: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      code: {
+        type: String,
+        required: true,
+      },
+      total_marks: {
+        type: Number,
+        required: true,
+      },
+      chapters: [
+        {
+          type: String,
+          required: true,
+        },
+      ],
+    },
+  ],
+});
+
 export const Course = mongoose.model(
   "Course",
   new mongoose.Schema({
@@ -60,9 +93,7 @@ export const Course = mongoose.model(
       required: true,
       default: Date.now(),
     },
-    syllabus: {
-      type: Array,
-    },
+    syllabus: [semester],
     university: {
       type: String,
       required: true,
@@ -103,7 +134,6 @@ export const Legal = mongoose.model(
 );
 
 export const ValidateLegal = (legal) => {
-  //TODO:Create Schema
   const schema = Joi.object({
     tandc: Joi.array().required(),
     about: Joi.array().required(),
@@ -114,7 +144,6 @@ export const ValidateLegal = (legal) => {
 };
 
 export const validateLegalUpdate = (legal) => {
-  //TODO:Create Schema
   const schema = Joi.object({
     tandc: Joi.array(),
     about: Joi.array(),
@@ -122,4 +151,50 @@ export const validateLegalUpdate = (legal) => {
   });
 
   return schema.validate(legal);
+};
+
+export const University = mongoose.model(
+  "University",
+  new mongoose.Schema({
+    name: {
+      type: String,
+      required: true,
+      minlength: 2,
+      maxlength: 30,
+    },
+    colleges: [
+      {
+        name: {
+          type: String,
+          required: true,
+        },
+        keywords: [String],
+      },
+    ],
+    logo: {
+      type: String,
+      required: true,
+    },
+    created_At: {
+      type: Date,
+      default: Date.now(),
+    },
+    last_update: {
+      type: Date,
+      required: true,
+      default: Date.now(),
+    },
+    keywords: [String],
+    DUR: [DUR],
+  })
+);
+
+export const validateUniversity = (course) => {
+  const schema = Joi.object({
+    name: Joi.string().min(2).max(30).required(),
+    colleges: Joi.array().required(),
+    logo: Joi.string().required(),
+  });
+
+  return schema.validate(course);
 };

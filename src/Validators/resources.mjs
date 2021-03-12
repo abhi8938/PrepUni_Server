@@ -13,6 +13,38 @@ export const Resources = mongoose.model(
       type: mongoose.Schema.ObjectId,
       required: true,
     },
+    datesheet: [
+      {
+        subject: {
+          type: String,
+          required: true,
+        },
+        code: {
+          type: String,
+          required: true,
+        },
+        date: {
+          type: Date,
+          required: true,
+        },
+      },
+    ],
+    center: {
+      college: {
+        type: String,
+      },
+      address: {
+        address: {
+          type: String,
+        },
+        lat: {
+          type: Number,
+        },
+        long: {
+          type: Number,
+        },
+      },
+    },
     createdAt: {
       type: Date,
       required: true,
