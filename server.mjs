@@ -34,7 +34,11 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(morgan('tiny'));
 // startupDebugger('morgan enabled');
 // }
-
+app.get('',(req,res)=>{
+  res.send({
+    "Id":"Its working"
+  })
+})
 connect_db();
 routes(app);
 
