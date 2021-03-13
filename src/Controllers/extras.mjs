@@ -88,7 +88,8 @@ export const post_course = async (req, res) => {
     generateKeywords(req.body.university)
   );
   course.keywords = keywords;
-  course = await course.save();
+  try{course = await course.save();}
+  catch(e){res.status(400).send(e)}
   res.send(course);
 };
 
