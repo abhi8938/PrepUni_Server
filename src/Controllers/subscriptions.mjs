@@ -17,19 +17,19 @@ export const get_subscriptions = async (req, res) => {
 export const get_subscription = async (req, res) => {
   const subscription = await Subscript.findOne({ STID: req.user._id });
   if (!subscription)
-    return res.status(400).send("No Subscription found with given id");
+    throw new Error("No Subscription found with given id");
   res.send(subscription);
 };
 
 export const post_subscription = async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) throw new Error(error.details[0].message);
 
   const student = await Student.findById(req.user._id);
-  if (!student) return res.status(404).send("No Student found with given id");
+  if (!student) throw new Error("No Student found with given id");
 
   const pack = await Pack.findById(req.body.PID);
-  if (!pack) return res.status(404).send("No Package found with given id");
+  if (!pack) throw new Error("No Package found with given id");
 
   const paper_products = await Paper_Product.find({
     university: student.university,
@@ -37,9 +37,7 @@ export const post_subscription = async (req, res) => {
     semester: student.semester,
   });
   if (paper_products.length === 0)
-    return res
-      .status(404)
-      .send("No Papers found for the following student data");
+  throw new Error("No Papers found for the following student data");
 
   const PPIDS = [];
   let subInstance = {
@@ -65,16 +63,13 @@ export const post_subscription = async (req, res) => {
   try {
     sub = await sub.save();
   } catch (e) {
-    return res.status(406).send(e.message);
+    throw new Error(e.message);
   }
   if (sub.type === "TRIAL") {
-    return res
-      .status(201)
-      .send(
-        `Thank you for subscribing, your subscription will expire on ${new Date(
-          sub.expiration
-        ).toDateString()}.`
-      );
+    throw new Error(`Thank you for subscribing, your subscription will expire on ${new Date(
+      sub.expiration
+    ).toDateString()}.`);
+    
   } else if (sub.type === "PAID") {
     return res.status(201).send(`http://127.0. 0.1:3001/ccavRequestHandler`);
   }
@@ -84,13 +79,11 @@ export const post_subscription = async (req, res) => {
 
 export const update_subscription = async (req, res) => {
   const { error } = validateUpdate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) throw new Error(error.details[0].message);
 
   let sub = await Subscript.findOne({ STID: req.user._id });
   if (!sub)
-    return res
-      .status(404)
-      .send("The subscription with the given id is not available");
+    throw new Error("The subscription with the given id is not available");
 
   handleUpdate(sub, req.body);
   sub = await sub.save();

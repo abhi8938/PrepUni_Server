@@ -1,3 +1,5 @@
+import "express-async-errors";
+import winston from "winston";
 import Annotations from "../Routes/Annotations.mjs";
 import Extras from "../Routes/Extras.mjs";
 import Packages from "../Routes/Packages.mjs";
@@ -10,8 +12,13 @@ import Subscriptions from "../Routes/Subscriptions.mjs";
 // const error = require('../middleWare/error');
 import postReq from "../ccavenue/ccavRequestHandler.mjs";
 import postRes from "../ccavenue/ccavResponseHandler.mjs";
+import error from "../Middlewares/error.mjs";
+import asyncMiddleware from "../Middlewares/async.mjs";
+
+
 
 export const routes = (app) => {
+
   app.use("/api/students", Students);
   app.use("/api/subscriptions", Subscriptions);
   app.use("/api/extras", Extras);
@@ -21,15 +28,6 @@ export const routes = (app) => {
   app.use("/api/session_report", Session_Report);
   app.use("/api/payment", Payment);
   app.use("/api/resources", Resources);
-  app.get("/about", function (req, res) {
-    res.render("dataFrom.html");
-  });
 
-  app.post("/ccavRequestHandler", function (request, response) {
-    postReq(request, response);
-  });
-
-  app.post("/ccavResponseHandler", function (request, response) {
-    postRes(request, response);
-  });
+  app.use(error);
 };

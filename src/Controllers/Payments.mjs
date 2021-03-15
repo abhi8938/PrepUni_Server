@@ -28,16 +28,14 @@ export const post_payment = async (req, res) => {
 export const update_payment = async (req, res) => {
   //TODO: Complete Request
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) throw new Error(error.details[0].message);
 
   const payment = await Payment.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
 
   if (!payment)
-    return res
-      .status(404)
-      .send("The Payment with the given id is not available");
+    throw new Error("The Payment with the given id is not available");
 
   res.send(payment);
 };

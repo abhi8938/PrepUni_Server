@@ -13,7 +13,7 @@ export const get_resource = async (req, res) => {
 
 export const post_resource = async (req, res) => {
   const { error } = Validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) throw new Error(error.details[0].message);
 
   let resources = new Resources(req.body);
 
@@ -24,16 +24,14 @@ export const post_resource = async (req, res) => {
 
 export const update_resource = async (req, res) => {
   const { error } = ValidateUpdate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) throw new Error(error.details[0].message);
 
   const resources = await Resources.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
 
   if (!resources)
-    return res
-      .status(404)
-      .send("The resources with the given id is not available");
+  throw new Error("The resources with the given id is not available");
 
   res.send(resources);
 };

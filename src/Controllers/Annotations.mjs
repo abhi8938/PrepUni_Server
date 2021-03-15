@@ -11,12 +11,12 @@ export const get_annotations = async (req, res) => {
 
 export const get_annotation = async (req, res) => {
   const annotation = await Annotations.findById(req.user._id);
-  if (!annotation) res.status(404).send("Invalid Id");
+  if (!annotation) throw new Error("Invald Id");
 };
 
 export const post_annotations = async (req, res) => {
   const { error } = Validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) throw new Error(error.details[0].message);
 
   let annotations = new annotations(req.body);
 
@@ -27,7 +27,7 @@ export const post_annotations = async (req, res) => {
 
 export const update_annotations = async (req, res) => {
   const { error } = ValidateUpdate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) throw new Error(error.details[0].message);
 
   const annotations = await Annotations.findByIdAndUpdate(
     req.params.id,
@@ -35,10 +35,7 @@ export const update_annotations = async (req, res) => {
     { new: true }
   );
 
-  if (!annotations)
-    return res
-      .status(404)
-      .send("The annotations with the given id is not available");
+  if (!annotations) throw new Error("The annotations with the given id is not available");
 
   res.send(annotations);
 };
