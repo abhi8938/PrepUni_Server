@@ -10,7 +10,7 @@ export const get_session_report = async (req, res) => {
 
 export const post_session_report = async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) throw new Error(error.details[0].message);
 
   let session_report = new Session_Report(req.body);
 

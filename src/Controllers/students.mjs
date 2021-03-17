@@ -21,25 +21,22 @@ export const get_students = async (req, res) => {
 export const get_student = async (req, res) => {
   const student = await Student.findById(req.user._id).select("-password");
   if (!student)
-    return res
-      .status(404)
-      .send(
-        "The student with givern id in not present OR wrong student doc id"
-      );
+  throw new Error("The student with givern id in not present OR wrong student doc id")
+
   res.send(student);
 };
 
 export const post_student = async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(201).send(`${error.details[0].message}`);
-  let student = await Student.findOne({
-    email: req.body.email,
-    contact: req.body.contact,
+  if (error) throw new Error(`${error.details[0].message}`)
+  let email_student = await Student.findOne({
+    email: req.body.email
   });
-  if (student)
-    return res
-      .status(201)
-      .send("User with same email or contact already exists, try logging in.");
+  let contact_student=await Student.findOne({
+    contact: req.body.contact
+  });
+  if (email_student || contact_student)
+  throw new Error("User with same email or contact already exists, try logging in.")
 
   student = new Student(req.body);
   const salt = await bcrypt.genSalt(13);
@@ -60,12 +57,10 @@ export const post_student = async (req, res) => {
 
 export const update_student = async (req, res) => {
   const { error } = validateUpdate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) throw new Error(error.details[0].message)
   let student = await Student.findById(req.user._id);
   if (!student)
-    return res
-      .status(404)
-      .send("The Student with the given id is not available");
+  throw new Error("The Student with the given id is not available")
   if (req.body.semester) {
     //UPDATE PPIDS if semester is updated
     const PPIDS = [];
@@ -78,26 +73,26 @@ export const update_student = async (req, res) => {
       paper_products.map((item) => PPIDS.push(item._id));
       await Subscript.findOneAndUpdate({ STID: student._id }, { PPIDS });
     } catch (e) {
-      return res.status(500).send(e.message);
+      throw new Error(e.message);
     }
   }
   handleUpdate(student, req.body);
   student = await student.save();
   if (req.body.semester)
-    return res.status(201).send(`http://127.0. 0.1:3001/ccavRequestHandler`);
+    throw new Error(`http://127.0. 0.1:3001/ccavRequestHandler`);
   res.send(_.omit(student, ["password"]));
 };
 
 export const authenticate = async (req, res) => {
   const { error } = validateAuth(req.body);
-  if (error) return res.status(201).send(error.details[0].message);
+  if (error) throw new Error(error.details[0].message);
   let student = await Student.findOne({ email: req.body.email });
-  if (!student) return res.status(201).send("Invalid email");
+  if (!student) throw new Error("Invalid Email")
   const validPassword = await bcrypt.compare(
     req.body.password,
     student.password
   );
-  if (!validPassword) return res.status(400).send("Invalid Password");
+  if (!validPassword) throw new Error("Invalid Password");
   const token = student.generateAuthToken();
   res.send(token);
 };
