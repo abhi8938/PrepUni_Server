@@ -37,14 +37,16 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-app.get('',(req,res)=>{
-  throw new Error("This is not working")
-  res.send({
-    "Id":"Its working"
-  })
-})
+// app.get('',(req,res)=>{
+//   // throw new Error("This is not working")
+//   res.send({
+//     "Id":"Its working"
+//   })
+// })
 connect_db();
 routes(app);
 
 const port = process.env.PORT || 3001;
-app.listen(port, () => winston.info("Listening On " + port));
+const server=app.listen(port, () => winston.info("Listening On " + port));
+
+export default server;
