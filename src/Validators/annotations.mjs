@@ -68,22 +68,22 @@ const annValidationSchema = {
 
 export const Validate = (annotations) => {
   //TODO:Create Schema
-  const schema = {
+  const schema = Joi.object({
     STID: Joi.string().required(),
     PPID: Joi.string().required(),
     ann: Joi.array().items(annValidationSchema).required(),
-  };
+  });
 
-  return Joi.validate(annotations, schema);
+  return schema.validate(annotations)
 };
 
 export const ValidateUpdate = (annotations) => {
   //TODO:Create Schema
-  const schema = {
+  const schema = Joi.object({
     STID: Joi.string().required(),
     PPID: Joi.string().required(),
     ann: Joi.array().items(annValidationSchema),
-  };
+  });
 
-  return Joi.validate(annotations, schema);
+  return schema.validate(annotations)
 };

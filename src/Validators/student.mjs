@@ -52,7 +52,7 @@ const studentSchema = new mongoose.Schema({
   device_token: {
     type: String,
   },
-  course: {
+  program: {
     type: String,
     // type: mongoose.Schema.ObjectId,
     required: true,
@@ -125,7 +125,7 @@ export const validate = (student) => {
     email: Joi.string().min(5).required().email(),
     password: Joi.string().min(5).max(1024).required(),
     device_token: Joi.string(),
-    course: Joi.string().required(),
+    program: Joi.string().required(),
     college: Joi.string().required(),
     semester: Joi.string().required(),
     university: Joi.string().required(),
@@ -141,7 +141,7 @@ export const validateUpdate = (student) => {
     email: Joi.string().min(5).email(),
     password: Joi.string().min(5).max(1024),
     device_token: Joi.string(),
-    semester: Joi.number(),
+    semester: Joi.string(),
   });
 
   return schema.validate(student);
@@ -155,3 +155,5 @@ export const validateAuth = (student) => {
 
   return schema.validate(student);
 };
+
+// export default Student;

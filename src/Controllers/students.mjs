@@ -67,7 +67,7 @@ export const update_student = async (req, res) => {
     try {
       const paper_products = await Paper_Product.find({
         university: student.university,
-        course: student.course,
+        program: student.program,
         semester: student.semester,
       });
       paper_products.map((item) => PPIDS.push(item._id));

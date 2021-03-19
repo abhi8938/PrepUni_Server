@@ -1,10 +1,10 @@
 import {
   BMessage,
-  Course,
+  Program,
   Legal,
   University,
   ValidateBMessage,
-  ValidateCourse,
+  ValidateProgram,
   ValidateLegal,
   validateLegalUpdate,
   validateUniversity,
@@ -60,42 +60,42 @@ export const update_bmessage = async (req, res) => {
  * *
  */
 
-//* Courses
+//* Programs program
 
-export const get_courses = async (req, res) => {
+export const get_programs = async (req, res) => {
   //* req.params = { limit, university , subjects }
-  const courses = await Course.find().sort("name");
-  res.send(courses);
+  const programs = await Program.find().sort("name");
+  res.send(programs);
 };
 
-export const get_course = async (req, res) => {
-  const course = await Course.findById(req.params.id);
-  if (!course) throw new Error("The course with givern id in not present OR wrong course doc id");
-  res.send(course);
+export const get_program = async (req, res) => {
+  const program = await Program.findById(req.params.id);
+  if (!program) throw new Error("The program with givern id in not present OR wrong program doc id");
+  res.send(program);
 };
 
-export const post_course = async (req, res) => {
-  const { error } = ValidateCourse(req.body);
+export const post_program = async (req, res) => {
+  const { error } = ValidateProgram(req.body);
   if (error) throw new Error(error.details[0].message);
-  let course = new Course(req.body);
+  let program = new Program(req.body);
   let keywords = generateKeywords(req.body.name).concat(
     generateKeywords(req.body.university)
   );
-  course.keywords = keywords;
-  try{course = await course.save();}
+  program.keywords = keywords;
+  try{program = await program.save();}
   catch(e){throw new Error(e)}
-  res.send(course);
+  res.send(program);
 };
 
-export const update_course = async (req, res) => {
+export const update_program = async (req, res) => {
   if (req.body.cover === undefined || !req.body.syllabus === undefined)
     throw new Error("No request body");
-  const course = await Course.findById(req.params.id);
-  if (!course) throw new Error("The course with the given id is not available")
+  const program = await Program.findById(req.params.id);
+  if (!program) throw new Error("The program with the given id is not available")
     
   handleUpdate(student, req.body);
-  course = await course.save();
-  res.status(200).send(course);
+  program = await program.save();
+  res.status(200).send(program);
 };
 
 /*
@@ -249,7 +249,7 @@ export const get_universities = async (req, res) => {
 
 export const get_university = async (req, res) => {
   const university = await University.findById(req.params.id);
-  if (!university) throw new Error("The course with givern id in not present OR wrong course doc id");
+  if (!university) throw new Error("The program with givern id in not present OR wrong program doc id");
 
   res.send(university);
 };
@@ -257,7 +257,7 @@ export const get_university = async (req, res) => {
 export const post_university = async (req, res) => {
   const { error } = validateUniversity(req.body);
   if (error) throw new Error(error.details[0].message);
-  let university = new Course(req.body);
+  let university = new Program(req.body);
   let keywords = generateKeywords(req.body.name);
   university.keywords = keywords;
   try {
