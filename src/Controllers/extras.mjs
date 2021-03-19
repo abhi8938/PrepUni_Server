@@ -15,6 +15,9 @@ import {
   sendMail,
   sendSMS,
 } from "../Services/algo.mjs";
+import {
+  Student
+} from "../Validators/student.mjs";
 
 /*
  * *
@@ -145,6 +148,20 @@ export const post_code = async (req, res) => {
   throw new Error("Code is undefined");
   if (req.body.method === undefined)
   throw new Error("method is undefined");
+
+  let student;
+  if(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(req.body.recipent)){
+    student = await Student.findOne({ email: req.body.recipent });
+    if (student) throw new Error("Email aldredy exists")
+  }
+  else if(/^\d{10}$/.test(req.body.recipent)){
+    student = await Student.findOne({ contact: req.body.recipent  });
+    if (student) throw new Error("Phone number exists")
+  }
+  else{
+    student = await Student.findOne({ user_name: req.body.recipent  });
+    if (student) throw new Error("User name exists")
+  }
 
   const subject =
     req.body.type && req.body.type === "RESET"

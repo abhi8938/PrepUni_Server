@@ -3,7 +3,7 @@ export const student_data={
     last_name:'roopesh',
     gender:'MALE',
     contact:1234455,
-    display_name:'somename',
+    user_name:'somename',
     email:'1234@gmail.com',
     password:'1234555',
     device_token:'12345tgfkd,mjk,efmk',
