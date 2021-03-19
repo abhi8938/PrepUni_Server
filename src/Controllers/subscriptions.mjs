@@ -33,7 +33,7 @@ export const post_subscription = async (req, res) => {
 
   const paper_products = await Paper_Product.find({
     university: student.university,
-    course: student.course,
+    program: student.program,
     semester: student.semester,
   });
   if (paper_products.length === 0)

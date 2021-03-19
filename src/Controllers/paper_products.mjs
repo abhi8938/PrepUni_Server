@@ -10,7 +10,7 @@ import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-//* req.body = {limit, semester, course, university, subject}
+//* req.body = {limit, semester, program, university, subject}
 export const get_paper_products = async (req, res) => {
   const paper_products = await Paper_Product.find().sort("name");
   res.send(paper_products);
@@ -28,7 +28,7 @@ export const post_paper_products = async (req, res) => {
   let paper_product = new Paper_Product(req.body);
   let keywords = generateKeywords(req.body.name)
     .concat(generateKeywords(req.body.semester))
-    .concat(generateKeywords(req.body.course))
+    .concat(generateKeywords(req.body.program))
     .concat(generateKeywords(req.body.university));
   paper_product.keywords = keywords;
   paper_product = await paper_product.save();

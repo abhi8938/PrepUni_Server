@@ -38,7 +38,7 @@ export const post_student = async (req, res) => {
   if (email_student || contact_student)
   throw new Error("User with same email or contact already exists, try logging in.")
 
-  student = new Student(req.body);
+  let student = new Student(req.body);
   const salt = await bcrypt.genSalt(13);
   student.password = await bcrypt.hash(student.password, salt);
   let keywords = generateKeywords(
@@ -67,7 +67,7 @@ export const update_student = async (req, res) => {
     try {
       const paper_products = await Paper_Product.find({
         university: student.university,
-        course: student.course,
+        program: student.program,
         semester: student.semester,
       });
       paper_products.map((item) => PPIDS.push(item._id));
@@ -86,8 +86,20 @@ export const update_student = async (req, res) => {
 export const authenticate = async (req, res) => {
   const { error } = validateAuth(req.body);
   if (error) throw new Error(error.details[0].message);
-  let student = await Student.findOne({ email: req.body.email });
-  if (!student) throw new Error("Invalid Email")
+  let student;
+  if(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(req.body.id)){
+    student = await Student.findOne({ email: req.body.id });
+    if (!student) throw new Error("Invalid Email")
+  }
+  else if(/^\d{10}$/.test(req.body.id)){
+    student = await Student.findOne({ contact: req.body.id });
+    if (!student) throw new Error("Invalid Phone number")
+  }
+  else{
+    student = await Student.findOne({ user_name: req.body.id });
+    if (!student) throw new Error("Invalid User name")
+  }
+  
   const validPassword = await bcrypt.compare(
     req.body.password,
     student.password

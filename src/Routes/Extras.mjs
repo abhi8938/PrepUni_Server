@@ -1,20 +1,20 @@
 //*Controller
 import {
   get_bmessage,
-  get_course,
-  get_courses,
+  get_program,
+  get_programs,
   get_legal,
   get_universities,
   get_university,
   post_bmessage,
   post_code,
-  post_course,
+  post_program,
   post_legal,
   post_mail,
   post_sms,
   post_university,
   update_bmessage,
-  update_course,
+  update_program,
   update_legal,
   update_university,
 } from "../Controllers/extras.mjs";
@@ -72,22 +72,22 @@ router.put(
  * *
  */
 
-//* Courses
+//* Programs
 
-router.get("/courses", async (req, res) => await get_courses(req, res));
+router.get("/programs", async (req, res) => await get_programs(req, res));
 
-router.post("/courses", upload.single("cover"), async (req, res) => {
+router.post("/programs", upload.single("cover"), async (req, res) => {
   req.body.subjects = JSON.parse(req.body.subjects);
   req.body.cover = req.file.filename;
-  await post_course(req, res);
+  await post_program(req, res);
 });
 
-router.put("/courses/:id", upload.single("cover"), async (req, res) => {
+router.put("/programs/:id", upload.single("cover"), async (req, res) => {
   req.body.cover = req.file.filename;
-  await update_course(req, res);
+  await update_program(req, res);
 });
 
-router.get("/courses/:id", async (req, res) => await get_course(req, res));
+router.get("/programs/:id", async (req, res) => await get_program(req, res));
 
 /*
  * *
