@@ -23,7 +23,7 @@ export const validate=(course)=>{
     const schema=Joi.object({
     name:Joi.string().required(),
     university_ID:Joi.string().required(),
-    semester:Joi.String().required()
+    semester:Joi.string().required()
     });
 
     return schema.validate(course)
@@ -33,6 +33,8 @@ export const validateUpdate=(course)=>{
     const schema=Joi.object({
         name:Joi.string(),
         university_ID:Joi.string(),
-        semester:Joi.String()
+        semester:Joi.string()
     })
+
+    return schema.validate(course)
 }
