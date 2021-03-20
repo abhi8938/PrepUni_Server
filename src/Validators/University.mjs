@@ -7,7 +7,7 @@ new mongoose.Schema({
         type:String,
         required:true
     },
-    Name:{
+    name:{
         type:String,
         required:true
     }
@@ -18,7 +18,7 @@ new mongoose.Schema({
 export const validate=(university)=>{
     const schema=Joi.object({
         logo:Joi.string().required(),
-        Name:Joi.string().required()
+        name:Joi.string().required()
     })
 
     return schema.validate(university)
@@ -27,7 +27,7 @@ export const validate=(university)=>{
 export const validateUpdate=(university)=>{
     const schema=Joi.object({
         logo:Joi.string(),
-        Name:Joi.string()
+        name:Joi.string()
     })
 
     return schema.validate(university)
