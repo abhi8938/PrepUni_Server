@@ -1,19 +1,38 @@
-// import Joi from "joi"
-// import moongose from "moongose";
+import Joi from "joi"
+import mongoose from "mongoose";
 
-// export const Program=moongose.model('program',
-//     new moongose.Schema({
-//         name:{
-//             type:String,
-//             required:true,
-//             unique:true
-//         },
-//         University_ID:{
-//             type:moongose.Schema.object.id,
+export const Program=mongoose.model('program',
+    new mongoose.Schema({
+        name:{
+            type:String,
+            required:true,
+            unique:true
+        },
+        university_ID:{
+            type: mongoose.Schema.ObjectId,
+            required:true
+        },
+        semester:{
+            type:String,
+            required:true
+        }
+    })    
+)
 
-//         },
-//         Semester:{
-//             type:Number
-//         }
-//     })    
-// )
+export const validate=(course)=>{
+    const schema=Joi.object({
+    name:Joi.string().required(),
+    university_ID:Joi.string().required(),
+    semester:Joi.String().required()
+    });
+
+    return schema.validate(course)
+};
+
+export const validateUpdate=(course)=>{
+    const schema=Joi.object({
+        name:Joi.string(),
+        university_ID:Joi.string(),
+        semester:Joi.String()
+    })
+}
