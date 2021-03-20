@@ -9,6 +9,7 @@ import Resources from "../Routes/Resources.mjs";
 import Session_Report from "../Routes/Session_Report.mjs";
 import Students from "../Routes/Students.mjs";
 import Subscriptions from "../Routes/Subscriptions.mjs";
+import University from "../Routes/University.mjs"
 // const error = require('../middleWare/error');
 import postReq from "../ccavenue/ccavRequestHandler.mjs";
 import postRes from "../ccavenue/ccavResponseHandler.mjs";
@@ -28,6 +29,7 @@ export const routes = (app) => {
   app.use("/api/session_report", Session_Report);
   app.use("/api/payment", Payment);
   app.use("/api/resources", Resources);
+  app.use("/api/University",University)
 
   app.use(error);
 };
