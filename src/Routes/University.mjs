@@ -20,7 +20,6 @@ router.post('/',
     ]),
     async(req,res)=> {
           req.body.logo = req.files['logo'][0].filename
-        console.log('req.body',req.body);
         await post_universtiy(req,res)
     }
 );
