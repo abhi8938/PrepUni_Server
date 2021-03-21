@@ -1,20 +1,19 @@
-import winston from "winston";
 import bodyParser from "body-parser";
 import config from "config";
+import config_support from "./src/Configs/config.mjs";
 import { connect_db } from "./src/Configs/mongo_connection.mjs";
 import cors from "cors";
 import { dirname } from "path";
 import ejs from "ejs";
+import error_supporter from "./src/Configs/logging.mjs";
 import express from "express";
 import { fileURLToPath } from "url";
 import redirect from "express-redirect";
 import { routes } from "./src/Configs/routes.mjs";
+import winston from "winston";
 
-import error_supporter from "./src/Configs/logging";
-import config_support from "./src/Configs/config";
-error_supporter()
-config_support()
-
+error_supporter();
+config_support();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -35,14 +34,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
-app.get('',(req,res)=>{
-  throw new Error("This is not working")
+app.get("", (req, res) => {
+  throw new Error("This is not working");
   res.send({
-    "Id":"Its working"
-  })
-})
+    Id: "Its working",
+  });
+});
 connect_db();
 routes(app);
 

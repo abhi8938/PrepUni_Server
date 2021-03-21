@@ -50,7 +50,8 @@ export const update_bmessage = async (req, res) => {
     { new: true }
   );
 
-  if (!bmessage)throw new Error("The bmessage with the given id is not available");
+  if (!bmessage)
+    throw new Error("The bmessage with the given id is not available");
 
   res.send(bmessage);
 };
@@ -70,7 +71,10 @@ export const get_courses = async (req, res) => {
 
 export const get_course = async (req, res) => {
   const course = await Course.findById(req.params.id);
-  if (!course) throw new Error("The course with givern id in not present OR wrong course doc id");
+  if (!course)
+    throw new Error(
+      "The course with givern id in not present OR wrong course doc id"
+    );
   res.send(course);
 };
 
@@ -82,8 +86,11 @@ export const post_course = async (req, res) => {
     generateKeywords(req.body.university)
   );
   course.keywords = keywords;
-  try{course = await course.save();}
-  catch(e){throw new Error(e)}
+  try {
+    course = await course.save();
+  } catch (e) {
+    throw new Error(e);
+  }
   res.send(course);
 };
 
@@ -91,8 +98,8 @@ export const update_course = async (req, res) => {
   if (req.body.cover === undefined || !req.body.syllabus === undefined)
     throw new Error("No request body");
   const course = await Course.findById(req.params.id);
-  if (!course) throw new Error("The course with the given id is not available")
-    
+  if (!course) throw new Error("The course with the given id is not available");
+
   handleUpdate(student, req.body);
   course = await course.save();
   res.status(200).send(course);
@@ -106,8 +113,7 @@ export const update_course = async (req, res) => {
 //* Legals
 export const get_legal = async (req, res) => {
   const legal = await Legal.findById(req.params.id);
-  if (!legal)
-    throw new Error("The legal with the given id is not available");
+  if (!legal) throw new Error("The legal with the given id is not available");
   res.send(legal);
 };
 
@@ -130,8 +136,7 @@ export const update_legal = async (req, res) => {
     new: true,
   });
 
-  if (!legal)
-    throw new Error("The legal with the given id is not available");
+  if (!legal) throw new Error("The legal with the given id is not available");
 
   res.send(legal);
 };
@@ -141,10 +146,8 @@ export const update_legal = async (req, res) => {
 export const post_code = async (req, res) => {
   if (req.body.recipent === undefined)
     throw new Error("Email Address is undefined");
-  if (req.body.code === undefined)
-  throw new Error("Code is undefined");
-  if (req.body.method === undefined)
-  throw new Error("method is undefined");
+  if (req.body.code === undefined) throw new Error("Code is undefined");
+  if (req.body.method === undefined) throw new Error("method is undefined");
 
   const subject =
     req.body.type && req.body.type === "RESET"
@@ -192,10 +195,8 @@ export const post_code = async (req, res) => {
 };
 
 export const post_sms = async (req, res) => {
-  if (req.body.recipent === undefined)
-    throw new Error("Contact is undefined");
-  if (req.body.message === undefined)
-    throw new Error("Message is undefined");
+  if (req.body.recipent === undefined) throw new Error("Contact is undefined");
+  if (req.body.message === undefined) throw new Error("Message is undefined");
   try {
     const message = req.body.message;
 
@@ -212,12 +213,9 @@ export const post_sms = async (req, res) => {
 };
 
 export const post_mail = async (req, res) => {
-  if (req.body.recipent === undefined)
-    throw new Error("Contact is undefined");
-  if (req.body.body === undefined)
-    throw new Error("Message is undefined");
-  if (req.body.subject === undefined)
-    throw new Error("Subject is undefined");
+  if (req.body.recipent === undefined) throw new Error("Contact is undefined");
+  if (req.body.body === undefined) throw new Error("Message is undefined");
+  if (req.body.subject === undefined) throw new Error("Subject is undefined");
   try {
     const info = await sendMail(
       req.body.recipent,
@@ -249,7 +247,10 @@ export const get_universities = async (req, res) => {
 
 export const get_university = async (req, res) => {
   const university = await University.findById(req.params.id);
-  if (!university) throw new Error("The course with givern id in not present OR wrong course doc id");
+  if (!university)
+    throw new Error(
+      "The course with givern id in not present OR wrong course doc id"
+    );
 
   res.send(university);
 };
@@ -257,7 +258,7 @@ export const get_university = async (req, res) => {
 export const post_university = async (req, res) => {
   const { error } = validateUniversity(req.body);
   if (error) throw new Error(error.details[0].message);
-  let university = new Course(req.body);
+  let university = new University(req.body);
   let keywords = generateKeywords(req.body.name);
   university.keywords = keywords;
   try {
@@ -269,12 +270,11 @@ export const post_university = async (req, res) => {
 };
 
 export const update_university = async (req, res) => {
-  if (req.body.logo === undefined)
-    throw new Error("No request body");
+  if (req.body.logo === undefined) throw new Error("No request body");
   const university = await University.findById(req.params.id);
   if (!university)
-    throw new Error("The university with the given id is not available")
-    
+    throw new Error("The university with the given id is not available");
+
   handleUpdate(university, req.body);
   university = await university.save();
   res.status(200).send(university);
