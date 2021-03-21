@@ -162,15 +162,6 @@ export const University = mongoose.model(
       minlength: 2,
       maxlength: 30,
     },
-    colleges: [
-      {
-        name: {
-          type: String,
-          required: true,
-        },
-        keywords: [String],
-      },
-    ],
     logo: {
       type: String,
       required: true,
@@ -192,7 +183,6 @@ export const University = mongoose.model(
 export const validateUniversity = (program) => {
   const schema = Joi.object({
     name: Joi.string().min(2).max(30).required(),
-    colleges: Joi.array().required(),
     logo: Joi.string().required(),
   });
 
