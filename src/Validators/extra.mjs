@@ -66,8 +66,8 @@ const semester = new mongoose.Schema({
   ],
 });
 
-export const Course = mongoose.model(
-  "Course",
+export const Program = mongoose.model(
+  "Program",
   new mongoose.Schema({
     name: {
       type: String,
@@ -103,7 +103,7 @@ export const Course = mongoose.model(
   })
 );
 
-export const ValidateCourse = (course) => {
+export const ValidateProgram = (program) => {
   const schema = Joi.object({
     name: Joi.string().min(2).max(30).required(),
     subjects: Joi.array().required(),
@@ -112,7 +112,7 @@ export const ValidateCourse = (course) => {
     university: Joi.string().required(),
   });
 
-  return schema.validate(course);
+  return schema.validate(program);
 };
 
 export const Legal = mongoose.model(
@@ -180,11 +180,11 @@ export const University = mongoose.model(
   })
 );
 
-export const validateUniversity = (course) => {
+export const validateUniversity = (program) => {
   const schema = Joi.object({
     name: Joi.string().min(2).max(30).required(),
     logo: Joi.string().required(),
   });
 
-  return schema.validate(course);
+  return schema.validate(program);
 };

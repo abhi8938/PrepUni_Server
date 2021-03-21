@@ -15,7 +15,12 @@ export const Paper_Product = mongoose.model(
       type: String,
       required: true,
     },
-    course: {
+
+    cover: {
+      type: String,
+      required: true,
+    },
+    program: {
       type: mongoose.Schema.ObjectId,
       required: true,
     },
@@ -49,7 +54,7 @@ export const validate = (paper_product) => {
   const schema = Joi.object({
     name: Joi.string().min(2).max(30).required(),
     link: Joi.string().required(),
-    course: Joi.string().required(),
+    program: Joi.string().required(),
     semester: Joi.string().required(),
     subject: Joi.string().required(),
     university: Joi.string().required(),

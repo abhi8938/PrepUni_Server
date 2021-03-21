@@ -46,10 +46,10 @@ export const Payment = mongoose.model(
 
 export const validate = (payment) => {
   //TODO:Create Schema
-  const schema = {
+  const schema = Joi.object({
     type: Joi.string().min(2).max(30).required(),
     amount: Joi.string().required(),
-  };
+  });
 
-  return Joi.validate(payment, schema);
+  return schema.validate(payment);
 };

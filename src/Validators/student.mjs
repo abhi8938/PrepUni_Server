@@ -30,6 +30,7 @@ const studentSchema = new mongoose.Schema({
   },
   user_name: {
     type: String,
+    unique:true,
     required: true,
     maxlength: 30,
   },
@@ -121,6 +122,7 @@ export const validate = (student) => {
     contact: Joi.number(),
     user_name: Joi.string().required(),
     dob: Joi.date().required(),
+
     email: Joi.string().min(5).required().email(),
     password: Joi.string().min(5).max(1024).required(),
     device_token: Joi.string(),
@@ -140,7 +142,7 @@ export const validateUpdate = (student) => {
     email: Joi.string().min(5).email(),
     password: Joi.string().min(5).max(1024),
     device_token: Joi.string(),
-    semester: Joi.number(),
+    semester: Joi.string(),
   });
 
   return schema.validate(student);
@@ -148,9 +150,11 @@ export const validateUpdate = (student) => {
 
 export const validateAuth = (student) => {
   const schema = Joi.object({
-    email: Joi.string().min(5).email().required(),
+    id: Joi.string().min(5).required(),
     password: Joi.string().min(5).max(1024).required(),
   });
 
   return schema.validate(student);
 };
+
+// export default Student;
