@@ -25,14 +25,14 @@ export const post_payment = async (req, res) => {
   try
   { 
     const order=await instance.orders.create(options);
-    debug("payment response - ", req);
+    // debug("payment response - ", req);
     let payment = new Payment({
     STID: req.body.STID,
     order_id: order.id,
     amount: req.body.amount,
     SID: req.body.SID,
     type: req.body.type,
-    createdAt: req.body.createdAt, //TODO: generate timestamp
+    // createdAt: req.body.createdAt, //TODO: generate timestamp
     
   });
   payment = await payment.save();

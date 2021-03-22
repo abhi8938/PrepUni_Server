@@ -37,6 +37,8 @@ export const Payment = mongoose.model(
       enum: ["SUCCESS", "FAIL", "PENDING","CREATED"],
       default:"CREATED"
     },
+  },{
+    timestamps:true
   })
 );
 
@@ -45,6 +47,8 @@ export const validate = (payment) => {
   const schema = Joi.object({
     type: Joi.string().min(2).max(30).required(),
     amount: Joi.string().required(),
+    STID:Joi.string().required(),
+    SID:Joi.string()
   });
 
   return schema.validate(payment);
