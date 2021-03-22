@@ -15,6 +15,12 @@ export const post_program=async (req,res)=>{
 }
 
 export const get_programs=async(req,res)=>{
+    if(req.headers.university_id!==undefined){
+        const programs=await Program.find({
+            university_id:req.headers.university_id
+        })
+        res.send(programs)
+    }
     const programs=await Program.find().sort('name');
     res.send(programs)
 }
