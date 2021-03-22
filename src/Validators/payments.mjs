@@ -22,24 +22,20 @@ export const Payment = mongoose.model(
       type: mongoose.Schema.ObjectId,
       required: true,
     },
-    transactionID: {
+    order_id: {
       type: String,
     },
     amount: {
       type: String,
       required: true,
     },
-    CA: {
-      type: String,
-      required: true,
-    },
     SID: {
-      type: mongoose.Schema.ObjectId,
-      required: true,
+      type: mongoose.Schema.ObjectId
     },
     status: {
       type: String,
-      enum: ["SUCCESS", "FAIL", "PENDING"],
+      enum: ["SUCCESS", "FAIL", "PENDING","CREATED"],
+      default:"CREATED"
     },
   })
 );

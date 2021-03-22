@@ -32,10 +32,10 @@ export const routes = (app) => {
   app.use("/api/session_report", Session_Report);
   app.use("/api/payment", Payment);
   app.use("/api/resources", Resources);
-  app.use("/api/University",University)
-  app.use("/api/Program",Program);
-  app.use("/api/Subject",Subject);
-  app.use("/api/Paper",Paper);
+  app.use("/api/university",University)
+  app.use("/api/program",Program);
+  app.use("/api/subject",Subject);
+  app.use("/api/paper",Paper);
 
   app.use(error);
 };
