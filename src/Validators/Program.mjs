@@ -16,6 +16,8 @@ export const Program=mongoose.model('program',
             type:String,
             required:true
         }
+    },{
+        timestamps:true
     })    
 )
 
