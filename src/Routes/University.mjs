@@ -26,8 +26,16 @@ router.post('/',
 
 router.put(
     "/:id",
-    // auth,
-    async(req,res)=>await update_university(req,res)
+    upload.fields([
+        { name: "logo", maxCount: 1 },
+      ])
+    ,
+    async(req,res)=>{
+        if(req.files.length!==undefined){
+            req.body.logo = req.files['logo'][0].filename
+        }
+        await update_university(req,res)
+    }
 )
 
 router.get(

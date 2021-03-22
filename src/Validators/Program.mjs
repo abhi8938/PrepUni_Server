@@ -8,7 +8,7 @@ export const Program=mongoose.model('program',
             required:true,
             unique:true
         },
-        university_ID:{
+        university_id:{
             type: mongoose.Schema.ObjectId,
             required:true
         },
@@ -24,7 +24,7 @@ export const Program=mongoose.model('program',
 export const validate=(course)=>{
     const schema=Joi.object({
     name:Joi.string().required(),
-    university_ID:Joi.string().required(),
+    university_id:Joi.string().required(),
     semester:Joi.string().required()
     });
 
@@ -34,7 +34,7 @@ export const validate=(course)=>{
 export const validateUpdate=(course)=>{
     const schema=Joi.object({
         name:Joi.string(),
-        university_ID:Joi.string(),
+        university_id:Joi.string(),
         semester:Joi.string()
     })
 
