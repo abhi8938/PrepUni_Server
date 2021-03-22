@@ -37,5 +37,5 @@ export const validateUpdate=(paper)=>{
         year:Joi.number()
     });
 
-    return schmea.validateUpdate(paper)
+    return schmea.validate(paper)
 }

@@ -1,7 +1,8 @@
 import {
     post_paper,
     get_papers,
-    get_paper
+    get_paper,
+    update_paper
 } from "../Controllers/Paper.mjs"
 
 import expres from "express";
@@ -24,6 +25,16 @@ router.post('/',
     }
     )
 
-// router.put('/:id',)
+router.put('/:id',
+    upload.fields([
+        {name:"link",maxCount:1}
+    ]),
+    async(req,res)=>{
+        if(req.files.length!==undefined){
+            req.body.link=req.files['link'][0].filename
+        }
+        await update_paper(req,res)
+    }
+    )
 
 export default router;
