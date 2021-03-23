@@ -2,29 +2,38 @@ import { DUR } from "../Validators/common.mjs";
 import Joi from "joi";
 import mongoose from "mongoose";
 
+const features=new mongoose.Schema({
+  type: {
+    type: String,
+    required: true,
+    enum: ["TRIAL", "PAID"]
+  },
+  price: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+  features:[{
+    feature:{
+      type:String
+    },
+    active:{
+      type:String,
+      enum:['TRUE','FALSE']
+    }
+  }]
+})
+
 export const Pack = mongoose.model(
   "packs",
   new mongoose.Schema({
-    features: {
-      type: [String],
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
+    features: features,
     life: {
       type: Date,
       required: true,
     },
     discount: {
       type: Number
-    },
-    type: {
-      type: String,
-      required: true,
-      enum: ["TRIAL", "PAID"]
     },
     keywords: [String],
     DUR: [DUR]
