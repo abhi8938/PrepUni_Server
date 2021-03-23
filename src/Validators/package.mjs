@@ -2,12 +2,7 @@ import { DUR } from "../Validators/common.mjs";
 import Joi from "joi";
 import mongoose from "mongoose";
 
-const features=new mongoose.Schema({
-  type: {
-    type: String,
-    required: true,
-    enum: ["TRIAL", "PAID"]
-  },
+const features_schema=new mongoose.Schema({
   price: {
     type: Number,
     required: true,
@@ -18,8 +13,7 @@ const features=new mongoose.Schema({
       type:String
     },
     active:{
-      type:String,
-      enum:['TRUE','FALSE']
+      type:Boolean
     }
   }]
 })
@@ -27,13 +21,19 @@ const features=new mongoose.Schema({
 export const Pack = mongoose.model(
   "packs",
   new mongoose.Schema({
-    features: features,
+    features: features_schema,
     life: {
       type: Date,
       required: true,
     },
     discount: {
-      type: Number
+      type: Number,
+      min:0
+    },
+    type: {
+      type: String,
+      required: true,
+      enum: ["TRIAL", "PAID"]
     },
     keywords: [String],
     DUR: [DUR]
@@ -42,24 +42,38 @@ export const Pack = mongoose.model(
   })
 );
 
+const validatefeature={
+  price:Joi.number().min(0).required(),
+  features:Joi.array().items({
+    feature:Joi.string().required(),
+    active:Joi.boolean().required()
+  })
+}
+
 export const validate = (_package) => {
   const schema = Joi.object({
+    features:Joi.object(validatefeature).required(),
     type: Joi.string().required(),
     life: Joi.date().required(),
-    price: Joi.number().required(),
-    features: Joi.array().items(Joi.string()).required(),
     discount: Joi.number(),
   });
 
   return schema.validate(_package);
 };
 
+const updatevalidatefeature={
+  price:Joi.number().min(0),
+  features:Joi.array().items({
+    feature:Joi.string(),
+    active:Joi.boolean()
+  })
+}
+
 export const validateUpdate = (_package) => {
   const schema = Joi.object({
+    features:Joi.object(updatevalidatefeature),
     type: Joi.string(),
     life: Joi.date(),
-    price: Joi.number(),
-    features: Joi.array().items(Joi.string()),
     discount: Joi.number(),
   });
 
