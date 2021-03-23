@@ -19,8 +19,7 @@ export const Pack = mongoose.model(
       required: true,
     },
     discount: {
-      type: Number,
-      required: true,
+      type: Number
     },
     type: {
       type: String,

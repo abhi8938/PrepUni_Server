@@ -9,6 +9,10 @@ import Resources from "../Routes/Resources.mjs";
 import Session_Report from "../Routes/Session_Report.mjs";
 import Students from "../Routes/Students.mjs";
 import Subscriptions from "../Routes/Subscriptions.mjs";
+import University from "../Routes/University.mjs"
+import Program from "../Routes/Program.mjs"
+import Subject from "../Routes/Subject.mjs"
+import Paper from "../Routes/Paper.mjs"
 // const error = require('../middleWare/error');
 import postReq from "../ccavenue/ccavRequestHandler.mjs";
 import postRes from "../ccavenue/ccavResponseHandler.mjs";
@@ -28,6 +32,10 @@ export const routes = (app) => {
   app.use("/api/session_report", Session_Report);
   app.use("/api/payment", Payment);
   app.use("/api/resources", Resources);
+  app.use("/api/university",University)
+  app.use("/api/program",Program);
+  app.use("/api/subject",Subject);
+  app.use("/api/paper",Paper);
 
   app.use(error);
 };
