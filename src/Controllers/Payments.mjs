@@ -15,7 +15,7 @@ export const get_payment = async (req, res) => {
 
 export const post_payment = async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) throw new Error(error.details[0].message);
 
   var options = {
     amount: 5000, // amount in the smallest currency unit
