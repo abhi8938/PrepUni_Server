@@ -104,4 +104,3 @@ export const validateLegalUpdate = (legal) => {
 
   return schema.validate(legal);
 };
-

@@ -20,11 +20,10 @@ const studentSchema = new mongoose.Schema({
   gender: {
     type: String,
     required: true,
-    enum: ["MALE", "FEMALE"],
+    enum: ["MALE", "FEMALE", "OTHERS", "RATHER NOT SAY"],
   },
   contact: {
     type: Number,
-    required: true,
     minlength: 10,
     maxlength: 10,
     unique: true,
@@ -37,6 +36,7 @@ const studentSchema = new mongoose.Schema({
   },
   dob: {
     type: Date,
+    required: true,
   },
   email: {
     type: String,
@@ -116,13 +116,13 @@ export const Student = mongoose.model("Student", studentSchema);
 
 export const validate = (student) => {
   const schema = Joi.object({
-    // salutation: Joi.string().required(),
     first_name: Joi.string().required(),
     last_name: Joi.string().required(),
-    gender: Joi.string().valid("MALE", "FEMALE"),
-    contact: Joi.number().required(),
+    gender: Joi.string().valid("MALE", "FEMALE", "OTHERS", "RATHER NOT SAY"),
+    contact: Joi.number(),
     user_name: Joi.string().required(),
-    // dob: Joi.date().required(),
+    dob: Joi.date().required(),
+
     email: Joi.string().min(5).required().email(),
     password: Joi.string().min(5).max(1024).required(),
     device_token: Joi.string(),

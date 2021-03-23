@@ -49,7 +49,8 @@ export const update_bmessage = async (req, res) => {
     { new: true }
   );
 
-  if (!bmessage)throw new Error("The bmessage with the given id is not available");
+  if (!bmessage)
+    throw new Error("The bmessage with the given id is not available");
 
   res.send(bmessage);
 };
@@ -59,7 +60,6 @@ export const update_bmessage = async (req, res) => {
  * *
  */
 
-//* Programs program
 
 
 /*
@@ -70,8 +70,7 @@ export const update_bmessage = async (req, res) => {
 //* Legals
 export const get_legal = async (req, res) => {
   const legal = await Legal.findById(req.params.id);
-  if (!legal)
-    throw new Error("The legal with the given id is not available");
+  if (!legal) throw new Error("The legal with the given id is not available");
   res.send(legal);
 };
 
@@ -94,8 +93,7 @@ export const update_legal = async (req, res) => {
     new: true,
   });
 
-  if (!legal)
-    throw new Error("The legal with the given id is not available");
+  if (!legal) throw new Error("The legal with the given id is not available");
 
   res.send(legal);
 };
@@ -105,10 +103,8 @@ export const update_legal = async (req, res) => {
 export const post_code = async (req, res) => {
   if (req.body.recipent === undefined)
     throw new Error("Email Address is undefined");
-  if (req.body.code === undefined)
-  throw new Error("Code is undefined");
-  if (req.body.method === undefined)
-  throw new Error("method is undefined");
+  if (req.body.code === undefined) throw new Error("Code is undefined");
+  if (req.body.method === undefined) throw new Error("method is undefined");
 
   let student;
   if(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(req.body.recipent)){
@@ -170,10 +166,8 @@ export const post_code = async (req, res) => {
 };
 
 export const post_sms = async (req, res) => {
-  if (req.body.recipent === undefined)
-    throw new Error("Contact is undefined");
-  if (req.body.message === undefined)
-    throw new Error("Message is undefined");
+  if (req.body.recipent === undefined) throw new Error("Contact is undefined");
+  if (req.body.message === undefined) throw new Error("Message is undefined");
   try {
     const message = req.body.message;
 
@@ -190,12 +184,9 @@ export const post_sms = async (req, res) => {
 };
 
 export const post_mail = async (req, res) => {
-  if (req.body.recipent === undefined)
-    throw new Error("Contact is undefined");
-  if (req.body.body === undefined)
-    throw new Error("Message is undefined");
-  if (req.body.subject === undefined)
-    throw new Error("Subject is undefined");
+  if (req.body.recipent === undefined) throw new Error("Contact is undefined");
+  if (req.body.body === undefined) throw new Error("Message is undefined");
+  if (req.body.subject === undefined) throw new Error("Subject is undefined");
   try {
     const info = await sendMail(
       req.body.recipent,
@@ -217,4 +208,3 @@ export const post_mail = async (req, res) => {
  * *
  */
 
-//* University
