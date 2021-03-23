@@ -30,7 +30,7 @@ const studentSchema = new mongoose.Schema({
   },
   user_name: {
     type: String,
-    unique:true,
+    unique: true,
     required: true,
     maxlength: 30,
   },
@@ -122,7 +122,6 @@ export const validate = (student) => {
     contact: Joi.number(),
     user_name: Joi.string().required(),
     dob: Joi.date().required(),
-
     email: Joi.string().min(5).required().email(),
     password: Joi.string().min(5).max(1024).required(),
     device_token: Joi.string(),
