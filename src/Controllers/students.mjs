@@ -35,8 +35,11 @@ export const post_student = async (req, res) => {
   let contact_student=await Student.findOne({
     contact: req.body.contact
   });
-  if (email_student || contact_student)
-  throw new Error("User with same email or contact already exists, try logging in.")
+  let userID_student=await Student.findOne({
+    user_name:req.body.user_name
+  })
+  if (email_student || contact_student || userID_student)
+  throw new Error("User with same email or contact or userID already exists, try logging in.")
 
   let student = new Student(req.body);
   const salt = await bcrypt.genSalt(13);
