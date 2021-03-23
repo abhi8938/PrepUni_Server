@@ -66,54 +66,6 @@ const semester = new mongoose.Schema({
   ],
 });
 
-export const Program = mongoose.model(
-  "Program",
-  new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-      minlength: 2,
-      maxlength: 30,
-    },
-    subjects: [String],
-    total_semesters: {
-      type: Number,
-      required: true,
-    },
-    cover: {
-      type: String,
-      required: true,
-    },
-    created_At: {
-      type: Date,
-      default: Date.now(),
-    },
-    last_update: {
-      type: Date,
-      required: true,
-      default: Date.now(),
-    },
-    syllabus: [semester],
-    university: {
-      type: String,
-      required: true,
-    },
-    keywords: [String],
-    DUR: [DUR],
-  })
-);
-
-export const ValidateProgram = (program) => {
-  const schema = Joi.object({
-    name: Joi.string().min(2).max(30).required(),
-    subjects: Joi.array().required(),
-    total_semesters: Joi.number().required(),
-    cover: Joi.string().required(),
-    university: Joi.string().required(),
-  });
-
-  return schema.validate(program);
-};
 
 export const Legal = mongoose.model(
   "Legal",
@@ -151,40 +103,4 @@ export const validateLegalUpdate = (legal) => {
   });
 
   return schema.validate(legal);
-};
-
-export const University = mongoose.model(
-  "University",
-  new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-      minlength: 2,
-      maxlength: 30,
-    },
-    logo: {
-      type: String,
-      required: true,
-    },
-    created_At: {
-      type: Date,
-      default: Date.now(),
-    },
-    last_update: {
-      type: Date,
-      required: true,
-      default: Date.now(),
-    },
-    keywords: [String],
-    DUR: [DUR],
-  })
-);
-
-export const validateUniversity = (program) => {
-  const schema = Joi.object({
-    name: Joi.string().min(2).max(30).required(),
-    logo: Joi.string().required(),
-  });
-
-  return schema.validate(program);
 };

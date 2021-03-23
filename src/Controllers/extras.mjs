@@ -1,13 +1,9 @@
 import {
   BMessage,
-  Program,
   Legal,
-  University,
   ValidateBMessage,
-  ValidateProgram,
   ValidateLegal,
   validateLegalUpdate,
-  validateUniversity,
 } from "../Validators/extra.mjs";
 import {
   generateKeywords,
@@ -64,46 +60,7 @@ export const update_bmessage = async (req, res) => {
  * *
  */
 
-//* Programs program
 
-export const get_programs = async (req, res) => {
-  //* req.params = { limit, university , subjects }
-  const programs = await Program.find().sort("name");
-  res.send(programs);
-};
-
-
-export const get_program = async (req, res) => {
-  const program = await Program.findById(req.params.id);
-  if (!program) throw new Error("The program with givern id in not present OR wrong program doc id");
-  res.send(program);
-};
-
-export const post_program = async (req, res) => {
-  const { error } = ValidateProgram(req.body);
-  if (error) throw new Error(error.details[0].message);
-  let program = new Program(req.body);
-  let keywords = generateKeywords(req.body.name).concat(
-    generateKeywords(req.body.university)
-  );
-
-  program.keywords = keywords;
-  try{program = await program.save();}
-  catch(e){throw new Error(e)}
-  res.send(program);
-};
-
-export const update_program = async (req, res) => {
-  if (req.body.cover === undefined || !req.body.syllabus === undefined)
-    throw new Error("No request body");
-
-  const program = await Program.findById(req.params.id);
-  if (!program) throw new Error("The program with the given id is not available")
-    
-  handleUpdate(student, req.body);
-  program = await program.save();
-  res.status(200).send(program);
-};
 
 /*
  * *
@@ -251,43 +208,3 @@ export const post_mail = async (req, res) => {
  * *
  */
 
-//* University
-
-export const get_universities = async (req, res) => {
-  //* req.params = { limit, university , subjects }
-  const universities = await University.find().sort("name");
-  res.send(universities);
-};
-
-export const get_university = async (req, res) => {
-  const university = await University.findById(req.params.id);
-
-  if (!university) throw new Error("The university with givern id in not present OR wrong program doc id");
-
-  res.send(university);
-};
-
-export const post_university = async (req, res) => {
-  const { error } = validateUniversity(req.body);
-  if (error) throw new Error(error.details[0].message);
-  let university = new University(req.body);
-  let keywords = generateKeywords(req.body.name);
-  university.keywords = keywords;
-  try {
-    university = await university.save();
-    res.send(university);
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-export const update_university = async (req, res) => {
-  if (req.body.logo === undefined) throw new Error("No request body");
-  const university = await University.findById(req.params.id);
-  if (!university)
-    throw new Error("The university with the given id is not available");
-
-  handleUpdate(university, req.body);
-  university = await university.save();
-  res.status(200).send(university);
-};

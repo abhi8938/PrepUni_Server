@@ -1,22 +1,14 @@
 //*Controller
 import {
   get_bmessage,
-  get_program,
-  get_programs,
   get_legal,
-  get_universities,
-  get_university,
   post_bmessage,
   post_code,
-  post_program,
   post_legal,
   post_mail,
   post_sms,
-  post_university,
   update_bmessage,
-  update_program,
   update_legal,
-  update_university,
 } from "../Controllers/extras.mjs";
 
 import admin from "../Middlewares/admin.mjs";
@@ -74,20 +66,6 @@ router.put(
 
 //* Programs
 
-router.get("/programs", async (req, res) => await get_programs(req, res));
-
-router.post("/programs", upload.single("cover"), async (req, res) => {
-  req.body.subjects = JSON.parse(req.body.subjects);
-  req.body.cover = req.file.filename;
-  await post_program(req, res);
-});
-
-router.put("/programs/:id", upload.single("cover"), async (req, res) => {
-  req.body.cover = req.file.filename;
-  await update_program(req, res);
-});
-
-router.get("/programs/:id", async (req, res) => await get_program(req, res));
 
 /*
  * *
@@ -150,19 +128,4 @@ export default router;
 
 //* University
 
-router.get("/university", async (req, res) => await get_universities(req, res));
 
-router.post("/university", upload.single("logo"), async (req, res) => {
-  req.body.logo = req.file.filename;
-  await post_university(req, res);
-});
-
-router.put("/university/:id", upload.single("logo"), async (req, res) => {
-  req.body.logo = req.file.filename;
-  await update_university(req, res);
-});
-
-router.get(
-  "/university/:id",
-  async (req, res) => await get_university(req, res)
-);
