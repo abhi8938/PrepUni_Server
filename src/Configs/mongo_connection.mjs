@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-var local_host="localhost:27017/prepuni"
+var local_host="mongodb://localhost:27017/prepuni"
 var main_link="mongodb+srv://admin_prep:waFHuMrPzPpwbjeq@prepuni.aj9c2.mongodb.net/prepuni?retryWrites=true&w=majority"
 export const connect_db = () => {
   mongoose

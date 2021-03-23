@@ -3,7 +3,7 @@ import Joi from "joi";
 import mongoose from "mongoose";
 
 export const Pack = mongoose.model(
-  "Packs",
+  "packs",
   new mongoose.Schema({
     features: {
       type: [String],
@@ -24,20 +24,12 @@ export const Pack = mongoose.model(
     type: {
       type: String,
       required: true,
-      enum: ["TRIAL", "PAID"],
-      unique: true,
-    },
-    created_at: {
-      type: Date,
-      default: Date.now(),
-    },
-    last_update: {
-      type: Date,
-      default: Date.now(),
+      enum: ["TRIAL", "PAID"]
     },
     keywords: [String],
-
-    DUR: [DUR],
+    DUR: [DUR]
+  },{
+    timestamps:true
   })
 );
 
