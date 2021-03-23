@@ -15,6 +15,7 @@ export const Paper_Product = mongoose.model(
       type: String,
       required: true,
     },
+
     cover: {
       type: String,
       required: true,
@@ -56,7 +57,6 @@ export const validate = (paper_product) => {
     program: Joi.string().required(),
     semester: Joi.string().required(),
     subject: Joi.string().required(),
-    cover: Joi.string().required(),
     university: Joi.string().required(),
   });
 
