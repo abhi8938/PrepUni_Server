@@ -8,7 +8,6 @@ var instance = new Razorpay({
 });
 
 export const get_payment = async (req, res) => {
-  //TODO: Complete Request
   const payments = await Payment.find().sort("name");
   res.send(payments);
 };
@@ -24,14 +23,12 @@ export const post_payment = async (req, res) => {
   };
   try {
     const order = await instance.orders.create(options);
-    // debug("payment response - ", req);
     let payment = new Payment({
       STID: req.body.STID,
       order_id: order.id,
       amount: req.body.amount,
       SID: req.body.SID,
       type: req.body.type,
-      // createdAt: req.body.createdAt, //TODO: generate timestamp
     });
     payment = await payment.save();
     res.send(payment);
