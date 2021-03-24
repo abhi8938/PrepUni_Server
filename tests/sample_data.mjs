@@ -1,19 +1,18 @@
 export const student_data={
-    first_name:'arvapalli',
-    last_name:'roopesh',
-    gender:'MALE',
-    contact:1234455,
-    user_name:'somename',
-    email:'1234@gmail.com',
-    password:'1234555',
-    device_token:'12345tgfkd,mjk,efmk',
-    program:'someprogram',
-    college:'somecollege',
-    semester:'somesemester',
-    university:'someuniversity',
-    type:'STU'
+    "first_name": "Arvapalli",
+    "last_name": "Roopesh",
+    "gender":"MALE",
+    "contact":852767048,
+    "user_name":"roopes893",
+    "email": "arvapalli12345@gmail.com",
+    "password": "123456",
+    "program": "6039fe0832fe200a870b2e83",
+    "college": "Indraprasth",
+    "semester": "5",
+    "university": "University Delhi",
+    "device_token":"testtoken",
+    "dob":"2001-04-04"
 }
-
 export const subscition_data={
     PID:'svbv',
     PPIDS:['asdwe','wevwv'],
@@ -39,8 +38,10 @@ export const resources_data={
 }
 
 export const payments_data={
-    type:"fenfner",
-    amount:"some amount"
+    type:"UPI",
+    amount:"5000",
+    STID:"widwncwe",
+    SID:"wede"
 }
 
 export const paper_product_data={
@@ -54,11 +55,14 @@ export const paper_product_data={
 }
 
 export const package_data={
-    type:"some type",
-    life:"2001-11-21",
-    price:3223,
-    features:['edwef','fewfef'],
-    discount:12
+    "features":[{
+    	"feature":"feature 1",
+    	"active":true
+    }],
+    "price":0,
+    "discount":0,
+    "life":1629759600,
+    "type":"TRIAL"
 }
 
 export const extra_message_data={
@@ -69,10 +73,13 @@ export const extra_message_data={
 
 export const validateprogram_data={
     name:"some name",
-    subjects:["some subjects"],
-    total_semesters:2,
-    cover:"some cover",
-    university:"some college"
+    university_id:"some id",
+    semester:"1st semester"
+    // name:"some name",
+    // subjects:["some subjects"],
+    // total_semesters:2,
+    // cover:"some cover",
+    // university:"some college"
 }
 
 export const legal_data={
@@ -102,4 +109,32 @@ export const annotation_data={
   text: 'some text',
   note: 'some string',
     }],
+}
+
+export const paper_data={
+    subject_id:"some id",
+    link:"some link",
+    year:2020
+}
+
+export const subject_data={
+    cover:"some cover",
+    subject:"Some subject",
+    semester:"1 st semester",
+    name:"My name",
+    description:"subject description",
+    by:"some giving it",
+    maximum_marks:50,
+    university_id:'some id',
+    program_id:'some program id'
+}
+
+export const syllabus_data={
+    subject_id:"some id",
+    units:['unit1','unit2']
+}
+
+export const university_data={
+    logo:'some logo',
+    name:"some college"
 }

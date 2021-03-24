@@ -8,6 +8,7 @@ import { generateKeywords, handleUpdate } from "../Services/algo.mjs";
 
 import { Annotations } from "../Validators/annotations.mjs";
 import { BMessage } from "../Validators/extra.mjs";
+
 import { Subscript } from "../Validators/subscription.mjs";
 import _ from "lodash";
 import bcrypt from "bcrypt";
@@ -71,21 +72,6 @@ export const update_student = async (req, res) => {
   let student = await Student.findById(req.user._id);
   if (!student)
     throw new Error("The Student with the given id is not available");
-  if (req.body.semester) {
-    //UPDATE PPIDS if semester is updated
-    // const PPIDS = [];
-    // try {
-    //   const paper_products = await Paper_Product.find({
-    //     university: student.university,
-    //     program: student.program,
-    //     semester: student.semester,
-    //   });
-    //   paper_products.map((item) => PPIDS.push(item._id));
-    //   await Subscript.findOneAndUpdate({ STID: student._id }, { PPIDS });
-    // } catch (e) {
-    //   throw new Error(e.message);
-    // }
-  }
   handleUpdate(student, req.body);
   student = await student.save();
   if (req.body.semester)
@@ -139,12 +125,13 @@ export const get_all = async (req, res) => {
   //TODO: get student id from req.headers.token
   const students = await Student.findById("id");
   const subscription = await Subscription.findOne({ STID: "id" });
+
   const annotations = await Annotations.find({ STID: "id" });
   const broadcast = await BMessage.find();
   res.status(200).send({
     students: _.omit(students, ["password"]),
     subscription,
-    papers,
+    // papers,
     broadcast,
   });
 };

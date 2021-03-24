@@ -6,9 +6,6 @@ describe("resources validatoe",()=>{
         const result=Validate(resources_data)
         expect(result.error).toBe(undefined)
     })
-})
-
-describe("rasourse validate update",()=>{
     it('should be able to dectect proper update field',()=>{
         const result=ValidateUpdate(resources_data)
         expect(result.error).toBe(undefined)

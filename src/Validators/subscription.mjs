@@ -8,24 +8,16 @@ export const Subscript = mongoose.model(
     STID: {
       type: mongoose.Schema.ObjectId,
       required: true,
-      minlength: 2,
-      maxlength: 30,
       unique: true,
     },
     PID: {
       type: mongoose.Schema.ObjectId,
-      required: true,
-      minlength: 2,
-      maxlength: 30,
+      required: true
     },
-    PPIDS: [
-      {
+    program_id: {
         type: mongoose.Schema.ObjectId,
-        required: true,
-        minlength: 2,
-        maxlength: 30,
+        required: true
       },
-    ],
     type: {
       type: String,
       required: true,
@@ -42,22 +34,16 @@ export const Subscript = mongoose.model(
       enum: ["ACTIVE", "INACTIVE"],
       default: "INACTIVE",
     },
-    created_at: {
-      type: Date,
-      default: Date.now(),
-    },
-    last_updated: {
-      type: Date,
-      default: Date.now(),
-    },
     DUR: [DUR],
+  },{
+    timestamps:true
   })
 );
 
 export const validate = (subscription) => {
   const schema = Joi.object({
     PID: Joi.string().required(),
-    PPIDS: Joi.array().items(Joi.string()),
+    program_id:Joi.string(),
     type: Joi.string(),
     PA_ID: Joi.string(),
     status: Joi.string(),
@@ -69,6 +55,7 @@ export const validate = (subscription) => {
 export const validateUpdate = (subscription) => {
   const schema = Joi.object({
     status: Joi.string().valid("ACTIVE", "INACTIVE"),
+    subjects: Joi.array().items(Joi.string())
   });
 
   return schema.validate(subscription);

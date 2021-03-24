@@ -21,19 +21,19 @@ describe('validate the student details',()=>{
     })
 })
 
-describe('validate authenticating details',()=>{
-    it('should accept proper email and password of min 5 and max 1024',()=>{
-        // console.log(student_data['email'])
-        let details={
-            email:student_data['email'],
-            password:student_data['password']
-        }
-        const result=validateAuth(details)
-        expect(result.error).toBe(undefined)
-    })
+// describe('validate authenticating details',()=>{
+//     it('should accept proper email and password of min 5 and max 1024',()=>{
+//         // console.log(student_data['email'])
+//         let details={
+//             email:student_data['email'],
+//             password:student_data['password']
+//         }
+//         const result=validate(details)
+//         expect(result.error).toBe(undefined)
+//     })
 
     
-})
+// })
 
 describe('student validate update field',()=>{
     it('should detect proper input field',()=>{

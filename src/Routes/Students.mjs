@@ -11,7 +11,7 @@ import {
 
 import admin from "../Middlewares/admin.mjs";
 import auth from "../Middlewares/auth.mjs";
-import checkLogin from "../Middlewares/checkLogin.mjs";
+import {checkLogin,logoutfromdevice} from "../Middlewares/checkLogin.mjs";
 import express from "express";
 
 const router = express.Router();
@@ -32,5 +32,11 @@ router.post(
   checkLogin,
   async (req, res) => await authenticate(req, res)
 );
+
+router.post(
+  "/logout",
+  auth,
+  logoutfromdevice
+)
 
 export default router;

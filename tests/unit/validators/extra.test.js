@@ -11,19 +11,19 @@ import {
     validateUniversity
     } from "../../../src/Validators/extra.mjs"
 
-describe('Bmessage validator',()=>{
-    it('validating bmessage data',()=>{
-        const result=ValidateBMessage(extra_message_data)
-        expect(result.error).toBe(undefined)
-    })
-})
+// describe('Bmessage validator',()=>{
+//     it('validating bmessage data',()=>{
+//         const result=ValidateBMessage(extra_message_data)
+//         expect(result.error).toBe(undefined)
+//     })
+// })
 
-describe('validate program',()=>{
-    it('validate program data',()=>{
-        const result=ValidateProgram(validateprogram_data)
-        expect(result.error).toBe(undefined)
-    })
-})
+// describe('validate program',()=>{
+//     it('validate program data',()=>{
+//         const result=ValidateProgram(validateprogram_data)
+//         expect(result.error).toBe(undefined)
+//     })
+// })
 
 describe('validating legal details',()=>{
     it('validate create file if legal data',()=>{
@@ -36,9 +36,9 @@ describe('validating legal details',()=>{
     })
 })
 
-describe('validate unversity function',()=>{
-    it('verify univerty data',()=>{
-        const result=validateUniversity(unversity_data)
-        expect(result.error).toBe(undefined)
-    })
-})
+// describe('validate unversity function',()=>{
+//     it('verify univerty data',()=>{
+//         const result=validateUniversity(unversity_data)
+//         expect(result.error).toBe(undefined)
+//     })
+// })

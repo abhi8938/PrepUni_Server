@@ -6,7 +6,7 @@ import {
 import { generateKeywords, handleUpdate } from "../Services/algo.mjs";
 
 import { Pack } from "../Validators/package.mjs";
-import { Paper_Product } from "../Validators/paper_product.mjs";
+// import { Paper_Product } from "../Validators/paper_product.mjs";
 import { Student } from "../Validators/student.mjs";
 
 export const get_subscriptions = async (req, res) => {
@@ -30,23 +30,14 @@ export const post_subscription = async (req, res) => {
 
   const pack = await Pack.findById(req.body.PID);
   if (!pack) throw new Error("No Package found with given id");
-
-  const paper_products = await Paper_Product.find({
-    university: student.university,
-    program: student.program,
-    semester: student.semester,
-  });
-  if (paper_products.length === 0)
-  throw new Error("No Papers found for the following student data");
-
-  const PPIDS = [];
+  
   let subInstance = {
     STID: student._id,
     PID: pack._id,
     type: pack.type,
+    program_id:student.program
   };
   subInstance.status = pack.type === "TRIAL" ? "ACTIVE" : "INACTIVE";
-  paper_products.map((item) => PPIDS.push(item._id));
   subInstance.PPIDS = PPIDS;
 
   let sub = new Subscript(subInstance);
@@ -56,6 +47,7 @@ export const post_subscription = async (req, res) => {
   if (sub.type === "TRIAL") {
     expiration.setDate(expiration.getDate() + 3);
   } else {
+    sub.PA_ID=req.body.payment_id
     expiration.setMonth(expiration.getMonth() + 5);
   }
   sub.expiration = expiration;
@@ -66,15 +58,13 @@ export const post_subscription = async (req, res) => {
     throw new Error(e.message);
   }
   if (sub.type === "TRIAL") {
-    throw new Error(`Thank you for subscribing, your subscription will expire on ${new Date(
+    res.send(`Thank you for subscribing, your subscription will expire on ${new Date(
       sub.expiration
     ).toDateString()}.`);
     
-  } else if (sub.type === "PAID") {
-    return res.status(201).send(`http://127.0. 0.1:3001/ccavRequestHandler`);
   }
 
-  res.send(subscription);
+  res.send(sub);
 };
 
 export const update_subscription = async (req, res) => {
