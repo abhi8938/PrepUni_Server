@@ -26,10 +26,6 @@ export const Subject = mongoose.model(
       maximum_marks: {
         type: Number,
       },
-      university_id: {
-        type: mongoose.Schema.ObjectId,
-        required: true,
-      },
       program_id: {
         type: mongoose.Schema.ObjectId,
         required: true,
@@ -49,7 +45,6 @@ export const validate = (program) => {
     description: Joi.string().required(),
     by: Joi.string().required(),
     maximum_marks: Joi.number(),
-    university_id: Joi.string().required(),
     program_id: Joi.string().required(),
   });
 
