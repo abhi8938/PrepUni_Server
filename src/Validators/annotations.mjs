@@ -85,5 +85,5 @@ export const ValidateUpdate = (annotations) => {
     ann: Joi.array().items(annValidationSchema),
   });
 
-  return schema.Validate(annotations)
+  return schema.validate(annotations)
 };
