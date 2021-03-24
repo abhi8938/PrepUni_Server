@@ -10,7 +10,8 @@ export const student_data={
     program:'someprogram',
     college:'somecollege',
     semester:'somesemester',
-    university:'someuniversity'
+    university:'someuniversity',
+    type:'STU'
 }
 
 export const subscition_data={

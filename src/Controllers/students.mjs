@@ -21,25 +21,29 @@ export const get_students = async (req, res) => {
 export const get_student = async (req, res) => {
   const student = await Student.findById(req.user._id).select("-password");
   if (!student)
-  throw new Error("The student with givern id in not present OR wrong student doc id")
+    throw new Error(
+      "The student with givern id in not present OR wrong student doc id"
+    );
 
   res.send(student);
 };
 
 export const post_student = async (req, res) => {
   const { error } = validate(req.body);
-  if (error) throw new Error(`${error.details[0].message}`)
+  if (error) throw new Error(error.details[0].message);
   let email_student = await Student.findOne({
-    email: req.body.email
+    email: req.body.email,
   });
-  let contact_student=await Student.findOne({
-    contact: req.body.contact
+  let contact_student = await Student.findOne({
+    contact: req.body.contact,
   });
-  let userID_student=await Student.findOne({
-    user_name:req.body.user_name
-  })
+  let userID_student = await Student.findOne({
+    user_name: req.body.user_name,
+  });
   if (email_student || contact_student || userID_student)
-  throw new Error("User with same email or contact or userID already exists, try logging in.")
+    throw new Error(
+      "User with same email or contact or userID already exists, try logging in."
+    );
 
   let student = new Student(req.body);
   const salt = await bcrypt.genSalt(13);
@@ -60,10 +64,10 @@ export const post_student = async (req, res) => {
 
 export const update_student = async (req, res) => {
   const { error } = validateUpdate(req.body);
-  if (error) throw new Error(error.details[0].message)
+  if (error) throw new Error(error.details[0].message);
   let student = await Student.findById(req.user._id);
   if (!student)
-  throw new Error("The Student with the given id is not available")
+    throw new Error("The Student with the given id is not available");
   if (req.body.semester) {
     //UPDATE PPIDS if semester is updated
     const PPIDS = [];
@@ -90,19 +94,17 @@ export const authenticate = async (req, res) => {
   const { error } = validateAuth(req.body);
   if (error) throw new Error(error.details[0].message);
   let student;
-  if(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(req.body.id)){
+  if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(req.body.id)) {
     student = await Student.findOne({ email: req.body.id });
-    if (!student) throw new Error("Invalid Email")
-  }
-  else if(/^\d{10}$/.test(req.body.id)){
+    if (!student) throw new Error("Invalid Email");
+  } else if (/^\d{10}$/.test(req.body.id)) {
     student = await Student.findOne({ contact: req.body.id });
-    if (!student) throw new Error("Invalid Phone number")
-  }
-  else{
+    if (!student) throw new Error("Invalid Phone number");
+  } else {
     student = await Student.findOne({ user_name: req.body.id });
-    if (!student) throw new Error("Invalid User name")
+    if (!student) throw new Error("Invalid User name");
   }
-  
+
   const validPassword = await bcrypt.compare(
     req.body.password,
     student.password

@@ -13,6 +13,7 @@ import University from "../Routes/University.mjs"
 import Program from "../Routes/Program.mjs"
 import Subject from "../Routes/Subject.mjs"
 import Paper from "../Routes/Paper.mjs"
+import Syllabus from "../Routes/Syllabus.mjs"
 // const error = require('../middleWare/error');
 import postReq from "../ccavenue/ccavRequestHandler.mjs";
 import postRes from "../ccavenue/ccavResponseHandler.mjs";
@@ -36,6 +37,7 @@ export const routes = (app) => {
   app.use("/api/program",Program);
   app.use("/api/subject",Subject);
   app.use("/api/paper",Paper);
+  app.use("/api/syllabus",Syllabus);
 
   app.use(error);
 };
