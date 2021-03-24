@@ -34,9 +34,12 @@ export const post_student = async (req, res) => {
   let email_student = await Student.findOne({
     email: req.body.email,
   });
-  let contact_student = await Student.findOne({
-    contact: req.body.contact,
-  });
+  let contact_student;
+  if (req.body.contact) {
+    contact_student = await Student.findOne({
+      contact: req.body.contact,
+    });
+  }
   let userID_student = await Student.findOne({
     user_name: req.body.user_name,
   });
