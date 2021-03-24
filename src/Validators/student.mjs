@@ -26,7 +26,6 @@ const studentSchema = new mongoose.Schema({
     type: Number,
     minlength: 10,
     maxlength: 10,
-    unique: true,
   },
   user_name: {
     type: String,
