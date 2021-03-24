@@ -73,10 +73,13 @@ export const extra_message_data={
 
 export const validateprogram_data={
     name:"some name",
-    subjects:["some subjects"],
-    total_semesters:2,
-    cover:"some cover",
-    university:"some college"
+    university_id:"some id",
+    semester:"1st semester"
+    // name:"some name",
+    // subjects:["some subjects"],
+    // total_semesters:2,
+    // cover:"some cover",
+    // university:"some college"
 }
 
 export const legal_data={
@@ -106,4 +109,32 @@ export const annotation_data={
   text: 'some text',
   note: 'some string',
     }],
+}
+
+export const paper_data={
+    subject_id:"some id",
+    link:"some link",
+    year:2020
+}
+
+export const subject_data={
+    cover:"some cover",
+    subject:"Some subject",
+    semester:"1 st semester",
+    name:"My name",
+    description:"subject description",
+    by:"some giving it",
+    maximum_marks:50,
+    university_id:'some id',
+    program_id:'some program id'
+}
+
+export const syllabus_data={
+    subject_id:"some id",
+    units:['unit1','unit2']
+}
+
+export const university_data={
+    logo:'some logo',
+    name:"some college"
 }
