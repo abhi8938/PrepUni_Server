@@ -89,8 +89,25 @@ export const update_student = async (req, res) => {
   handleUpdate(student, req.body);
   student = await student.save();
   if (req.body.semester)
-    throw new Error(`http://127.0. 0.1:3001/ccavRequestHandler`);
+    res.status(201).send(`http://127.0. 0.1:3001/ccavRequestHandler`);
   res.send(_.omit(student, ["password"]));
+};
+
+export const resetPassword = async (req, res) => {
+  if (!req.body.password) throw new Error("NO Password sent");
+  if (!req.body.id) throw new Error("NO Recipent");
+  let student;
+  if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(req.body.id)) {
+    student = await Student.findOne({ email: req.body.id });
+    if (!student) throw new Error("Invalid Email");
+  } else if (/^\d{10}$/.test(req.body.id)) {
+    student = await Student.findOne({ contact: req.body.id });
+    if (!student) throw new Error("Invalid Phone number");
+  }
+  const salt = await bcrypt.genSalt(13);
+  student.password = await bcrypt.hash(req.body.password, salt);
+  student = await student.save();
+  res.send("Password Updated");
 };
 
 export const authenticate = async (req, res) => {
