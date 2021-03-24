@@ -94,6 +94,7 @@ export const update_student = async (req, res) => {
 };
 
 export const reset_password = async (req, res) => {
+  console.log("req.body", req.body);
   if (!req.body.password) throw new Error("NO Password sent");
   if (!req.body.id) throw new Error("NO Recipent");
   let student;
