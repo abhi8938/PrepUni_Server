@@ -5,6 +5,7 @@ import {
   get_student,
   get_students,
   post_student,
+  reset_password,
   update_student,
 } from "../Controllers/students.mjs";
 
@@ -14,6 +15,8 @@ import checkLogin from "../Middlewares/checkLogin.mjs";
 import express from "express";
 
 const router = express.Router();
+
+router.get("/reset", async (req, res) => await reset_password(req, res));
 
 router.get("/", [auth], async (req, res) => await get_students(req, res));
 
