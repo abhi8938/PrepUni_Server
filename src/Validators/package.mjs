@@ -3,11 +3,7 @@ import Joi from "joi";
 import mongoose from "mongoose";
 
 const features_schema=new mongoose.Schema({
-  price: {
-    type: Number,
-    required: true,
-    min: 0,
-  },
+  
   features:[{
     feature:{
       type:String
@@ -21,7 +17,19 @@ const features_schema=new mongoose.Schema({
 export const Pack = mongoose.model(
   "packs",
   new mongoose.Schema({
-    features: features_schema,
+    price: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    features: [{
+      feature:{
+        type:String
+      },
+      active:{
+        type:Boolean
+      }
+    }],
     life: {
       type: Date,
       required: true,
@@ -43,16 +51,16 @@ export const Pack = mongoose.model(
 );
 
 const validatefeature={
-  price:Joi.number().min(0).required(),
-  features:Joi.array().items({
+  // features:Joi.array().items({
     feature:Joi.string().required(),
     active:Joi.boolean().required()
-  })
+  // })
 }
 
 export const validate = (_package) => {
   const schema = Joi.object({
-    features:Joi.object(validatefeature).required(),
+    price:Joi.number().min(0).required(),
+    features:Joi.array().items(validatefeature).required(),
     type: Joi.string().required(),
     life: Joi.date().required(),
     discount: Joi.number(),
@@ -62,16 +70,16 @@ export const validate = (_package) => {
 };
 
 const updatevalidatefeature={
-  price:Joi.number().min(0),
-  features:Joi.array().items({
+  // features:Joi.array().items({
     feature:Joi.string(),
     active:Joi.boolean()
-  })
+  // })
 }
 
 export const validateUpdate = (_package) => {
   const schema = Joi.object({
-    features:Joi.object(updatevalidatefeature),
+    price:Joi.number().min(0),
+    features:Joi.array().items(updatevalidatefeature),
     type: Joi.string(),
     life: Joi.date(),
     discount: Joi.number(),

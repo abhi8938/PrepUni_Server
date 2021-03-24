@@ -17,6 +17,7 @@ export const post_package = async (req, res) => {
   if (error) throw new Error(error.details[0].message);
   let pack = new Pack(req.body);
   pack = await pack.save();
+  // console.log(pack)
   res.send(pack);
 };
 
