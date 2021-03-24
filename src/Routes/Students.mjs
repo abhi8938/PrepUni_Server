@@ -16,7 +16,7 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/reset", async (req, res) => await reset_password(req, res));
+router.put("/reset", async (req, res) => await reset_password(req, res));
 
 router.get("/", [auth], async (req, res) => await get_students(req, res));
 
