@@ -14,9 +14,10 @@ export const get_package = async (req, res) => {
 export const post_package = async (req, res) => {
   const { error } = validate(req.body);
   if (error) throw new Error(error.details[0].message);
+  console.log("reached");
   let pack = new Pack(req.body);
   pack = await pack.save();
-  // console.log(pack)
+  console.log(pack);
   res.send(pack);
 };
 
