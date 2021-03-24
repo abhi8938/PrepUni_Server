@@ -40,6 +40,7 @@ export const post_student = async (req, res) => {
   let userID_student = await Student.findOne({
     user_name: req.body.user_name,
   });
+  console.log("student", email_student, contact_student, userID_student);
   if (email_student || contact_student || userID_student)
     throw new Error(
       "User with same email or contact or userID already exists, try logging in."
