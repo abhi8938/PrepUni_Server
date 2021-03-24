@@ -1,11 +1,9 @@
 import winston from "winston";
 
-const error = function (error, req, res, next) {
-  winston.log(error.message, error);
-  console.log("error", error);
-  res.status(500).json({
-    message: error.message || "INTERNAL SERVER ERROR",
-  });
+const error = function (err, req, res, next) {
+  winston.log(err.message, err);
+  console.log("ERROR", error);
+  res.status(201).send(err.message);
 };
 
 export default error;

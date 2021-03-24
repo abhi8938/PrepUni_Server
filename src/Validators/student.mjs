@@ -65,7 +65,7 @@ const studentSchema = new mongoose.Schema({
     minlength: 3,
   },
   semester: {
-    type: String,
+    type: Number,
     required: true,
   },
   university: {
@@ -127,7 +127,7 @@ export const validate = (student) => {
     device_token: Joi.string(),
     program: Joi.string().required(),
     college: Joi.string().required(),
-    semester: Joi.string().required(),
+    semester: Joi.number().required(),
     university: Joi.string().required(),
     type: Joi.string().valid("STU"),
   });
