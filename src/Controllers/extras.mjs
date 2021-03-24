@@ -11,9 +11,8 @@ import {
   sendMail,
   sendSMS,
 } from "../Services/algo.mjs";
-import {
-  Student
-} from "../Validators/student.mjs";
+
+import { Student } from "../Validators/student.mjs";
 
 /*
  * *
@@ -60,8 +59,6 @@ export const update_bmessage = async (req, res) => {
  * *
  */
 
-
-
 /*
  * *
  * *
@@ -105,19 +102,18 @@ export const post_code = async (req, res) => {
     throw new Error("Email Address is undefined");
   if (req.body.code === undefined) throw new Error("Code is undefined");
   if (req.body.method === undefined) throw new Error("method is undefined");
-
-  let student;
-  if(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(req.body.recipent)){
-    student = await Student.findOne({ email: req.body.recipent });
-    if (student) throw new Error("Email aldredy exists")
-  }
-  else if(/^\d{10}$/.test(req.body.recipent)){
-    student = await Student.findOne({ contact: req.body.recipent  });
-    if (student) throw new Error("Phone number exists")
-  }
-  else{
-    student = await Student.findOne({ user_name: req.body.recipent  });
-    if (student) throw new Error("User name exists")
+  if (req.body.type === "VERIFY") {
+    let student;
+    if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(req.body.recipent)) {
+      student = await Student.findOne({ email: req.body.recipent });
+      if (student) throw new Error("Email aldredy exists");
+    } else if (/^\d{10}$/.test(req.body.recipent)) {
+      student = await Student.findOne({ contact: req.body.recipent });
+      if (student) throw new Error("Phone number exists");
+    } else {
+      student = await Student.findOne({ user_name: req.body.recipent });
+      if (student) throw new Error("User name exists");
+    }
   }
 
   const subject =
@@ -207,4 +203,3 @@ export const post_mail = async (req, res) => {
  * *
  * *
  */
-
