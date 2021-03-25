@@ -20,7 +20,7 @@ router.post(
   async (req, res) => {
     req.body.cover = req.files["cover"][0].filename;
     req.body.maximum_marks = parseInt(req.body.maximum_marks);
-    // console.log(req.body)
+    console.log(req.body);
     await post_subject(req, res);
   }
 );
