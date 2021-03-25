@@ -1,9 +1,9 @@
 import { Program, validate, validateUpdate } from "../Validators/Program.mjs";
 
 export const post_program = async (req, res) => {
+  console.log("req.body.program", req.body);
   const { error } = validate(req.body);
   if (error) throw new Error(error.details[0].message);
-
   let program = new Program(req.body);
 
   program = await program.save();
