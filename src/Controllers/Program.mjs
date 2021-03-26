@@ -16,6 +16,8 @@ export const get_programs = async (req, res) => {
     programs = await Program.find({
       university_id: req.headers.university_id,
     });
+  } else {
+    programs = await Program.find({});
   }
   res.send(programs);
 };
