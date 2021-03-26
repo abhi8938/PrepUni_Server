@@ -13,11 +13,11 @@ export const post_program = async (req, res) => {
 export const get_programs = async (req, res) => {
   let programs;
   if (req.headers.university_id !== undefined) {
-    programs = await Program.find({
-      university_id: req.headers.university_id,
-    });
+    programs = await Program.find().where(
+      "university_id",
+      req.body.university_id
+    );
   }
-  programs = await Program.find().sort("name");
   res.send(programs);
 };
 
