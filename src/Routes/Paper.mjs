@@ -19,7 +19,6 @@ router.post(
   "/",
   upload.fields([{ name: "link", maxCount: 1 }]),
   async (req, res) => {
-    console.log("req.body", req.body);
     req.body.link = req.files["link"][0].filename;
     await post_paper(req, res);
   }
