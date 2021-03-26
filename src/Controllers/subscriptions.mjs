@@ -56,14 +56,16 @@ export const post_subscription = async (req, res) => {
     throw new Error(e.message);
   }
   if (sub.type === "TRIAL") {
-    return res.send(
-      `Thank you for subscribing, your subscription will expire on ${new Date(
-        sub.expiration
-      ).toDateString()}.`
-    );
+    return res
+      .status(200)
+      .send(
+        `Thank you for subscribing, your subscription will expire on ${new Date(
+          sub.expiration
+        ).toDateString()}.`
+      );
   }
 
-  res.send(sub);
+  res.status(200).send(sub);
 };
 
 export const update_subscription = async (req, res) => {
