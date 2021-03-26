@@ -38,12 +38,13 @@ export const post_subscription = async (req, res) => {
     program_id:student.program
   };
   subInstance.status = pack.type === "TRIAL" ? "ACTIVE" : "INACTIVE";
-  subInstance.PPIDS = PPIDS;
+  // subInstance.PPIDS = PPIDS;
 
   let sub = new Subscript(subInstance);
-
+  // console.log(sub)
+  // console.log(sub.created_at)
   //EXPIRATION TOME
-  let expiration = new Date(sub.created_at);
+  let expiration = new Date();
   if (sub.type === "TRIAL") {
     expiration.setDate(expiration.getDate() + 3);
   } else {
@@ -58,7 +59,7 @@ export const post_subscription = async (req, res) => {
     throw new Error(e.message);
   }
   if (sub.type === "TRIAL") {
-    res.send(`Thank you for subscribing, your subscription will expire on ${new Date(
+    return res.send(`Thank you for subscribing, your subscription will expire on ${new Date(
       sub.expiration
     ).toDateString()}.`);
     

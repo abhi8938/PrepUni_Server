@@ -140,7 +140,7 @@ export const validateUpdate = (student) => {
     email: Joi.string().min(5).email(),
     password: Joi.string().min(5).max(1024),
     device_token: Joi.string(),
-    semester: Joi.string(),
+    semester: Joi.number(),
   });
 
   return schema.validate(student);

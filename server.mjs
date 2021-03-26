@@ -25,7 +25,6 @@ app.use(
     extended: true,
   })
 );
-
 app.use(express.static("public"));
 app.set("views", __dirname + "/public");
 app.engine("html", ejs.renderFile);

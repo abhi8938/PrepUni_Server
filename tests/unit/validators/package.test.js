@@ -8,7 +8,7 @@ describe('package data validating function',()=>{
     })
 
     it('validate update function',()=>{
-        const result=validate(package_data)
+        const result=validateUpdate(package_data)
         expect(result.error).toBe(undefined)
     })
 })
