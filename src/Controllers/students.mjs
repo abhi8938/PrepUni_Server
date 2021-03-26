@@ -74,8 +74,8 @@ export const update_student = async (req, res) => {
     throw new Error("The Student with the given id is not available");
   handleUpdate(student, req.body);
   student = await student.save();
-  if (req.body.semester)
-    res.status(201).send(`http://127.0. 0.1:3001/ccavRequestHandler`);
+  // if (req.body.semester)
+  //   res.status(201).send(`http://127.0. 0.1:3001/ccavRequestHandler`);
   res.send(_.omit(student, ["password"]));
 };
 
@@ -90,7 +90,7 @@ export const reset_password = async (req, res) => {
   } else if (/^\d{10}$/.test(req.body.id)) {
     student = await Student.findOne({ contact: req.body.id });
     if (!student) throw new Error("Invalid Phone number");
-  }
+  } 
   const salt = await bcrypt.genSalt(13);
   student.password = await bcrypt.hash(req.body.password, salt);
   student = await student.save();

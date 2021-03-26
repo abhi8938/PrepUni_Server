@@ -18,7 +18,7 @@ const router = express.Router();
 
 router.put("/reset", async (req, res) => await reset_password(req, res));
 
-router.get("/", [auth], async (req, res) => await get_students(req, res));
+router.get("/", async (req, res) => await get_students(req, res));
 
 router.post("/", async (req, res) => await post_student(req, res));
 

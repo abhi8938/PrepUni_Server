@@ -1,15 +1,14 @@
 import mongoose from "mongoose";
-var local_host = "mongodb://localhost:27017/prepuni";
-var main_link =
-  "mongodb+srv://admin_prep:waFHuMrPzPpwbjeq@prepuni.aj9c2.mongodb.net/prepuni?retryWrites=true&w=majority";
+// var db = "mongodb://localhost:27017/prepuni";
+var db ="mongodb+srv://admin_prep:waFHuMrPzPpwbjeq@prepuni.aj9c2.mongodb.net/prepuni?retryWrites=true&w=majority";
 export const connect_db = () => {
   mongoose
-    .connect(main_link, {
+    .connect(db, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
     })
-    .then(() => console.log("connected to Database...."))
+    .then(() => console.log(`connected to ${db}....`))
     .catch((err) =>
       console.log("Connection refused to database because....", err)
     );

@@ -1,8 +1,11 @@
+export const URL="http://127.0.0.1:3001/api"
+// export const URL="https://luxeservicesbackend.herokuapp.com"
+
 export const student_data={
     "first_name": "Arvapalli",
     "last_name": "Roopesh",
     "gender":"MALE",
-    "contact":852767048,
+    "contact":8527670484,
     "user_name":"roopes893",
     "email": "arvapalli12345@gmail.com",
     "password": "123456",
@@ -15,7 +18,7 @@ export const student_data={
 }
 export const subscition_data={
     PID:'svbv',
-    PPIDS:['asdwe','wevwv'],
+    program_id:"this is program id",
     type:'fwefer',
     PA_ID:'wdedwef',
     status:'wwcw'
@@ -119,13 +122,11 @@ export const paper_data={
 
 export const subject_data={
     cover:"some cover",
-    subject:"Some subject",
     semester:"1 st semester",
     name:"My name",
     description:"subject description",
     by:"some giving it",
     maximum_marks:50,
-    university_id:'some id',
     program_id:'some program id'
 }
 
