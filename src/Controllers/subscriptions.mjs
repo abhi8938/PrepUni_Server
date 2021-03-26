@@ -36,17 +36,16 @@ export const post_subscription = async (req, res) => {
     type: pack.type,
     program_id: student.program,
   };
-  subInstance.status = pack.type === "TRIAL" ? "ACTIVE" : "INACTIVE"
-
+  subInstance.status = pack.type === "TRIAL" ? "ACTIVE" : "INACTIVE";
 
   let sub = new Subscript(subInstance);
-  
+
   let expiration = new Date();
 
   if (sub.type === "TRIAL") {
     expiration.setDate(expiration.getDate() + 3);
   } else {
-    sub.PA_ID = req.body.payment_id;
+    sub.PA_ID = req.body.PA_ID;
     expiration.setMonth(expiration.getMonth() + 5);
   }
   sub.expiration = expiration;
@@ -57,9 +56,11 @@ export const post_subscription = async (req, res) => {
     throw new Error(e.message);
   }
   if (sub.type === "TRIAL") {
-    return res.send(`Thank you for subscribing, your subscription will expire on ${new Date(
-      sub.expiration
-    ).toDateString()}.`);
+    return res.send(
+      `Thank you for subscribing, your subscription will expire on ${new Date(
+        sub.expiration
+      ).toDateString()}.`
+    );
   }
 
   res.send(sub);
