@@ -7,13 +7,13 @@ import {
 export const get_universities=async(req,res)=>{
     const universities=await University.find().sort('Name');
     
-    return res.send(universities)
+    return res.status(200).send(universities)
 }
 
 export const get_university=async(req,res)=>{
     const university_detail=await University.findById(req.params.id);
     if(!university_detail) throw new Error("No university based in this id");
-    res.send(university_detail)
+    res.status(200).send(university_detail)
 }
 
 export const post_universtiy=async(req,res)=>{
@@ -21,7 +21,7 @@ export const post_universtiy=async(req,res)=>{
     if(error) throw new Error(error.details[0].message);
     let university_details=new University(req.body)
     university_details=await university_details.save()
-    res.send(university_details);
+    res.status(200).send(university_details);
 }
 
 export const update_university=async(req,res)=>{
@@ -37,5 +37,5 @@ export const update_university=async(req,res)=>{
     if(!university_details)
         throw new Error("The given id of the paclage is invalid");
 
-    res.send(university_details)
+    res.status(200).send(university_details)
 }

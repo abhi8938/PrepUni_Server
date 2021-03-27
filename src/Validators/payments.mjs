@@ -30,9 +30,6 @@ export const Payment = mongoose.model(
         type: String,
         required: true,
       },
-      SID: {
-        type: mongoose.Schema.ObjectId,
-      },
       status: {
         type: String,
         enum: ["SUCCESS", "FAIL", "PENDING", "CREATED"],
@@ -60,7 +57,6 @@ export const validate = (payment) => {
     type: Joi.string().min(2).max(30).required(),
     amount: Joi.string().required(),
     STID: Joi.string().required(),
-    SID: Joi.string(),
   });
 
   return schema.validate(payment);
@@ -70,11 +66,10 @@ export const validateUpdate = (payment) => {
   //TODO:Create Schema
   const schema = Joi.object({
     type: Joi.string().min(2).max(30),
-    amount: Joi.string(),
-    SID: Joi.string(),
     razorpay_payment_id: Joi.string(),
     razorpay_order_id: Joi.string(),
     razorpay_signature: Joi.string(),
+    PID:Joi.string()
   });
 
   return schema.validate(payment);

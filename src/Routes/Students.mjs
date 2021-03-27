@@ -7,11 +7,12 @@ import {
   post_student,
   reset_password,
   update_student,
+  logoutfromdevice
 } from "../Controllers/students.mjs";
 
 import admin from "../Middlewares/admin.mjs";
 import auth from "../Middlewares/auth.mjs";
-import {checkLogin,logoutfromdevice} from "../Middlewares/checkLogin.mjs";
+import {checkLogin} from "../Middlewares/checkLogin.mjs";
 import express from "express";
 
 const router = express.Router();

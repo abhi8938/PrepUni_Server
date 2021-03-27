@@ -5,7 +5,7 @@ export const get_session_report = async (req, res) => {
   const students = await Student.find({
     STID: req.user._id,
   });
-  res.send(students);
+  res.status(200).send(students);
 };
 
 export const post_session_report = async (req, res) => {
@@ -16,5 +16,5 @@ export const post_session_report = async (req, res) => {
 
   session_report = await session_report.save();
 
-  res.send(session_report);
+  res.status(200).send(session_report);
 };

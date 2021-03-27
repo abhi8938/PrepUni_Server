@@ -9,7 +9,7 @@ export const connect_db = () => {
       useUnifiedTopology: true,
       useFindAndModify: false,
     })
-    .then(() => console.log(`connected to database....`))
+    .then(() => console.log(`connected to database.... ${db}`))
     .catch((err) =>
       console.log("Connection refused to database because....", err)
     );

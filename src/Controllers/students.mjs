@@ -8,14 +8,13 @@ import { generateKeywords, handleUpdate } from "../Services/algo.mjs";
 
 import { Annotations } from "../Validators/annotations.mjs";
 import { BMessage } from "../Validators/extra.mjs";
-
 import { Subscript } from "../Validators/subscription.mjs";
 import _ from "lodash";
 import bcrypt from "bcrypt";
 
 export const get_students = async (req, res) => {
   const students = await Student.find().sort("first_name");
-  res.send(students);
+  res.status(200).send(students);
 };
 
 export const get_student = async (req, res) => {
@@ -25,7 +24,7 @@ export const get_student = async (req, res) => {
       "The student with givern id in not present OR wrong student doc id"
     );
 
-  res.send(student);
+  res.status(200).send(student);
 };
 
 export const post_student = async (req, res) => {
@@ -76,7 +75,7 @@ export const update_student = async (req, res) => {
   student = await student.save();
   // if (req.body.semester)
   //   res.status(201).send(`http://127.0. 0.1:3001/ccavRequestHandler`);
-  res.send(_.omit(student, ["password"]));
+  res.status(200).send(_.omit(student, ["password"]));
 };
 
 export const reset_password = async (req, res) => {
@@ -94,7 +93,7 @@ export const reset_password = async (req, res) => {
   const salt = await bcrypt.genSalt(13);
   student.password = await bcrypt.hash(req.body.password, salt);
   student = await student.save();
-  res.send("Password Updated");
+  res.status(200).send("Password Updated");
 };
 
 export const authenticate = async (req, res) => {
@@ -118,7 +117,7 @@ export const authenticate = async (req, res) => {
   );
   if (!validPassword) throw new Error("Invalid Password");
   const token = student.generateAuthToken();
-  res.send(token);
+  res.status(200).send(token);
 };
 
 export const get_all = async (req, res) => {
@@ -135,3 +134,12 @@ export const get_all = async (req, res) => {
     broadcast,
   });
 };
+
+
+export const logoutfromdevice=async(req,res)=>{
+  let student=await Student.findById(req.user._id)
+  if(!student) throw new Error ("This is an ivalid token no user in this email id")
+  if(student.isloggedin===false) throw new Error ("User is alderdy logged out")
+  await Student.findByIdAndUpdate(req.user._id,{isloggedin:false});
+  res.status(200).send({"message":"You are looged out succefully"})
+}

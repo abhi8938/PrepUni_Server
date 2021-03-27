@@ -7,7 +7,7 @@ export const post_program = async (req, res) => {
   let program = new Program(req.body);
 
   program = await program.save();
-  res.send(program);
+  res.status(200).send(program);
 };
 
 export const get_programs = async (req, res) => {
@@ -19,13 +19,13 @@ export const get_programs = async (req, res) => {
   } else {
     programs = await Program.find({});
   }
-  res.send(programs);
+  res.status(200).send(programs);
 };
 
 export const get_program = async (req, res) => {
   const program = await Program.findById(req.params.id);
   if (!program) throw new Error("No program based in this ID");
-  res.send(program);
+  res.status(200).send(program);
 };
 
 export const update_program = async (req, res) => {
@@ -40,5 +40,5 @@ export const update_program = async (req, res) => {
 
   if (!updatedprogram) throw new Error("There is no program with the given id");
 
-  res.send(updatedprogram);
+  res.status(200).send(updatedprogram);
 };

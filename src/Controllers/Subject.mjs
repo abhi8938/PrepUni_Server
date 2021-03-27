@@ -11,18 +11,18 @@ export const post_subject=async (req,res)=>{
     let subject=new Subject(req.body)
 
     subject=await subject.save();
-    res.send(subject)
+    res.status(200).send(subject)
 }
 
 export const get_subjects=async(req,res)=>{
     const subjects=await Subject.find().sort('subject');
-    res.send(subjects)
+    res.status(200).send(subjects)
 }
 
 export const get_subject=async(req,res)=>{
     const subject=await Subject.findById(req.params.id);
     if(!subject) throw new Error("No subject based on this ID")
-    res.send(subject)
+    res.status(200).send(subject)
 }
 
 export const update_subject=async(req,res)=>{
@@ -37,5 +37,5 @@ export const update_subject=async(req,res)=>{
 
     if(!updateSubject) throw new Error("There is no subject based on this ID")
 
-    res.send(updateSubject)
+    res.status(200).send(updateSubject)
 }   
