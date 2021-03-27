@@ -22,7 +22,7 @@ import { Student } from "../Validators/student.mjs";
 //* BMESSAGE
 export const get_bmessage = async (req, res) => {
   const bmessage = await BMessage.find().sort("title");
-  res.send(bmessage);
+  res.status(200).send(bmessage);
 };
 
 export const post_bmessage = async (req, res) => {
@@ -33,7 +33,7 @@ export const post_bmessage = async (req, res) => {
 
   bmessage = await bmessage.save();
 
-  res.send(bmessage);
+  res.status(200).send(bmessage);
 };
 
 export const update_bmessage = async (req, res) => {
@@ -51,7 +51,7 @@ export const update_bmessage = async (req, res) => {
   if (!bmessage)
     throw new Error("The bmessage with the given id is not available");
 
-  res.send(bmessage);
+  res.status(200).send(bmessage);
 };
 
 /*
@@ -68,7 +68,7 @@ export const update_bmessage = async (req, res) => {
 export const get_legal = async (req, res) => {
   const legal = await Legal.findById(req.params.id);
   if (!legal) throw new Error("The legal with the given id is not available");
-  res.send(legal);
+  res.status(200).send(legal);
 };
 
 export const post_legal = async (req, res) => {
@@ -79,7 +79,7 @@ export const post_legal = async (req, res) => {
 
   legal = await legal.save();
 
-  res.send(legal);
+  res.status(200).send(legal);
 };
 
 export const update_legal = async (req, res) => {
@@ -92,7 +92,7 @@ export const update_legal = async (req, res) => {
 
   if (!legal) throw new Error("The legal with the given id is not available");
 
-  res.send(legal);
+  res.status(200).send(legal);
 };
 
 //* sendMESSAGE/ sendCODE / sendSMS

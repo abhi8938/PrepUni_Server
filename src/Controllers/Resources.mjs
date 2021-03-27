@@ -8,7 +8,7 @@ export const get_resource = async (req, res) => {
   const resources = await Resources.find({
     STID: req.user._id,
   });
-  res.send(resources);
+  res.status(200).send(resources);
 };
 
 export const post_resource = async (req, res) => {
@@ -19,7 +19,7 @@ export const post_resource = async (req, res) => {
 
   resources = await resources.save();
 
-  res.send(resources);
+  res.status(200).send(resources);
 };
 
 export const update_resource = async (req, res) => {
@@ -33,7 +33,7 @@ export const update_resource = async (req, res) => {
   if (!resources)
   throw new Error("The resources with the given id is not available");
 
-  res.send(resources);
+  res.status(200).send(resources);
 };
 
 // export const delete_student = (req, res) => {

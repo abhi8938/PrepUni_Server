@@ -11,13 +11,13 @@ import { Student } from "../Validators/student.mjs";
 
 export const get_subscriptions = async (req, res) => {
   const subscriptions = await Subscript.find({});
-  res.send(subscriptions);
+  res.status(200).send(subscriptions);
 };
 
 export const get_subscription = async (req, res) => {
   const subscription = await Subscript.findOne({ STID: req.user._id });
   if (!subscription) throw new Error("No Subscription found with given id");
-  res.send(subscription);
+  res.status(200).send(subscription);
 };
 
 export const post_subscription = async (req, res) => {
@@ -84,5 +84,5 @@ export const update_subscription = async (req, res) => {
 
   handleUpdate(sub, req.body);
   sub = await sub.save();
-  res.send(sub);
+  res.status(200).send(sub);
 };

@@ -16,11 +16,3 @@ export const checkLogin = async (req, res, next) => {
   await Student.findByIdAndUpdate(student._id,{isloggedin:true});
   next();
 };
-
-export const logoutfromdevice=async(req,res)=>{
-  let student=await Student.findById(req.user._id)
-  if(!student) throw new Error ("This is an ivalid token no user in this email id")
-  if(student.isloggedin===false) throw new Error ("User is alderdy logged out")
-  await Student.findByIdAndUpdate(req.user._id,{isloggedin:false});
-  res.send({"message":"You are looged out succefully"})
-}

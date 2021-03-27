@@ -2,13 +2,13 @@ import { Pack, validate, validateUpdate } from "../Validators/package.mjs";
 
 export const get_packages = async (req, res) => {
   const packs = await Pack.find().sort("life");
-  return res.send(packs);
+  return res.status(200).send(packs);
 };
 
 export const get_package = async (req, res) => {
   const pack = await Pack.findById(req.params.id);
   if (!pack) throw new Error("No package with given id.");
-  res.send(pack);
+  res.status(200).send(pack);
 };
 
 export const post_package = async (req, res) => {
@@ -16,7 +16,7 @@ export const post_package = async (req, res) => {
   if (error) throw new Error(error.details[0].message);
   let pack = new Pack(req.body);
   pack = await pack.save();
-  res.send(pack);
+  res.status(200).send(pack);
 };
 
 export const update_package = async (req, res) => {
@@ -29,5 +29,5 @@ export const update_package = async (req, res) => {
 
   if (!pack) throw new Error("The Package with the given id is not available");
 
-  res.send(pack);
+  res.status(200).send(pack);
 };
