@@ -2,8 +2,7 @@ import { Payment, validate, validateUpdate } from "../Validators/payments.mjs";
 import {routes} from "../Configs/routes.mjs"
 import Razorpay from "razorpay";
 import crypto from "crypto";
-import https from 'https';
-// import { chunk } from "lodash";
+
 
 var instance = new Razorpay({
   key_id: "rzp_test_JrmprfPdb6LHFI",
@@ -50,19 +49,23 @@ export const update_payment = async (req, res) => {
   });
 
   if (!payment)
-  throw new Error("The Payment with the given id is not available");
+    throw new Error("The Payment with the given id is not available");
 
   const order_id = payment.order_id;
-  const razorpay_signature = payment.razorpay_signature
-  const razorpay_payment_id=payment.razorpay_payment_id
+  const razorpay_signature = payment.razorpay_signature;
+  const razorpay_payment_id = payment.razorpay_payment_id;
 
-  const hmac = crypto.createHmac('sha256', "Ut6lmneQIQXOufkeflo4jHFC");
+  const body = order_id + "|" + razorpay_payment_id;
 
-hmac.update(order_id + "|" + razorpay_payment_id);
-let generatedSignature = hmac.digest('hex');
+  let expectedSignature = crypto
+    .createHmac("sha256", "Ut6lmneQIQXOufkeflo4jHFC")
+    .update(body.toString())
+    .digest("hex");
+  console.log("sig" + razorpay_signature);
+  console.log("sig_e" + expectedSignature);
 
-let isSignatureValid = generatedSignature === razorpay_signature;
-
+  if (!expectedSignature === razorpay_signature)
+    throw new Error("Invalid signature");
  if(!isSignatureValid) throw new Error('Invalid Razorpay Payment Signature')
 
  payment.status="SUCCESS"
