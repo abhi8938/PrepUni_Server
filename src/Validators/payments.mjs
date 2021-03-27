@@ -17,7 +17,6 @@ export const Payment = mongoose.model(
       type: {
         type: String,
         enum: ["ONLINE", "CREDIT", "DEBIT", "UPI"],
-        required: true,
       },
       STID: {
         type: mongoose.Schema.ObjectId,
