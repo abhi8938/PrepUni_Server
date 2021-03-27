@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 // var db = "mongodb://localhost:27017/prepuni";
 var db =
   "mongodb+srv://admin_prep:waFHuMrPzPpwbjeq@prepuni.aj9c2.mongodb.net/prepuni?retryWrites=true&w=majority";
