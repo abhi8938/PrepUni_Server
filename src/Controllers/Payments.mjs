@@ -64,7 +64,7 @@ export const update_payment = async (req, res) => {
   console.log("sig_e" + expectedSignature);
 
   if (!expectedSignature === razorpay_signature)
-    throw new Error("Invalida siganture");
+    throw new Error("Invalid signature");
 
   payment.status = "SUCCESS";
   await payment.save();
