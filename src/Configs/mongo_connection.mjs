@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 // var db = "mongodb://localhost:27017/prepuni";
-var db ="mongodb+srv://admin_prep:waFHuMrPzPpwbjeq@prepuni.aj9c2.mongodb.net/prepuni?retryWrites=true&w=majority";
+var db =
+  "mongodb+srv://admin_prep:waFHuMrPzPpwbjeq@prepuni.aj9c2.mongodb.net/prepuni?retryWrites=true&w=majority";
 export const connect_db = () => {
   mongoose
     .connect(db, {
@@ -8,7 +9,7 @@ export const connect_db = () => {
       useUnifiedTopology: true,
       useFindAndModify: false,
     })
-    .then(() => console.log(`connected to ${db}....`))
+    .then(() => console.log(`connected to database....`))
     .catch((err) =>
       console.log("Connection refused to database because....", err)
     );
