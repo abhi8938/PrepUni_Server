@@ -16,8 +16,7 @@ export const get_subscriptions = async (req, res) => {
 
 export const get_subscription = async (req, res) => {
   const subscription = await Subscript.findOne({ STID: req.user._id });
-  if (!subscription)
-    throw new Error("No Subscription found with given id");
+  if (!subscription) throw new Error("No Subscription found with given id");
   res.send(subscription);
 };
 
@@ -30,25 +29,23 @@ export const post_subscription = async (req, res) => {
 
   const pack = await Pack.findById(req.body.PID);
   if (!pack) throw new Error("No Package found with given id");
-  
+
   let subInstance = {
     STID: student._id,
     PID: pack._id,
     type: pack.type,
-    program_id:student.program
+    program_id: student.program,
   };
   subInstance.status = pack.type === "TRIAL" ? "ACTIVE" : "INACTIVE";
-  // subInstance.PPIDS = PPIDS;
 
   let sub = new Subscript(subInstance);
-  // console.log(sub)
-  // console.log(sub.created_at)
-  //EXPIRATION TOME
+
   let expiration = new Date();
+
   if (sub.type === "TRIAL") {
     expiration.setDate(expiration.getDate() + 3);
   } else {
-    sub.PA_ID=req.body.payment_id
+    sub.PA_ID = req.body.PA_ID;
     expiration.setMonth(expiration.getMonth() + 5);
   }
   sub.expiration = expiration;
@@ -59,13 +56,16 @@ export const post_subscription = async (req, res) => {
     throw new Error(e.message);
   }
   if (sub.type === "TRIAL") {
-    return res.send(`Thank you for subscribing, your subscription will expire on ${new Date(
-      sub.expiration
-    ).toDateString()}.`);
-    
+    return res
+      .status(200)
+      .send(
+        `Thank you for subscribing, your subscription will expire on ${new Date(
+          sub.expiration
+        ).toDateString()}.`
+      );
   }
 
-  res.send(sub);
+  res.status(200).send(sub);
 };
 
 export const update_subscription = async (req, res) => {

@@ -12,34 +12,46 @@ import mongoose from "mongoose";
 
 export const Payment = mongoose.model(
   "Payments",
-  new mongoose.Schema({
-    type: {
-      type: String,
-      enum: ["ONLINE", "CREDIT", "DEBIT", "UPI"],
-      required: true,
+  new mongoose.Schema(
+    {
+      type: {
+        type: String,
+        enum: ["ONLINE", "CREDIT", "DEBIT", "UPI"],
+        required: true,
+      },
+      STID: {
+        type: mongoose.Schema.ObjectId,
+        required: true,
+      },
+      order_id: {
+        type: String,
+      },
+      amount: {
+        type: String,
+        required: true,
+      },
+      SID: {
+        type: mongoose.Schema.ObjectId,
+      },
+      status: {
+        type: String,
+        enum: ["SUCCESS", "FAIL", "PENDING", "CREATED"],
+        default: "CREATED",
+      },
+      razorpay_payment_id: {
+        type: String,
+      },
+      razorpay_order_id: {
+        type: String,
+      },
+      razorpay_signature: {
+        type: String,
+      },
     },
-    STID: {
-      type: mongoose.Schema.ObjectId,
-      required: true,
-    },
-    order_id: {
-      type: String,
-    },
-    amount: {
-      type: String,
-      required: true,
-    },
-    SID: {
-      type: mongoose.Schema.ObjectId
-    },
-    status: {
-      type: String,
-      enum: ["SUCCESS", "FAIL", "PENDING","CREATED"],
-      default:"CREATED"
-    },
-  },{
-    timestamps:true
-  })
+    {
+      timestamps: true,
+    }
+  )
 );
 
 export const validate = (payment) => {
@@ -47,8 +59,22 @@ export const validate = (payment) => {
   const schema = Joi.object({
     type: Joi.string().min(2).max(30).required(),
     amount: Joi.string().required(),
-    STID:Joi.string().required(),
-    SID:Joi.string()
+    STID: Joi.string().required(),
+    SID: Joi.string(),
+  });
+
+  return schema.validate(payment);
+};
+
+export const validateUpdate = (payment) => {
+  //TODO:Create Schema
+  const schema = Joi.object({
+    type: Joi.string().min(2).max(30),
+    amount: Joi.string().required(),
+    SID: Joi.string(),
+    razorpay_payment_id: Joi.string(),
+    razorpay_order_id: Joi.string(),
+    razorpay_signature: Joi.string(),
   });
 
   return schema.validate(payment);
