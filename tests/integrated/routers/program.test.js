@@ -18,10 +18,10 @@ describe('api/Program',()=>{
             const res=await request(server).get('')
             expect(res.status).toBe(200)
         })
-        it('should be able to get data based on the id',async()=>{
-            const res=await request(server).get('/605deebfb90be457340b1430')
-            expect(res.status).toBe(200)
-        })
+        // it('should be able to get data based on the id',async()=>{
+        //     const res=await request(server).get('/605deebfb90be457340b1430')
+        //     expect(res.status).toBe(200)
+        // })
     })
 
     describe('PUT/',()=>{

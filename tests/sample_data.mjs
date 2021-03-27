@@ -43,8 +43,7 @@ export const resources_data={
 export const payments_data={
     type:"UPI",
     amount:"5000",
-    STID:"widwncwe",
-    SID:"wede"
+    STID:"widwncwe"
 }
 
 export const paper_product_data={
@@ -77,7 +76,7 @@ export const extra_message_data={
 export const validateprogram_data={
     name:"some name",
     university_id:"605de5ccb90be457340b142e",
-    semester:"1st semester"
+    semester:[1,2,3,4]
     // name:"some name",
     // subjects:["some subjects"],
     // total_semesters:2,
