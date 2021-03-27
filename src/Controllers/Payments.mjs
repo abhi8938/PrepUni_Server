@@ -1,6 +1,7 @@
-import { Payment, validate } from "../Validators/payments.mjs";
+import { Payment, validate, validateUpdate } from "../Validators/payments.mjs";
 
 import Razorpay from "razorpay";
+import crypto from "crypto"
 
 var instance = new Razorpay({
   key_id: "rzp_test_JrmprfPdb6LHFI",
@@ -9,7 +10,7 @@ var instance = new Razorpay({
 
 export const get_payment = async (req, res) => {
   const payments = await Payment.find().sort("name");
-  res.send(payments);
+  res.status(200).send(payments);
 };
 
 export const post_payment = async (req, res) => {
@@ -31,7 +32,7 @@ export const post_payment = async (req, res) => {
       type: req.body.type,
     });
     payment = await payment.save();
-    res.send(payment);
+    res.status(200).send(payment);
   } catch (e) {
     throw new Error(e);
   }
@@ -39,19 +40,33 @@ export const post_payment = async (req, res) => {
 
 export const update_payment = async (req, res) => {
   //TODO: Complete Request
-  const { error } = validate(req.body);
+  const { error } = validateUpdate(req.body);
   if (error) throw new Error(error.details[0].message);
-
-  
 
   const payment = await Payment.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
 
   if (!payment)
-    throw new Error("The Payment with the given id is not available");
+  throw new Error("The Payment with the given id is not available");
 
-  res.send(payment);
+  const order_id = payment.order_id;
+  const razorpay_signature = payment.razorpay_signature
+  const razorpay_payment_id=payment.razorpay_payment_id
+
+  const hmac = crypto.createHmac('sha256', "Ut6lmneQIQXOufkeflo4jHFC");
+
+hmac.update(order_id + "|" + razorpay_payment_id);
+let generatedSignature = hmac.digest('hex');
+
+let isSignatureValid = generatedSignature === razorpay_signature;
+
+ if(!isSignatureValid) throw new Error('Invalid Razorpay Payment Signature')
+
+ payment.status="SUCCESS"
+ await payment.save()
+
+  res.status(200).send(payment);
 };
 
 export const cancel_payment = async (req, res) => {
