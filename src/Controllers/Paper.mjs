@@ -11,19 +11,19 @@ export const post_paper=async (req,res)=>{
     let paper=new Paper(req.body)
 
     paper=await paper.save()
-    res.send(paper)
+    res.status(200).send(paper)
 }
 
 export const get_papers=async(req,res)=>{
     const papers=await Paper.find().sort('year')
 
-    return res.send(papers)
+    return res.status(200).send(papers)
 }
 
 export const get_paper=async(req,res)=>{
     const paper=await Paper.findById(req.params.id);
     if(!paper) throw new Error("No papers based based on the Given ID")
-    res.send(paper)
+    res.status(200).send(paper)
 }
 
 export const update_paper=async(req,res)=>{
@@ -37,5 +37,5 @@ export const update_paper=async(req,res)=>{
     )
     if(!paper) throw new Error("There is no paper with given id")
 
-    res.send(paper)
+    res.status(200).send(paper)
 }

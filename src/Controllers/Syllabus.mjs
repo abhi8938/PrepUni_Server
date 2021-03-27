@@ -1,7 +1,7 @@
 import {
-    validate,
     Syllabus,
-    updatevalidate
+    updatevalidate,
+    validate
 } from "../Validators/Syllabus.mjs"
 
 export const post_syllabus=async(req,res)=>{
@@ -13,18 +13,18 @@ export const post_syllabus=async(req,res)=>{
 
     subject=await subject.save()
 
-    res.send(subject);
+    res.status(200).send(subject);
 }
 
 export const get_syllabuss=async(req,res)=>{
     const all_sylabuss=await Syllabus.find()
-    res.send(all_sylabuss)
+    res.status(200).send(all_sylabuss)
 }
 
 export const get_syllabus=async(req,res)=>{
     const syllabus=await Syllabus.findById(req.params.id);
     if(!syllabus) throw new Error("No syllabus based in this ID")
-    res.send(syllabus)
+    res.status(200).send(syllabus)
 }
 
 export const update_syllabus=async(req,res)=>{
@@ -37,5 +37,5 @@ export const update_syllabus=async(req,res)=>{
 
     if(!syllabus) throw new Error("There is no syllabus based on this ID")
 
-    res.send(syllabus)
+    res.status(200).send(syllabus)
 }

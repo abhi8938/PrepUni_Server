@@ -1,7 +1,9 @@
 import { Payment, validate, validateUpdate } from "../Validators/payments.mjs";
-
+import {routes} from "../Configs/routes.mjs"
 import Razorpay from "razorpay";
-import crypto from "crypto"
+import crypto from "crypto";
+import https from 'https';
+// import { chunk } from "lodash";
 
 var instance = new Razorpay({
   key_id: "rzp_test_JrmprfPdb6LHFI",
@@ -65,10 +67,11 @@ let isSignatureValid = generatedSignature === razorpay_signature;
 
  payment.status="SUCCESS"
  await payment.save()
+  
 
   res.status(200).send(payment);
 };
 
 export const cancel_payment = async (req, res) => {
-  res.send("done");
+  res.status(200).send("done");
 };
