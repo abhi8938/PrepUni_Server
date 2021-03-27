@@ -54,7 +54,7 @@ export const update_payment = async (req, res) => {
   const razorpay_signature = payment.razorpay_signature;
   const razorpay_payment_id = payment.razorpay_payment_id;
 
-  const body = razorpay_order_id + "|" + razorpay_payment_id;
+  const body = order_id + "|" + razorpay_payment_id;
 
   let expectedSignature = crypto
     .createHmac("sha256", "Ut6lmneQIQXOufkeflo4jHFC")
