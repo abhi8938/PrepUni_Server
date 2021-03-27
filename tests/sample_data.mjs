@@ -76,7 +76,7 @@ export const extra_message_data={
 
 export const validateprogram_data={
     name:"some name",
-    university_id:"some id",
+    university_id:"605de5ccb90be457340b142e",
     semester:"1st semester"
     // name:"some name",
     // subjects:["some subjects"],
@@ -115,7 +115,7 @@ export const annotation_data={
 }
 
 export const paper_data={
-    subject_id:"some id",
+    subject_id:"605df8fd9e045799c1df1481",
     link:"some link",
     year:2020
 }
@@ -127,11 +127,11 @@ export const subject_data={
     description:"subject description",
     by:"some giving it",
     maximum_marks:50,
-    program_id:'some program id'
+    program_id:'605deebfb90be457340b1430'
 }
 
 export const syllabus_data={
-    subject_id:"some id",
+    subject_id:"605df8fd9e045799c1df1481",
     units:['unit1','unit2']
 }
 

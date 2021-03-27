@@ -42,6 +42,8 @@ export const update_payment = async (req, res) => {
   const { error } = validate(req.body);
   if (error) throw new Error(error.details[0].message);
 
+  
+
   const payment = await Payment.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });

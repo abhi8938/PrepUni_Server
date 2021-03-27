@@ -59,7 +59,6 @@ export const validateUpdate = (program) => {
     description: Joi.string(),
     by: Joi.string(),
     maximum_marks: Joi.number(),
-    university_id: Joi.string(),
     program_id: Joi.string(),
   });
 
