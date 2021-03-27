@@ -4,15 +4,15 @@ import {
   get_all,
   get_student,
   get_students,
+  logoutfromdevice,
   post_student,
   reset_password,
   update_student,
-  logoutfromdevice
 } from "../Controllers/students.mjs";
 
 import admin from "../Middlewares/admin.mjs";
 import auth from "../Middlewares/auth.mjs";
-import {checkLogin} from "../Middlewares/checkLogin.mjs";
+import { checkLogin } from "../Middlewares/checkLogin.mjs";
 import express from "express";
 
 const router = express.Router();
@@ -37,7 +37,7 @@ router.post(
 router.post(
   "/logout",
   auth,
-  logoutfromdevice
-)
+  async (req, res) => await logoutfromdevice(req, res)
+);
 
 export default router;

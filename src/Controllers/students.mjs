@@ -89,7 +89,7 @@ export const reset_password = async (req, res) => {
   } else if (/^\d{10}$/.test(req.body.id)) {
     student = await Student.findOne({ contact: req.body.id });
     if (!student) throw new Error("Invalid Phone number");
-  } 
+  }
   const salt = await bcrypt.genSalt(13);
   student.password = await bcrypt.hash(req.body.password, salt);
   student = await student.save();
@@ -135,11 +135,12 @@ export const get_all = async (req, res) => {
   });
 };
 
-
-export const logoutfromdevice=async(req,res)=>{
-  let student=await Student.findById(req.user._id)
-  if(!student) throw new Error ("This is an ivalid token no user in this email id")
-  if(student.isloggedin===false) throw new Error ("User is alderdy logged out")
-  await Student.findByIdAndUpdate(req.user._id,{isloggedin:false});
-  res.status(200).send({"message":"You are looged out succefully"})
-}
+export const logoutfromdevice = async (req, res) => {
+  let student = await Student.findById(req.user._id);
+  if (!student)
+    throw new Error("This is an ivalid token no user in this email id");
+  if (student.isloggedin === false)
+    throw new Error("User is alderdy logged out");
+  await Student.findByIdAndUpdate(req.user._id, { isloggedin: false });
+  res.status(200).send({ message: "You are looged out succefully" });
+};
