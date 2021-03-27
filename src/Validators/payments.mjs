@@ -70,7 +70,7 @@ export const validateUpdate = (payment) => {
   //TODO:Create Schema
   const schema = Joi.object({
     type: Joi.string().min(2).max(30),
-    amount: Joi.string().required(),
+    amount: Joi.string(),
     SID: Joi.string(),
     razorpay_payment_id: Joi.string(),
     razorpay_order_id: Joi.string(),
