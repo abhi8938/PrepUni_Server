@@ -65,7 +65,13 @@ export const post_subscription = async (req, res) => {
       );
   }
 
-  res.status(200).send(sub);
+  res
+    .status(200)
+    .send(
+      `Thank you for subscribing, your subscription will expire on ${new Date(
+        sub.expiration
+      ).toDateString()}.`
+    );
 };
 
 export const update_subscription = async (req, res) => {
