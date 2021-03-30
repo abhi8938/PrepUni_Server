@@ -12,7 +12,7 @@ import multer from "multer";
 let upload = multer({ dest: "uploads" });
 const router = express.Router();
 
-router.get("/", async (req, res) => await get_subjects(req, res));
+router.get("/:id", async (req, res) => await get_subjects(req, res));
 
 router.post(
   "/",
@@ -20,7 +20,6 @@ router.post(
   async (req, res) => {
     req.body.cover = req.files["cover"][0].filename;
     req.body.maximum_marks = parseInt(req.body.maximum_marks);
-    console.log(req.body);
     await post_subject(req, res);
   }
 );
