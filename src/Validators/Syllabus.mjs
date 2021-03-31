@@ -6,7 +6,8 @@ export const Syllabus=mongoose.model(
     new mongoose.Schema({
         subject_id:{
             type:mongoose.Schema.ObjectId,
-            required:true
+            required:true,
+            unique:true
         },
         units:[String]
     },{
