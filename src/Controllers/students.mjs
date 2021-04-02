@@ -8,7 +8,12 @@ import { generateKeywords, handleUpdate } from "../Services/algo.mjs";
 
 import { Annotations } from "../Validators/annotations.mjs";
 import { BMessage } from "../Validators/extra.mjs";
+import { Paper } from "../Validators/Paper.mjs";
+import { Program } from "../Validators/Program.mjs";
+import { Subject } from "../Validators/Subject.mjs";
 import { Subscript } from "../Validators/subscription.mjs";
+import { Syllabus } from "../Validators/Syllabus.mjs";
+import { University } from "../Validators/University.mjs";
 import _ from "lodash";
 import bcrypt from "bcrypt";
 
@@ -143,4 +148,31 @@ export const logoutfromdevice = async (req, res) => {
     throw new Error("User is alderdy logged out");
   await Student.findByIdAndUpdate(req.user._id, { isloggedin: false });
   res.status(200).send({ message: "You are looged out succefully" });
+};
+
+export const all_data = async (req, res) => {
+  const student = await Student.findById(req.user._id);
+  const program = await Program.findById(student.program);
+  const university = await University.findById(student.university);
+  const subjects = await Subject.find({ program_id: program._id });
+  let all_syllabus = [];
+  let syllabus;
+  let papers;
+  await Promise.all(
+    subjects.map(async (element) => {
+      syllabus = await Syllabus.findOne({ subject_id: element._id });
+      papers = await Paper.find({ subject_id: element._id });
+      all_syllabus.push({
+        subject: element,
+        syllabus: syllabus,
+        papers: papers,
+      });
+    })
+  );
+  let final_array = {
+    university: university,
+    program: program,
+    academic_details: all_syllabus,
+  };
+  res.status(200).send(final_array);
 };

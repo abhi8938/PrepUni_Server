@@ -8,6 +8,8 @@ import {
   post_student,
   reset_password,
   update_student,
+  logoutfromdevice,
+  all_data,
 } from "../Controllers/students.mjs";
 
 import admin from "../Middlewares/admin.mjs";
@@ -27,6 +29,8 @@ router.put("/", auth, async (req, res) => await update_student(req, res));
 router.get("/me", auth, async (req, res) => await get_student(req, res));
 
 router.get("/all", auth, async (req, res) => await get_all(req, res));
+
+router.get("/all_data", auth, async (req, res) => await all_data(req, res));
 
 router.post(
   "/authenticate",

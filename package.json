@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.mjs",
   "scripts": {
-    "start": "node -r esm server.mjs",
+    "start": "nodemon -r esm server.mjs",
     "test": "jest --watchAll --config=jest.config.js --verbose"
   },
   "keywords": [],

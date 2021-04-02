@@ -24,6 +24,7 @@ const studentSchema = new mongoose.Schema({
   },
   contact: {
     type: Number,
+    unique:true,
     minlength: 10,
     maxlength: 10,
   },

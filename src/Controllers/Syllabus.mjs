@@ -9,6 +9,9 @@ export const post_syllabus=async(req,res)=>{
     const {error}=validate(req.body);
     if(error) throw new Error(error.details[0].message)
 
+    let duplicate_cheker=await Syllabus.findOne({subject_id:req.body.subject_id})
+    if(duplicate_cheker) throw new Error("Syllabus for this subject is aldredy defined")
+
     let subject=new Syllabus(req.body)
 
     subject=await subject.save()
