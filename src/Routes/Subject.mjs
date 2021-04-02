@@ -24,7 +24,7 @@ router.post(
   }
 );
 
-router.get("/:id", async (req, res) => await get_subject(req, res));
+router.get("/single/:id", async (req, res) => await get_subject(req, res));
 
 router.put(
   "/:id",
