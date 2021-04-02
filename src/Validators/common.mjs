@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export const DUR = {
   key: {
     type: String,
