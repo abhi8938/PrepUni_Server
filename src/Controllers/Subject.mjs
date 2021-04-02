@@ -23,7 +23,6 @@ export const get_subjects = async (req, res) => {
     const x = { ...JSON.parse(JSON.stringify(sub)), papers: papers[ind] };
     subjects[ind] = x;
   });
-  console.log("sub", subjects);
   res.status(200).send(subjects);
 };
 
