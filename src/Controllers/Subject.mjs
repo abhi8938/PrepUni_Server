@@ -1,5 +1,7 @@
 import { Subject, validate, validateUpdate } from "../Validators/Subject.mjs";
 
+import { Paper } from "../Validators/Paper.mjs";
+
 export const post_subject = async (req, res) => {
   const { error } = validate(req.body);
   if (error) throw new Error(error.details[0].message);
@@ -11,12 +13,17 @@ export const post_subject = async (req, res) => {
 };
 
 export const get_subjects = async (req, res) => {
-  let subjects;
-  if (req.params.id) {
-    subjects = await Subject.find({ program_id: req.params.id });
-  } else {
-    subjects = await Subject.find().sort("name");
-  }
+  if (!req.params.id) throw new Error("No Subject Id in Param");
+  let subjects = await Subject.find({ program_id: req.params.id });
+  const resp = subjects.map(async (sub, index) => {
+    return Paper.find({ subject_id: sub._id });
+  });
+  const papers = await Promise.all(resp);
+  subjects.map((sub, ind) => {
+    const x = { ...JSON.parse(JSON.stringify(sub)), papers: papers[ind] };
+    subjects[ind] = x;
+  });
+  console.log("sub", subjects);
   res.status(200).send(subjects);
 };
 
