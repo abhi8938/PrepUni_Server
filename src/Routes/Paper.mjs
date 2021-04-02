@@ -11,7 +11,7 @@ import multer from "multer";
 const router = expres.Router();
 let upload = multer({ dest: "uploads/" });
 
-router.get("/", async (req, res) => await get_papers(req, res));
+router.get("/:id", async (req, res) => await get_papers(req, res));
 
 router.get("/:id", async (req, res) => await get_paper(req, res));
 
