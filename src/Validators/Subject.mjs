@@ -30,6 +30,10 @@ export const Subject = mongoose.model(
         type: mongoose.Schema.ObjectId,
         required: true,
       },
+      code: {
+        type: String,
+        required: true,
+      },
     },
     {
       timestamps: true,
@@ -46,6 +50,7 @@ export const validate = (program) => {
     by: Joi.string().required(),
     maximum_marks: Joi.number(),
     program_id: Joi.string().required(),
+    code: Joi.string().required(),
   });
 
   return schema.validate(program);
