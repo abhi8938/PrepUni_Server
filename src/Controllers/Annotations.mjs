@@ -14,8 +14,9 @@ export const get_annotations = async (req, res) => {
 export const get_annotation = async (req, res) => {
   const annotation = await Annotations.find({
     STID: req.user._id,
-    paper_id: req.params.id,
+    // paper_id: req.params.id,
   });
+  // console.log('')
   if (!annotation) throw new Error("Invald Id");
   res.status(200).send(annotation);
 };
