@@ -6,7 +6,7 @@ import {
 
 export const get_annotations = async (req, res) => {
   const annotations = await Annotations.find({ STID: req.user._id });
-  res.send(annotations);
+  res.status(200).send(annotations);
 };
 
 export const get_annotation = async (req, res) => {
@@ -14,7 +14,6 @@ export const get_annotation = async (req, res) => {
     STID: req.user._id,
     paper_id: req.params.id,
   });
-  console.log("annotation", req.params.id, req.user._id);
   if (!annotation) throw new Error("Invald Id");
   res.status(200).send(annotation);
 };
