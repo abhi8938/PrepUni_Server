@@ -2,10 +2,11 @@ import { DUR } from "../Validators/common.mjs";
 import Joi from "joi";
 import mongoose from "mongoose";
 
+
 const annotationSchema = mongoose.Schema({
   type: {
     type: String,
-    enum: ["HIGHLIGHT" | "BOOKMARK" | "UNDERLINE" | "EMPTY"],
+    enum: ["HIGHLIGHT" , "BOOKMARK" , "UNDERLINE" , "EMPTY"],
     required: true,
   },
   pageCfi: {
@@ -34,28 +35,20 @@ export const Annotations = mongoose.model(
       type: mongoose.Schema.ObjectId,
       required: true,
     },
-    PPID: {
+    paper_id: {
       type: mongoose.Schema.ObjectId,
       required: true,
     },
     ann: [annotationSchema],
-    created_at: {
-      type: Date,
-      required: true,
-      default: Date.now(),
-    },
-    last_updated: {
-      type: Date,
-      required: true,
-      default: Date.now(),
-    },
     DUR: DUR,
+  },{
+    timestamps:true
   })
 );
 
 const annValidationSchema = {
   type: Joi.string().required(),
-  pageCfi: Joi.number().required(),
+  pageCfi: Joi.string().required(),
   location: {
     offsetX: Joi.number(),
     offsetY: Joi.number(),
@@ -64,14 +57,22 @@ const annValidationSchema = {
   color: Joi.string(),
   text: Joi.string().required(),
   note: Joi.string(),
+  pageNumber:Joi.number()
 };
+
+const validate_DUR={
+  key:Joi.string(),
+  prev:Joi.string(),
+  current:Joi.string()
+}
 
 export const Validate = (annotations) => {
   //TODO:Create Schema
   const schema = Joi.object({
     STID: Joi.string().required(),
-    PPID: Joi.string().required(),
+    paper_id: Joi.string().required(),
     ann: Joi.array().items(annValidationSchema).required(),
+    DUR:validate_DUR
   });
 
   return schema.validate(annotations)
@@ -81,8 +82,9 @@ export const ValidateUpdate = (annotations) => {
   //TODO:Create Schema
   const schema = Joi.object({
     STID: Joi.string().required(),
-    PPID: Joi.string().required(),
+    paper_id: Joi.string().required(),
     ann: Joi.array().items(annValidationSchema),
+    DUR:validate_DUR
   });
 
   return schema.validate(annotations)

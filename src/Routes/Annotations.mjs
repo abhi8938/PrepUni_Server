@@ -21,6 +21,6 @@ router.put(
   async (req, res) => await update_annotations(req, res)
 );
 
-router.put("/me", auth, async (req, res) => await get_annotation(req, res));
+router.get("/:id", auth, async (req, res) => await get_annotation(req, res));
 
 export default router;

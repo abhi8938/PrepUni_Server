@@ -8,7 +8,6 @@ import {
   post_student,
   reset_password,
   update_student,
-  logoutfromdevice,
   all_data,
 } from "../Controllers/students.mjs";
 
