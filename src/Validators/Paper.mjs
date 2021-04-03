@@ -19,7 +19,7 @@ export const Paper = mongoose.model(
       },
       title: {
         type: String,
-        required,
+        required: true,
       },
     },
     {
