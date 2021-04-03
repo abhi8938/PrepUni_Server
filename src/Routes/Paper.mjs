@@ -1,4 +1,5 @@
 import {
+  download_file,
   get_paper,
   get_papers,
   post_paper,
@@ -35,4 +36,5 @@ router.put(
   }
 );
 
+router.get("/files/:name", async (req, res) => await download_file(req, res));
 export default router;

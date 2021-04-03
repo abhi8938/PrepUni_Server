@@ -1,4 +1,9 @@
 import { Paper, validate, validateUpdate } from "../Validators/Paper.mjs";
+import path, { dirname, format } from "path";
+
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const post_paper = async (req, res) => {
   const { error } = validate(req.body);
@@ -37,4 +42,13 @@ export const update_paper = async (req, res) => {
   if (!paper) throw new Error("There is no paper with given id");
 
   res.status(200).send(paper);
+};
+
+export const download_file = (req, res) => {
+  const fileName = req.params.name;
+  res.download(`uploads/${fileName}`, (err) => {
+    if (err) {
+      throw new Error("File can not be downloaded: " + err);
+    }
+  });
 };

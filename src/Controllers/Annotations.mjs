@@ -5,23 +5,34 @@ import {
 } from "../Validators/annotations.mjs";
 
 export const get_annotations = async (req, res) => {
-  const annotations = await Annotations.find({STID:req.user._id}).sort("pageCfi");
+  const annotations = await Annotations.find({ STID: req.user._id }).sort(
+    "pageCfi"
+  );
   res.send(annotations);
 };
 
 export const get_annotation = async (req, res) => {
-  const annotation = await Annotations.find({STID:req.user._id,paper_id:req.params.id}).sort("pageCfi");
+  const annotation = await Annotations.find({
+    STID: req.user._id,
+    paper_id: req.params.id,
+  });
   if (!annotation) throw new Error("Invald Id");
-  res.status(200).send(annotation)
+  res.status(200).send(annotation);
 };
 
 export const post_annotations = async (req, res) => {
-  req.body.STID=req.user._id
+  req.body.STID = req.user._id;
   const { error } = Validate(req.body);
   if (error) throw new Error(error.details[0].message);
 
-  const duplicate=await Annotations.findOne({paper_id:req.body.paper_id,STID:req.user._id})
-  if(duplicate) throw new Error("Data is aldredy uplaoded under this paper try  editing it")
+  const duplicate = await Annotations.findOne({
+    paper_id: req.body.paper_id,
+    STID: req.user._id,
+  });
+  if (duplicate)
+    throw new Error(
+      "Data is aldredy uplaoded under this paper try  editing it"
+    );
 
   let annotations = new Annotations(req.body);
 
@@ -40,7 +51,8 @@ export const update_annotations = async (req, res) => {
     { new: true }
   );
 
-  if (!annotations) throw new Error("The annotations with the given id is not available");
+  if (!annotations)
+    throw new Error("The annotations with the given id is not available");
 
   res.send(annotations);
 };
