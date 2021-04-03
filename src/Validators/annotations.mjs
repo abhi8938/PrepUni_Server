@@ -37,7 +37,7 @@ export const Annotations = mongoose.model(
     },
     paper_id: {
       type: mongoose.Schema.ObjectId,
-      required: true,
+      required: true
     },
     ann: [annotationSchema],
     DUR: DUR,
