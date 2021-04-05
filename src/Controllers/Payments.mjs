@@ -1,8 +1,8 @@
 import { Payment, validate, validateUpdate } from "../Validators/payments.mjs";
-import {routes} from "../Configs/routes.mjs"
+
 import Razorpay from "razorpay";
 import crypto from "crypto";
-
+import {routes} from "../Configs/routes.mjs"
 
 var instance = new Razorpay({
   key_id: "rzp_test_JrmprfPdb6LHFI",

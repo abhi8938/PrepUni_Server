@@ -59,6 +59,7 @@ export const validateUpdate = (subscription) => {
   const schema = Joi.object({
     status: Joi.string().valid("ACTIVE", "INACTIVE"),
     subjects: Joi.array().items(Joi.string()),
+     PA_ID: Joi.string(),
   });
 
   return schema.validate(subscription);
