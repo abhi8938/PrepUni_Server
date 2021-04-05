@@ -33,17 +33,16 @@ export const get_student = async (req, res) => {
     _id:student['university'],
     name:university_name['name']
   }
-  student.university=JSON.stringify(university_data)
 
   var program_name=await Program.findById(student['program'])
-  console.log(program_name)
   var program_data={
     _id:student['program'],
     name:program_name['name']
   }
-  student.program=JSON.stringify(program_data)
 
-  res.status(200).send(student);
+  const x = { ...JSON.parse(JSON.stringify(student)), university:university_data,program:program_data};
+
+  res.status(200).send(x);
 };
 
 export const post_student = async (req, res) => {
