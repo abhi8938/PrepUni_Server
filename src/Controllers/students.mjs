@@ -23,11 +23,25 @@ export const get_students = async (req, res) => {
 };
 
 export const get_student = async (req, res) => {
-  const student = await Student.findById(req.user._id).select("-password");
+  let student = await Student.findById(req.user._id).select("-password");
   if (!student)
     throw new Error(
       "The student with givern id in not present OR wrong student doc id"
     );
+  var university_name=await University.findById(student['university'])
+  var university_data={
+    _id:student['university'],
+    name:university_name['name']
+  }
+  student.university=JSON.stringify(university_data)
+
+  var program_name=await Program.findById(student['program'])
+  console.log(program_name)
+  var program_data={
+    _id:student['program'],
+    name:program_name['name']
+  }
+  student.program=JSON.stringify(program_data)
 
   res.status(200).send(student);
 };
