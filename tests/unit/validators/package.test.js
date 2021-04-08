@@ -1,5 +1,5 @@
-import {package_data} from "../../sample_data.mjs"
-import {validate,validateUpdate} from "../../../src/Validators/package.mjs"
+const {package_data} =require ("../../sample_data")
+const {validate,validateUpdate} =require ("../../../src/Validators/package")
 
 describe('package data validating function',()=>{
     it('validate package data function',()=>{

@@ -1,6 +1,6 @@
-import {session_report_data} from "../../sample_data.mjs"
-import jwt from "jsonwebtoken"
-import {validate} from "../../../src/Validators/session_report.mjs"
+const {session_report_data} =require ("../../sample_data")
+const jwt =require ("jsonwebtoken")
+const {validate} =require ("../../../src/Validators/session_report")
 
 describe('session data',()=>{
     it('valid session data filter',()=>{

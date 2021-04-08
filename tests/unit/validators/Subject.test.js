@@ -1,11 +1,12 @@
-import {
-    subject_data
-} from "../../sample_data.mjs"
+const {
+    subject_data,
+    update_subject_data
+} =require ("../../sample_data")
 
-import {
+const {
     validate,
     validateUpdate
-} from "../../../src/Validators/Subject.mjs"
+} =require ("../../../src/Validators/Subject")
 
 describe('subject validator',()=>{
     it('validate subject data',()=>{
@@ -13,7 +14,7 @@ describe('subject validator',()=>{
         expect(result.error).toBe(undefined)
     })
     it('validate update data',()=>{
-        const result=validateUpdate(subject_data)
+        const result=validateUpdate(update_subject_data)
         expect(result.error).toBe(undefined)
     })
 })

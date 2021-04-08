@@ -1,11 +1,11 @@
-import {
+const {
     paper_data
-} from "../../sample_data.mjs"
+} =require ("../../sample_data")
 
-import {
+const {
     validate,
     validateUpdate
-} from "../../../src/Validators/Paper.mjs"
+} =require ("../../../src/Validators/Paper")
 
 describe('Paper validators',()=>{
     it('validate paper data',()=>{

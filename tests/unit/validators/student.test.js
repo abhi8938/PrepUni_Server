@@ -1,8 +1,8 @@
-import {Student,validateUpdate,validateAuth,validate} from "../../../src/Validators/student.mjs"
-import jwt from "jsonwebtoken"
-import config from "config"
-import mongoose from "mongoose"
-import {student_data} from "../../sample_data.mjs"
+const {Student,validateUpdate,validateAuth,validate} =require ("../../../src/Validators/student")
+const jwt =require ("jsonwebtoken")
+const config =require ("config")
+const mongoose =require ("mongoose")
+const {student_data} =require ("../../sample_data")
 
 describe('student.generateAuthtoken',()=>{
     it('should return a valid JWT',()=>{

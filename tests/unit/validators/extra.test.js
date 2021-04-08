@@ -1,15 +1,15 @@
-import {extra_message_data,
+const {extra_message_data,
     validateprogram_data,
     legal_data,
     unversity_data
-    } from "../../sample_data.mjs"
-import {
+    } =require ("../../sample_data")
+const {
     ValidateBMessage,
     ValidateProgram,
     ValidateLegal,
     validateLegalUpdate,
     validateUniversity
-    } from "../../../src/Validators/extra.mjs"
+    } =require ("../../../src/Validators/extra")
 
 // describe('Bmessage validator',()=>{
 //     it('validating bmessage data',()=>{

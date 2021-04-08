@@ -2,10 +2,10 @@
   "name": "newproject",
   "version": "1.0.0",
   "description": "",
-  "main": "server.mjs",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon -r esm server.mjs",
-    "test": "jest --watchAll --config=jest.config.js --verbose"
+    "start": "nodemon index.js",
+    "test": "jest --watchAll --verbose"
   },
   "keywords": [],
   "author": "",

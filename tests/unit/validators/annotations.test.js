@@ -1,6 +1,5 @@
-import {annotation_data} from "../../sample_data.mjs"
-import {Validate,ValidateUpdate} from "../../../src/Validators/annotations.mjs"
-// import server from "../../../server.mjs"
+const {annotation_data} =require ("../../sample_data")
+const {Validate,ValidateUpdate} =require ("../../../src/Validators/annotations")
 
 
 describe('this annotation validator',()=>{

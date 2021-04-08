@@ -1,11 +1,11 @@
-import {
+const {
     validate,
     updatevalidate
-} from "../../../src/Validators/Syllabus.mjs"
+} =require ("../../../src/Validators/Syllabus")
 
-import {
+const {
     syllabus_data
-} from "../../sample_data.mjs"
+} =require ("../../sample_data")
 
 describe('syllabus validator',()=>{
     it('validate syllabus data',()=>{

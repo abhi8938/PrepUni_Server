@@ -1,5 +1,5 @@
-import {payments_data} from "../../sample_data.mjs"
-import {validate} from "../../../src/Validators/payments.mjs"
+const {payments_data} =require ("../../sample_data")
+const {validate} =require ("../../../src/Validators/payments")
 
 describe("payments validate",()=>{
     it('check if paymeny data is valid',()=>{

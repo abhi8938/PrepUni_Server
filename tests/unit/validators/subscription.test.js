@@ -1,6 +1,6 @@
-import {subscition_data,update_subscition_data} from "../../sample_data.mjs"
-import jwt from "jsonwebtoken"
-import {validate,validateUpdate} from "../../../src/Validators/subscription.mjs"
+const {subscition_data,update_subscition_data} =require ("../../sample_data")
+const jwt =require ("jsonwebtoken")
+const {validate,validateUpdate} =require ("../../../src/Validators/subscription")
 
 describe('valid subscrition details',()=>{
     it('should be able valid subscition details',()=>{

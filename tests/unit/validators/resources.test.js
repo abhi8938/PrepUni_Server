@@ -1,5 +1,5 @@
-import {resources_data} from "../../sample_data.mjs"
-import {Validate,ValidateUpdate} from "../../../src/Validators/resources.mjs"
+const {resources_data} =require ("../../sample_data")
+const {Validate,ValidateUpdate} =require ("../../../src/Validators/resources")
 
 describe("resources validatoe",()=>{
     it('should valid proper valid recorces data',()=>{
