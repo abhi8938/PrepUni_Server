@@ -1,3 +1,4 @@
+const validateObjectId=require("../Middlewares/validateObjectId")
 const {
     get_universities,
     get_university,
@@ -38,7 +39,7 @@ router.put(
 )
 
 router.get(
-    "/:id",
+    "/:id",validateObjectId,
     // auth,
     async(req,res)=>await get_university(req,res)
 )

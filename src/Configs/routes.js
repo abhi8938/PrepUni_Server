@@ -18,18 +18,18 @@ const error=require("../Middlewares/error")
 const winston=require("winston")
 
 const routes = (app) => {
-  app.use("/api/students", Students); //done
-  app.use("/api/subscriptions", Subscriptions); //done
+  app.use("/api/students", Students); 
+  app.use("/api/subscriptions", Subscriptions); 
   app.use("/api/extras", Extras);
   app.use("/api/annotations", Annotations);
   app.use("/api/packages", Packages);
   app.use("/api/payment", Payment);
   app.use("/api/resources", Resources);
   app.use("/api/university", University); //done
-  app.use("/api/program", Program); //done
-  app.use("/api/subject", Subject); //done
-  app.use("/api/paper", Paper); //done
-  app.use("/api/syllabus", Syllabus); //done
+  app.use("/api/program", Program); 
+  app.use("/api/subject", Subject); 
+  app.use("/api/paper", Paper); 
+  app.use("/api/syllabus", Syllabus); 
 
   app.use(error);
 };
