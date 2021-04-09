@@ -128,11 +128,12 @@ const authenticate = async (req, res) => {
     student = await Student.findOne({ user_name: req.body.id });
     if (!student) throw new Error("Invalid User name");
   }
-
+  console.log((req.body.password))
   const validPassword = await bcrypt.compare(
     req.body.password,
     student.password
   );
+  console.log(validPassword)
   if (!validPassword) throw new Error("Invalid Password");
   const token = student.generateAuthToken();
   res.status(200).send(token);
@@ -141,7 +142,7 @@ const authenticate = async (req, res) => {
 const get_all = async (req, res) => {
   //TODO: get student id from req.headers.token
   const students = await Student.findById("id");
-  const subscription = await Subscription.findOne({ STID: "id" });
+  const subscription = await Subscript.findOne({ STID: "id" });
 
   const annotations = await Annotations.find({ STID: "id" });
   const broadcast = await BMessage.find();

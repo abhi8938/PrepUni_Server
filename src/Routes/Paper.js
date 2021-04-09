@@ -15,7 +15,7 @@ let upload = multer({ dest: "uploads/" });
 
 router.get("/:id", async (req, res) => await get_papers(req, res));
 
-router.get("/:id", async (req, res) => await get_paper(req, res));
+router.get("single/:id", async (req, res) => await get_paper(req, res));
 
 router.post(
   "/",

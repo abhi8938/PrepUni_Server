@@ -6,14 +6,14 @@ export const student_data={
     "first_name": "Arvapalli",
     "last_name": "Roopesh",
     "gender":"MALE",
-    "contact":8527670484,
+    "contact":"8527670484",
     "user_name":"roopes893",
     "email": "arvapalli12345@gmail.com",
     "password": "123456",
     "program": "6039fe0832fe200a870b2e83",
     "college": "Indraprasth",
     "semester": "5",
-    "university": "University Delhi",
+    "university": "6039fe0832fe200a870b2e83",
     "device_token":"testtoken",
     "dob":"2001-04-04"
 }

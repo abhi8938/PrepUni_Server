@@ -23,7 +23,7 @@ const studentSchema = new mongoose.Schema({
     enum: ["MALE", "FEMALE", "OTHERS", "RATHER NOT SAY"],
   },
   contact: {
-    type: Number,
+    type: String,
     unique:true,
     minlength: 10,
     maxlength: 10,
@@ -54,8 +54,8 @@ const studentSchema = new mongoose.Schema({
     type: String,
   },
   program: {
-    type: String,
-    // type: mongoose.Schema.ObjectId,
+    // type: String,
+    type: mongoose.Schema.ObjectId,
     required: true,
     minlength: 3,
   },
@@ -69,7 +69,8 @@ const studentSchema = new mongoose.Schema({
     required: true,
   },
   university: {
-    type: String,
+    // type: String,
+    type: mongoose.Schema.ObjectId,
     required: true,
     minlength: 3,
   },
@@ -119,7 +120,7 @@ const validate = (student) => {
     first_name: Joi.string().required(),
     last_name: Joi.string().required(),
     gender: Joi.string().valid("MALE", "FEMALE", "OTHERS", "RATHER NOT SAY"),
-    contact: Joi.number(),
+    contact: Joi.string(),
     user_name: Joi.string().required(),
     dob: Joi.date().required(),
     email: Joi.string().min(5).required().email(),
@@ -137,7 +138,7 @@ const validate = (student) => {
 
 const validateUpdate = (student) => {
   const schema = Joi.object({
-    contact: Joi.number(),
+    contact: Joi.string(),
     email: Joi.string().min(5).email(),
     password: Joi.string().min(5).max(1024),
     device_token: Joi.string(),
