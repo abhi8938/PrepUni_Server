@@ -9,7 +9,7 @@ var {
     subject_data,
     syllabus_data,
     paper_data
-            }=require("../data/student")
+            }=require("../data/final")
 const {Program}=require("../../src/Validators/Program")
 const {University}=require("../../src/Validators/University")
 const {Subject}=require("../../src/Validators/Subject")
@@ -17,7 +17,6 @@ const {Syllabus}=require("../../src/Validators/Syllabus")
 const {Paper}=require("../../src/Validators/Paper")
 const {Subscript}=require("../../src/Validators/subscription")
 const {Annotations}=require("../../src/Validators/annotations")
-const { token } = require("morgan")
 const cons = require("consolidate")
 let server;
 
@@ -80,14 +79,14 @@ describe("/api/student",()=>{
                 {isloggedin:false},
                 {new :true}
             )
-                console.log(student_)
+                // console.log(student_)
                 // console.log(student_data.email)
                 // console.log(student_data.password)
                 const credentials={
                     id:student_data.user_name,
                     password: student_data.password
                 }
-                console.log("credentials",credentials)
+                // console.log("credentials",credentials)
                 var res=await request(server).post("/api/students/authenticate")
                                 .send(credentials)
             expect(res.status).toBe(200)
@@ -129,6 +128,21 @@ describe("/api/student",()=>{
                                             .send(update_student)
             expect(res.status).toBe(200)
             expect(res.body.semester).toBe(5)
+        })
+    })
+
+    describe("reset/",()=>{
+        it('Should be able to update the password',async()=>{
+            const student=new Student(student_data)
+            const salt = await bcrypt.genSalt(13);
+            student.password = await bcrypt.hash(student.password, salt);
+            await student.save()
+            const token=student.generateAuthToken()
+
+            const res=await request(server).put("/api/students/reset")
+                                            .set("x-auth-token",token)
+                                            .send({password:"1234567"})
+            expect(res.status).toBe(200)
         })
     })
 })

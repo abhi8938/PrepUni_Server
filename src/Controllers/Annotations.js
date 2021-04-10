@@ -34,11 +34,20 @@ const update_annotations = async (req, res) => {
   const { error } = ValidateUpdate(req.body);
   if (error) throw new Error(error.details[0].message);
 
-  const annotations = await Annotations.findByIdAndUpdate(
-    req.params.id,
+  const annotations=await Annotation.findOneAndUpdate(
+    {
+      STID:req.user._id,
+      _id:req.params.id
+    },
     req.body,
-    { new: true }
-  );
+    {new:true}
+  )
+
+  // const annotations = await Annotations.findByIdAndUpdate(
+  //   req.params.id,
+  //   req.body,
+  //   { new: true }
+  // );
 
   if (!annotations) throw new Error("The annotations with the given id is not available");
 

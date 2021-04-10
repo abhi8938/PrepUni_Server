@@ -50,3 +50,25 @@ export const paper_data={
     title:"This is paper titile",
     year:2020
 }
+
+export const annotation_data={
+    STID:'605df8fd9e045799c1df1481',
+    paper_id: '605df8fd9e045799c1df1481',
+    ann: [{
+        type:'BOOKMARK',
+  pageCfi: "2",
+  location: {
+    offsetX: 21,
+    offsetY: 12,
+  },
+  epubCfi: 'some string',
+  color: 'some colour',
+  text: 'some text',
+  note: 'some string',
+    }],
+    DUR:{
+        key:"Some key",
+        prev:"some previous key",
+        current:"current key"
+    }
+}

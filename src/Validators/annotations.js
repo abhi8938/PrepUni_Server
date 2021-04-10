@@ -59,31 +59,36 @@ const annValidationSchema = {
   pageNumber:Joi.number()
 };
 
-const validate_DUR={
-  key:Joi.string(),
-  prev:Joi.string(),
-  current:Joi.string()
-}
 
 const Validate = (annotations) => {
   //TODO:Create Schema
   const schema = Joi.object({
     STID: Joi.string().required(),
     paper_id: Joi.string().required(),
-    ann: Joi.array().items(annValidationSchema).required(),
-    DUR:validate_DUR
+    ann: Joi.array().items(annValidationSchema).required()
   });
 
   return schema.validate(annotations)
 };
 
+const annUpdateSchema = {
+  type: Joi.string(),
+  pageCfi: Joi.string(),
+  location: {
+    offsetX: Joi.number(),
+    offsetY: Joi.number(),
+  },
+  epubCfi: Joi.string(),
+  color: Joi.string(),
+  text: Joi.string(),
+  note: Joi.string(),
+  pageNumber:Joi.number()
+};
+
 const ValidateUpdate = (annotations) => {
   //TODO:Create Schema
   const schema = Joi.object({
-    STID: Joi.string().required(),
-    paper_id: Joi.string().required(),
-    ann: Joi.array().items(annValidationSchema),
-    DUR:validate_DUR
+    ann: Joi.array().items(annUpdateSchema)
   });
 
   return schema.validate(annotations)

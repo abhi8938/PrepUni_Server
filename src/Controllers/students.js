@@ -128,12 +128,12 @@ const authenticate = async (req, res) => {
     student = await Student.findOne({ user_name: req.body.id });
     if (!student) throw new Error("Invalid User name");
   }
-  console.log((req.body.password))
+  // console.log((req.body.password))
   const validPassword = await bcrypt.compare(
     req.body.password,
     student.password
   );
-  console.log(validPassword)
+  // console.log(validPassword)
   if (!validPassword) throw new Error("Invalid Password");
   const token = student.generateAuthToken();
   res.status(200).send(token);
