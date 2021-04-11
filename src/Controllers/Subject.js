@@ -19,13 +19,17 @@ const get_subjects = async (req, res) => {
   const resp = subjects.map(async (sub, index) => {
     return Paper.find({ subject_id: sub._id });
   });
-  const syllab=await subjects.map(async(sub,index)=>{
-    return Syllabus.findOne({subject_id:sub._id})
-  })
+  const syllab = await subjects.map(async (sub, index) => {
+    return Syllabus.findOne({ subject_id: sub._id });
+  });
   const papers = await Promise.all(resp);
-  const syllabus=await Promise.all(syllab)
+  const syllabus = await Promise.all(syllab);
   subjects.map((sub, ind) => {
-    const x = { ...JSON.parse(JSON.stringify(sub)), papers: papers[ind],syllabus:syllabus[ind] };
+    const x = {
+      ...JSON.parse(JSON.stringify(sub)),
+      papers: papers[ind],
+      syllabus: syllabus[ind],
+    };
     subjects[ind] = x;
   });
   res.status(200).send(subjects);

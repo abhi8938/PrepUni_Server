@@ -66,7 +66,6 @@ const update_payment = async (req, res) => {
 
   if (!expectedSignature === razorpay_signature)
     throw new Error("Invalid signature");
- if(!isSignatureValid) throw new Error('Invalid Razorpay Payment Signature')
 
  payment.status="SUCCESS"
  await payment.save()
