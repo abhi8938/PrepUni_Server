@@ -83,3 +83,9 @@ export const package_data={
     "life":1629759600,
     "type":"TRIAL"
 }
+
+export const resources_data={
+    datesheet:[{subject:"some subject",code:"Some code",date:"some date"}],
+    center:{college:"Some college",address:{address:"this location",lat:234,long:344}}
+    // reminder:['sdcs','ererg']
+}
