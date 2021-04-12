@@ -72,3 +72,14 @@ export const annotation_data={
         current:"current key"
     }
 }
+
+export const package_data={
+    "features":[{
+    	"feature":"feature 1",
+    	"active":true
+    }],
+    "price":0,
+    "discount":0,
+    "life":1629759600,
+    "type":"TRIAL"
+}

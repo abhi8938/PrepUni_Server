@@ -22,7 +22,7 @@ const routes = (app) => {
   app.use("/api/subscriptions", Subscriptions); 
   app.use("/api/extras", Extras);
   app.use("/api/annotations", Annotations);
-  app.use("/api/packages", Packages);
+  app.use("/api/packages", Packages);  //done
   app.use("/api/payment", Payment);
   app.use("/api/resources", Resources);
   app.use("/api/university", University); //done
