@@ -1,8 +1,7 @@
-const { Payment, validate, validateUpdate } =require("../Validators/payments");
-const {routes} =require("../Configs/routes")
-const Razorpay =require("razorpay");
-const crypto =require("crypto");
-
+const { Payment, validate, validateUpdate } = require("../Validators/payments");
+const { routes } = require("../Configs/routes");
+const Razorpay = require("razorpay");
+const crypto = require("crypto");
 
 var instance = new Razorpay({
   key_id: "rzp_test_JrmprfPdb6LHFI",
@@ -67,9 +66,8 @@ const update_payment = async (req, res) => {
   if (!expectedSignature === razorpay_signature)
     throw new Error("Invalid signature");
 
- payment.status="SUCCESS"
- await payment.save()
-  
+  payment.status = "SUCCESS";
+  await payment.save();
 
   res.status(200).send(payment);
 };
@@ -82,5 +80,5 @@ module.exports = {
   cancel_payment,
   update_payment,
   post_payment,
-  get_payment
-}
+  get_payment,
+};
