@@ -29,7 +29,7 @@ const routes = (app) => {
   app.use("/api/program", Program); 
   app.use("/api/subject", Subject); 
   app.use("/api/paper", Paper); 
-  app.use("/api/syllabus", Syllabus); 
+  app.use("/api/syllabus", Syllabus);   //done
 
   app.use(error);
 };
