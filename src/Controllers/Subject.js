@@ -14,7 +14,7 @@ const post_subject = async (req, res) => {
 };
 
 const get_subjects = async (req, res) => {
-  if (!req.params.id) throw new Error("No Subject Id in Param");
+  if (!req.params.id) throw new Error("No Program Id in Param");
   let subjects = await Subject.find({ program_id: req.params.id });
   const resp = subjects.map(async (sub, index) => {
     return Paper.find({ subject_id: sub._id });
