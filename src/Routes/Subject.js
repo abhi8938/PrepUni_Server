@@ -31,9 +31,11 @@ router.put(
   "/:id",
   upload.fields([{ name: "cover", maxCount: 1 }]),
   async (req, res) => {
+    if(req.files!==undefined){
     if (req.files.length !== undefined) {
       req.body.cover = req.files["cover"][0].filename;
     }
+  }
     await update_subject(req, res);
   }
 );
