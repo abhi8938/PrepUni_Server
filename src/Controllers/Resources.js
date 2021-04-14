@@ -28,7 +28,12 @@ const update_resource = async (req, res) => {
   const { error } = ValidateUpdate(req.body);
   if (error) throw new Error(error.details[0].message);
 
-  const resources = await Resources.findByIdAndUpdate(req.params.id, req.body, {
+  const resources = await Resources.findOneAndUpdate(
+    {
+      STID:req.user._id,
+      _id:req.params.id
+    },
+    req.body, {
     new: true,
   });
 

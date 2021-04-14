@@ -6,7 +6,7 @@ const path=require('path')
 let server;
 
 describe("/api/student",()=>{
-    beforeEach(() => {server=require("../../index");})
+    beforeEach(() => {server=require("../../app");})
     afterEach(async()=>{
         server.close();
         await University.remove({})

@@ -17,7 +17,7 @@ var {
 let server
 
 describe("/api/annotations",()=>{
-    beforeEach(() => {server=require("../../index");})
+    beforeEach(() => {server=require("../../app");})
     afterEach(async()=>{
         server.close();
         await Student.remove({})

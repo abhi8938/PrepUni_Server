@@ -17,11 +17,10 @@ const {Syllabus}=require("../../src/Validators/Syllabus")
 const {Paper}=require("../../src/Validators/Paper")
 const {Subscript}=require("../../src/Validators/subscription")
 const {Annotations}=require("../../src/Validators/annotations")
-const cons = require("consolidate")
 let server;
 
 describe("/api/student",()=>{
-    beforeEach(() => {server=require("../../index");})
+    beforeEach(() => {server=require("../../app");})
     afterEach(async()=>{
         server.close();
         await Student.remove({})

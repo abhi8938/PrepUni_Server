@@ -97,3 +97,15 @@ export const extra_message_data={
     body:"some data in body",
     actions:['DISMISS','ACCEPT']
 }
+
+export const upload_resources_data={ 
+    center:
+    { address: { address: 'this location', lat: 234, long: 344 },
+      college: 'Some college' },
+   PPID: '6039fe0832fe200a870b2e83',
+   datesheet:
+    [ { _id: '6076c75f4f05d1e1e28eac83',
+        subject: 'some subject',
+        code: 'Some code',
+        date: '2021-04-14T10:43:38.699Z' } ],
+   __v: 0 }

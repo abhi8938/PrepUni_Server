@@ -11,7 +11,7 @@ const express=require("express")
 
 const router = express.Router();
 
-router.get("/", auth, async (req, res) => await get_resource(sreq, res));
+router.get("/", auth, async (req, res) => await get_resource(req, res));
 
 router.post("/", auth, async (req, res) => await post_resource(req, res));
 

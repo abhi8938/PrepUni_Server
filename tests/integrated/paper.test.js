@@ -14,7 +14,7 @@ const {Subject}=require("../../src/Validators/Subject")
 let server;
 
 describe("/api/paper",()=>{
-    beforeEach(() => {server=require("../../index");})
+    beforeEach(() => {server=require("../../app");})
     afterEach(async()=>{
         server.close();
         await Paper.remove({})

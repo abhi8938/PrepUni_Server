@@ -12,7 +12,7 @@ const {
 let server;
 
 describe("/api/extras",()=>{
-    beforeEach(() => {server=require("../../index");})
+    beforeEach(() => {server=require("../../app");})
     afterEach(async()=>{
         server.close();
         await BMessage.remove({});
