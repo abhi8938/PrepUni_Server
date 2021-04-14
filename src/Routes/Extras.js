@@ -46,11 +46,11 @@ router.post(
   async (req, res) => await post_bmessage(req, res)
 );
 
-router.put(
-  "/bmessage/:id",
-  [auth, admin],
-  async (req, res) => await update_bmessage(req, res)
-);
+// router.put(
+//   "/bmessage/:id",
+//   [auth, admin],
+//   async (req, res) => await update_bmessage(req, res)
+// );
 
 /*
  * *
