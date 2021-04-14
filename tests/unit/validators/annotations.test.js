@@ -1,4 +1,4 @@
-const {annotation_data} =require ("../../sample_data")
+const {annotation_data,update_annotation_data} =require ("../../data/sample_data")
 const {Validate,ValidateUpdate} =require ("../../../src/Validators/annotations")
 
 
@@ -9,7 +9,7 @@ describe('this annotation validator',()=>{
     })
 
     it('validate annotations update functions',()=>{
-        const result=ValidateUpdate(annotation_data)
+        const result=ValidateUpdate(update_annotation_data)
         expect(result.error).toBe(undefined)
     })
 })

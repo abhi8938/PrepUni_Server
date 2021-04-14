@@ -5,7 +5,7 @@ const {
 
 const {
     syllabus_data
-} =require ("../../sample_data")
+} =require ("../../data/sample_data")
 
 describe('syllabus validator',()=>{
     it('validate syllabus data',()=>{

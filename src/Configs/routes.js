@@ -24,7 +24,7 @@ const routes = (app) => {
   app.use("/api/annotations", Annotations);//partial
   app.use("/api/packages", Packages);  //done
   app.use("/api/payment", Payment);
-  app.use("/api/resources", Resources);  
+  app.use("/api/resources", Resources);  //done
   app.use("/api/university", University); //done
   app.use("/api/program", Program);     //done
   app.use("/api/subject", Subject); //done

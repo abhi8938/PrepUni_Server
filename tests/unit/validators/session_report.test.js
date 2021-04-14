@@ -1,4 +1,4 @@
-const {session_report_data} =require ("../../sample_data")
+const {session_report_data} =require ("../../data/sample_data")
 const jwt =require ("jsonwebtoken")
 const {validate} =require ("../../../src/Validators/session_report")
 

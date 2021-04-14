@@ -14,6 +14,21 @@ export const student_data={
     "isAdmin":true
 }
 
+export const some_student_data={
+    "first_name": "Arvapalli",
+    "last_name": "Roopesh",
+    "gender":"MALE",
+    "contact":"8885623730",
+    "user_name":"roopes893",
+    "email": "arvapalli12345@gmail.com",
+    "password": "123456",
+    "program": "6039fe0832fe200a870b2e83",
+    "college": "Indraprasth",
+    "semester": "5",
+    "university": "6039fe0832fe200a870b2e83",
+    "dob":"2001-04-04"
+}
+
 export const update_student={
     "semester": "5",
 }
@@ -53,7 +68,6 @@ export const paper_data={
 }
 
 export const annotation_data={
-    STID:'605df8fd9e045799c1df1481',
     paper_id: '605df8fd9e045799c1df1481',
     ann: [{
         type:'BOOKMARK',
@@ -66,12 +80,7 @@ export const annotation_data={
   color: 'some colour',
   text: 'some text',
   note: 'some string',
-    }],
-    DUR:{
-        key:"Some key",
-        prev:"some previous key",
-        current:"current key"
-    }
+    }]
 }
 
 export const package_data={

@@ -1,6 +1,6 @@
 const request=require("supertest")
 const {University}=require("../../src/Validators/University")
-const {university_data}=require("../sample_data")
+const {university_data}=require("../data/final")
 const path=require('path')
 
 let server;

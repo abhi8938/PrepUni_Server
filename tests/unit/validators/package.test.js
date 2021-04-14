@@ -1,4 +1,4 @@
-const {package_data} =require ("../../sample_data")
+const {package_data} =require ("../../data/sample_data")
 const {validate,validateUpdate} =require ("../../../src/Validators/package")
 
 describe('package data validating function',()=>{

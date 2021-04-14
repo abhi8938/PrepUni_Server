@@ -89,9 +89,9 @@ describe("/api/annotations",()=>{
             await paper.save()
 
             annotation_data.paper_id=paper._id
-            annotation_data.STID=student._id
 
             const token=student.generateAuthToken()
+            delete annotation_data.STID;
 
             const res=await request(server).post('/api/annotations')
                                             .set('x-auth-token',token)
@@ -169,7 +169,7 @@ describe("/api/annotations",()=>{
             const token=student.generateAuthToken()
             console.log(annotation,"Annotations data",annotation._id)
 
-            const res=await request(server).put('/api/annotations/'+student._id)
+            const res=await request(server).put('/api/annotations/'+annotation._id)
                                             .set('x-auth-token',token)
                                             .send({ann:[{color:"New color"}]})
             expect(res.status).toBe(200)

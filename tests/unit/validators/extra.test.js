@@ -2,7 +2,7 @@ const {extra_message_data,
     validateprogram_data,
     legal_data,
     unversity_data
-    } =require ("../../sample_data")
+    } =require ("../../data/sample_data")
 const {
     ValidateBMessage,
     ValidateProgram,
