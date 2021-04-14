@@ -2,7 +2,7 @@ export const student_data={
     "first_name": "Arvapalli",
     "last_name": "Roopesh",
     "gender":"MALE",
-    "contact":"8527670484",
+    "contact":"8885623730",
     "user_name":"roopes893",
     "email": "arvapalli12345@gmail.com",
     "password": "123456",
@@ -10,7 +10,8 @@ export const student_data={
     "college": "Indraprasth",
     "semester": "5",
     "university": "6039fe0832fe200a870b2e83",
-    "dob":"2001-04-04"
+    "dob":"2001-04-04",
+    "isAdmin":true
 }
 
 export const update_student={
@@ -71,4 +72,27 @@ export const annotation_data={
         prev:"some previous key",
         current:"current key"
     }
+}
+
+export const package_data={
+    "features":[{
+    	"feature":"feature 1",
+    	"active":true
+    }],
+    "price":0,
+    "discount":0,
+    "life":1629759600,
+    "type":"TRIAL"
+}
+
+export const resources_data={
+    datesheet:[{subject:"some subject",code:"Some code",date:"some date"}],
+    center:{college:"Some college",address:{address:"this location",lat:234,long:344}}
+    // reminder:['sdcs','ererg']
+}
+
+export const extra_message_data={
+    title:"some title",
+    body:"some data in body",
+    actions:['DISMISS','ACCEPT']
 }

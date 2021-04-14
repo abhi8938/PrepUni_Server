@@ -16,10 +16,8 @@ const BMessage = mongoose.model(
       required: true,
     },
     actions: [String],
-    created_At: {
-      type: Date,
-      default: Date.now(),
-    },
+  },{
+    timestamp:true
   })
 );
 

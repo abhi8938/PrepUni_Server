@@ -37,7 +37,7 @@ const post_bmessage = async (req, res) => {
 };
 
 const update_bmessage = async (req, res) => {
-  const { error } = validate(req.body);
+  const { error } = ValidateBMessage(req.body);
   if (error) throw new Error(error.details[0].message);
 
   const bmessage = await BMessage.findByIdAndUpdate(
