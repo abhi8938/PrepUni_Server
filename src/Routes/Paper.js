@@ -3,6 +3,7 @@ const {
   get_papers,
   post_paper,
   update_paper,
+  download_file
 } =require("../Controllers/Paper");
 
 const admin=require("../Middlewares/admin")
@@ -36,5 +37,7 @@ router.put(
     await update_paper(req, res);
   }
 );
+
+router.get("/files/:name", async (req, res) => await download_file(req, res));
 
 module.exports = router

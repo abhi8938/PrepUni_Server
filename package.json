@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node app.js",
     "test": "jest --watchAll --verbose"
   },
   "keywords": [],
@@ -47,5 +47,5 @@
   "devDependencies": {
     "jest": "^26.6.3",
     "supertest": "^6.1.3"
- }
+  }
 }

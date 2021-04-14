@@ -39,9 +39,19 @@ const update_paper = async (req, res) => {
   res.status(200).send(paper);
 };
 
+const download_file = (req, res) => {
+  const fileName = req.params.name;
+  res.download(`uploads/${fileName}`, (err) => {
+    if (err) {
+      throw new Error("File can not be downloaded: " + err);
+    }
+  });
+};
+
 module.exports={
   update_paper,
   get_paper,
   get_papers,
-  post_paper
+  post_paper,
+  download_file
 }
