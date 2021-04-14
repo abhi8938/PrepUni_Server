@@ -2,7 +2,7 @@ const {Student,validateUpdate,validateAuth,validate} =require ("../../../src/Val
 const jwt =require ("jsonwebtoken")
 const config =require ("config")
 const mongoose =require ("mongoose")
-const {student_data} =require ("../../sample_data")
+const {student_data} =require ("../../data/sample_data")
 
 describe('student.generateAuthtoken',()=>{
     it('should return a valid JWT',()=>{

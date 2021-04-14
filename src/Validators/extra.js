@@ -17,7 +17,7 @@ const BMessage = mongoose.model(
     },
     actions: [String],
   },{
-    timestamp:true
+    timestamps:true
   })
 );
 

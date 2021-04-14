@@ -39,7 +39,7 @@ const Annotations = mongoose.model(
       required: true
     },
     ann: [annotationSchema],
-    DUR: DUR,
+    DUR: [DUR],
   },{
     timestamps:true
   })
@@ -63,7 +63,6 @@ const annValidationSchema = {
 const Validate = (annotations) => {
   //TODO:Create Schema
   const schema = Joi.object({
-    STID: Joi.string().required(),
     paper_id: Joi.string().required(),
     ann: Joi.array().items(annValidationSchema).required()
   });

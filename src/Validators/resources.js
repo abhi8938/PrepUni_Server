@@ -45,21 +45,15 @@ const Resources = mongoose.model(
         },
       },
     },
-    createdAt: {
-      type: Date,
-      required: true,
-      default: Date.now(),
-    },
-    lastUpdated: {
-      type: Date,
-      required: true,
-    },
-    DUR: DUR,
+    DUR: [DUR],
+  },{
+    timestamps:true
   })
 );
 
 const Validate = (annotations) => {
   const schema = Joi.object({
+    PPID:Joi.string().required(),
     datesheet: Joi.array().items(Joi.object()).required(),
     center: Joi.object().required(),
     // reminder: Joi.array().items(Joi.object()),
@@ -71,6 +65,7 @@ const Validate = (annotations) => {
 const ValidateUpdate = (annotations) => {
   //TODO:Create Schema
   const schema = Joi.object({
+    PPID:Joi.string(),
     datesheet: Joi.array().items(Joi.object()),
     center: Joi.object(),
     // reminder: Joi.array().items(Joi.object()),

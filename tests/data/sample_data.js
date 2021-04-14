@@ -36,6 +36,7 @@ export const session_report_data={
 }
 
 export const resources_data={
+    PPID:"wenn",
     datesheet:[{subject:"some subject",code:"Some code",date:"some date"}],
     center:{college:"Some college",address:{address:"this location",lat:234,long:344}}
     // reminder:['sdcs','ererg']
@@ -97,8 +98,25 @@ export const unversity_data={
     logo:'some logo'
 }
 
+export const update_annotation_data={
+    // STID:'some string',
+    // paper_id: 'some string',
+    ann: [{
+        type:'some type',
+  pageCfi: "2",
+  location: {
+    offsetX: 21,
+    offsetY: 12,
+  },
+  epubCfi: 'some string',
+  color: 'some colour',
+  text: 'some text',
+  note: 'some string',
+    }]
+}
+
 export const annotation_data={
-    STID:'some string',
+    // STID:'some string',
     paper_id: 'some string',
     ann: [{
         type:'some type',
@@ -111,12 +129,7 @@ export const annotation_data={
   color: 'some colour',
   text: 'some text',
   note: 'some string',
-    }],
-    DUR:{
-        key:"Some key",
-        prev:"some previous key",
-        current:"current key"
-    }
+    }]
 }
 
 export const paper_data={

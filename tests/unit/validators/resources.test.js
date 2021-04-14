@@ -1,4 +1,4 @@
-const {resources_data} =require ("../../sample_data")
+const {resources_data} =require ("../../data/sample_data")
 const {Validate,ValidateUpdate} =require ("../../../src/Validators/resources")
 
 describe("resources validatoe",()=>{

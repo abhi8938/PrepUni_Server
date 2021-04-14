@@ -7,7 +7,7 @@ var{
 let server;
 
 describe("/api/package",()=>{
-    beforeEach(()=>{server=require("../../index")})
+    beforeEach(()=>{server=require("../../app")})
     afterEach(async()=>{
         server.close();
         await Pack.remove({})

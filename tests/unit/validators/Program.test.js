@@ -5,7 +5,7 @@ const {
 
 const {
     validateprogram_data
-} =require ("../../sample_data")
+} =require ("../../data/sample_data")
 
 describe("Program Validator",()=>{
     it("validate fucntion validator",()=>{

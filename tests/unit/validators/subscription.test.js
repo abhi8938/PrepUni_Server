@@ -1,4 +1,4 @@
-const {subscition_data,update_subscition_data} =require ("../../sample_data")
+const {subscition_data,update_subscition_data} =require ("../../data/sample_data")
 const jwt =require ("jsonwebtoken")
 const {validate,validateUpdate} =require ("../../../src/Validators/subscription")
 

@@ -1,7 +1,7 @@
 const {
     subject_data,
     update_subject_data
-} =require ("../../sample_data")
+} =require ("../../data/sample_data")
 
 const {
     validate,

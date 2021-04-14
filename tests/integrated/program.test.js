@@ -8,7 +8,7 @@ const {University}=require("../../src/Validators/University")
 
 let server;
 describe("/api/program",()=>{
-    beforeEach(() => {server=require("../../index");})
+    beforeEach(() => {server=require("../../app");})
     afterEach(async() =>{
         server.close();
         await Program.remove({});

@@ -3,6 +3,7 @@ const {Student}=require("../../src/Validators/student")
 const bcrypt=require('bcrypt')
 var {
     student_data,
+    some_student_data,
     validateprogram_data,
     university_data,
     update_student,
@@ -17,11 +18,10 @@ const {Syllabus}=require("../../src/Validators/Syllabus")
 const {Paper}=require("../../src/Validators/Paper")
 const {Subscript}=require("../../src/Validators/subscription")
 const {Annotations}=require("../../src/Validators/annotations")
-const cons = require("consolidate")
 let server;
 
 describe("/api/student",()=>{
-    beforeEach(() => {server=require("../../index");})
+    beforeEach(() => {server=require("../../app");})
     afterEach(async()=>{
         server.close();
         await Student.remove({})
@@ -111,7 +111,7 @@ describe("/api/student",()=>{
     describe("POST/",()=>{
         it('Should be able to upload the student data',async()=>{
             var res=await request(server).post("/api/students")
-                                .send(student_data)
+                                .send(some_student_data)
             expect(res.status).toBe(200)
             expect(res.body.first_name).toBe(student_data.first_name)
         })  
@@ -141,7 +141,10 @@ describe("/api/student",()=>{
 
             const res=await request(server).put("/api/students/reset")
                                             .set("x-auth-token",token)
-                                            .send({password:"1234567"})
+                                            .send({
+                                                id:student.email,
+                                                password:"1234567"
+                                            })
             expect(res.status).toBe(200)
         })
     })

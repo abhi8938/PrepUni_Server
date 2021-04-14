@@ -16,9 +16,9 @@ const get_annotation = async (req, res) => {
 };
 
 const post_annotations = async (req, res) => {
-  req.body.STID=req.user._id
   const { error } = Validate(req.body);
   if (error) throw new Error(error.details[0].message);
+  req.body.STID=req.user._id
 
   const duplicate = await Annotations.findOne({
     paper_id: req.body.paper_id,
@@ -40,7 +40,7 @@ const update_annotations = async (req, res) => {
   const { error } = ValidateUpdate(req.body);
   if (error) throw new Error(error.details[0].message);
 
-  const annotations=await Annotation.findOneAndUpdate(
+  const annotations=await Annotations.findOneAndUpdate(
     {
       STID:req.user._id,
       _id:req.params.id

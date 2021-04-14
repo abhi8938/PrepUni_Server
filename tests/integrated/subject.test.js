@@ -12,7 +12,7 @@ const path = require('path');
 let server;
 
 describe("/api/subject",()=>{
-    beforeEach(() => {server=require("../../index");})
+    beforeEach(() => {server=require("../../app");})
     afterEach(async()=>{
         server.close();
         await Program.remove({})
