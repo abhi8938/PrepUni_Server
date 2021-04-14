@@ -15,6 +15,8 @@ const post_resource = async (req, res) => {
   const { error } = Validate(req.body);
   if (error) throw new Error(error.details[0].message);
 
+  req.body.STID=req.user._id
+
   let resources = new Resources(req.body);
 
   resources = await resources.save();
