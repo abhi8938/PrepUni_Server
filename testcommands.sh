@@ -7,3 +7,4 @@ npm test -- tests/integrated/Program.test.js
 npm test -- tests/integrated/resources.test.js
 npm test -- tests/integrated/Subject.test.js
 npm test -- tests/integrated/Syllabus.test.js
+npm test -- tests/integrated/paper.test.js
