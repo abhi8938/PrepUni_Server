@@ -90,7 +90,7 @@ export const package_data={
     }],
     "price":0,
     "discount":0,
-    "life":1629759600,
+    "life":6,
     "type":"TRIAL"
 }
 
@@ -118,3 +118,16 @@ export const upload_resources_data={
         code: 'Some code',
         date: '2021-04-14T10:43:38.699Z' } ],
    __v: 0 }
+
+export const subscition_data={
+    PID:'svbv',
+    program_id:"this is program id",
+    type:'regular',
+    PA_ID:'wdedwef',
+    status:'ACTIVE',
+    expiration:Date.now()
+}
+
+export const update_subscition_data={
+    status:"ACTIVE"
+}
