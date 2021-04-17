@@ -28,7 +28,7 @@ const routes = (app) => {
   app.use("/api/university", University); //done
   app.use("/api/program", Program);     //done
   app.use("/api/subject", Subject); //done
-  app.use("/api/paper", Paper); 
+  app.use("/api/paper", Paper);   //done
   app.use("/api/syllabus", Syllabus);   //done
 
   app.use(error);

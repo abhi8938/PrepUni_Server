@@ -8,7 +8,7 @@ const DUR = {
   },
   prev: {
     type: String,
-    required: true,
+    // required: true,
   },
   current: {
     type: String,
