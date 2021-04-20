@@ -1,8 +1,8 @@
-const DUR =require("./common")
-const config=require("config")
-const jwt=require("jsonwebtoken")
-const Joi=require('joi')
-const mongoose=require('mongoose')
+const DUR = require("./common");
+const config = require("config");
+const jwt = require("jsonwebtoken");
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
 const studentSchema = new mongoose.Schema({
   first_name: {
@@ -24,7 +24,7 @@ const studentSchema = new mongoose.Schema({
   },
   contact: {
     type: String,
-    unique:true,
+    unique: true,
     minlength: 10,
     maxlength: 10,
   },
@@ -110,6 +110,7 @@ studentSchema.method("generateAuthToken", function () {
     { _id: this._id, isAdmin: this.isAdmin },
     config.get("jwtPrivateKey")
   );
+  console.log("jwtPrivatekey", config.get("jwtPrivateKey"));
   return token;
 });
 
@@ -158,9 +159,9 @@ const validateAuth = (student) => {
 };
 
 // export default Student;
-module.exports={
+module.exports = {
   validateAuth,
   validateUpdate,
   validate,
-  Student
-}
+  Student,
+};

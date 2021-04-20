@@ -1,5 +1,5 @@
-const Joi=require('joi')
-const mongoose=require('mongoose')
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
 const Subject = mongoose.model(
   "subject",
@@ -41,7 +41,7 @@ const Subject = mongoose.model(
   )
 );
 
-const validate = (program) => {
+const validate = (body) => {
   const schema = Joi.object({
     cover: Joi.string().required(),
     semester: Joi.string().required(),
@@ -53,10 +53,10 @@ const validate = (program) => {
     code: Joi.string().required(),
   });
 
-  return schema.validate(program);
+  return schema.validate(body);
 };
 
-const validateUpdate = (program) => {
+const validateUpdate = (body) => {
   const schema = Joi.object({
     cover: Joi.string(),
     semester: Joi.string(),
@@ -67,11 +67,11 @@ const validateUpdate = (program) => {
     program_id: Joi.string(),
   });
 
-  return schema.validate(program);
+  return schema.validate(body);
 };
 
 module.exports = {
   validateUpdate,
   validate,
-  Subject
-}
+  Subject,
+};

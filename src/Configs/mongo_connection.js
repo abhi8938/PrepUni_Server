@@ -1,10 +1,11 @@
-const mongoose=require('mongoose')
-const config=require('config')
+const mongoose = require("mongoose");
+const config = require("config");
 
 // var db = "mongodb://localhost:27017/prepuni";
 // var db = "mongodb://localhost:27017/prepuni_test";
-// var db ="mongodb+srv://admin_prep:waFHuMrPzPpwbjeq@prepuni.aj9c2.mongodb.net/prepuni?retryWrites=true&w=majority";
-var db=config.get("db")
+var db =
+  "mongodb+srv://admin_prep:waFHuMrPzPpwbjeq@prepuni.aj9c2.mongodb.net/prepuni?retryWrites=true&w=majority";
+// var db = config.get("db");
 const connect_db = () => {
   mongoose
     .connect(db, {
@@ -13,9 +14,10 @@ const connect_db = () => {
       useFindAndModify: false,
     })
     .then(() => console.log(`connected to database.... ${db}`))
-    .catch((err) =>
-      console.log("Connection refused to database because....", err)
-    );
+    .catch((err) => {
+      console.log("db", db);
+      console.log("Connection refused to database because....", err);
+    });
 };
 
-module.exports=connect_db
+module.exports = connect_db;

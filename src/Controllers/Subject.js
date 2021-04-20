@@ -1,7 +1,7 @@
-const { Subject, validate, validateUpdate } =require ("../Validators/Subject");
-const {Syllabus} =require ("../Validators/Syllabus")
+const { Subject, validate, validateUpdate } = require("../Validators/Subject");
+const { Syllabus } = require("../Validators/Syllabus");
 
-const { Paper } =require ("../Validators/Paper");
+const { Paper } = require("../Validators/Paper");
 
 const post_subject = async (req, res) => {
   const { error } = validate(req.body);
@@ -14,25 +14,29 @@ const post_subject = async (req, res) => {
 };
 
 const get_subjects = async (req, res) => {
-  if (!req.params.id) throw new Error("No Program Id in Param");
-  let subjects = await Subject.find({ program_id: req.params.id });
-  const resp = subjects.map(async (sub, index) => {
-    return Paper.find({ subject_id: sub._id });
-  });
-  const syllab = await subjects.map(async (sub, index) => {
-    return Syllabus.findOne({ subject_id: sub._id });
-  });
-  const papers = await Promise.all(resp);
-  const syllabus = await Promise.all(syllab);
-  subjects.map((sub, ind) => {
-    const x = {
-      ...JSON.parse(JSON.stringify(sub)),
-      papers: papers[ind],
-      syllabus: syllabus[ind],
-    };
-    subjects[ind] = x;
-  });
-  res.status(200).send(subjects);
+  if (req.params.id) {
+    let subjects = await Subject.find({ program_id: req.params.id });
+    const resp = subjects.map(async (sub, index) => {
+      return Paper.find({ subject_id: sub._id });
+    });
+    const syllab = await subjects.map(async (sub, index) => {
+      return Syllabus.findOne({ subject_id: sub._id });
+    });
+    const papers = await Promise.all(resp);
+    const syllabus = await Promise.all(syllab);
+    subjects.map((sub, ind) => {
+      const x = {
+        ...JSON.parse(JSON.stringify(sub)),
+        papers: papers[ind],
+        syllabus: syllabus[ind],
+      };
+      subjects[ind] = x;
+    });
+    res.status(200).send(subjects);
+  } else {
+    let subjects = await Subject.find();
+    res.status(200).send(subjects);
+  }
 };
 
 const get_subject = async (req, res) => {
@@ -60,5 +64,5 @@ module.exports = {
   update_subject,
   get_subject,
   get_subjects,
-  post_subject
-}
+  post_subject,
+};

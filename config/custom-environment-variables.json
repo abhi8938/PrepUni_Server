@@ -1,4 +1,4 @@
 {
   "jwtPrivateKey": "prepuni_jwtPrivateKey",
-  "db":"mongodb://localhost:27017/prepuni"
+  "db": "prepuni_DB"
 }
