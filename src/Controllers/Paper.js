@@ -1,4 +1,4 @@
-const { Paper, validate, validateUpdate } =require("../Validators/Paper");
+const { Paper, validate, validateUpdate } = require("../Validators/Paper");
 
 const post_paper = async (req, res) => {
   const { error } = validate(req.body);
@@ -48,10 +48,10 @@ const download_file = (req, res) => {
   });
 };
 
-module.exports={
+module.exports = {
   update_paper,
   get_paper,
   get_papers,
   post_paper,
-  download_file
-}
+  download_file,
+};
