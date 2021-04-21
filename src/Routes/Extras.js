@@ -9,13 +9,12 @@ const {
   post_sms,
   update_bmessage,
   update_legal,
-} =require( "../Controllers/extras");
+} = require("../Controllers/extras");
 
-const admin=require("../Middlewares/admin")
-const auth=require("../Middlewares/auth")
-const express=require("express")
-const fileUpload=require("../Middlewares/fileUpload")
-const multer=require("multer")
+const admin = require("../Middlewares/admin");
+const auth = require("../Middlewares/auth");
+const express = require("express");
+const multer = require("multer");
 
 const router = express.Router();
 let upload = multer({ dest: "uploads/" });
@@ -36,7 +35,7 @@ let upload = multer({ dest: "uploads/" });
 
 router.get(
   "/bmessage",
-  [auth, admin],
+  [auth],
   async (req, res) => await get_bmessage(req, res)
 );
 
@@ -65,7 +64,6 @@ router.post(
  */
 
 //* Programs
-
 
 /*
  * *
@@ -112,7 +110,7 @@ router.post("/sendCode", async (req, res) => await post_code(req, res));
 router.post("/sendSMS", async (req, res) => await post_sms(req, res));
 router.post("/sendMail", auth, async (req, res) => await post_mail(req, res));
 
-module.exports=router;
+module.exports = router;
 
 /*
  * *
@@ -127,5 +125,3 @@ module.exports=router;
  */
 
 //* University
-
-
