@@ -14,7 +14,9 @@ const multer=require('multer')
 const router = expres.Router();
 let upload = multer({ dest: "uploads/" });
 
-router.get("/:id", async (req, res) => await get_papers(req, res));
+router.get("/all/:id", async (req, res) => await get_papers(req, res));
+
+router.get("/all",async (req,res) => await get_papers(req,res));
 
 router.get("/single/:id", async (req, res) => await get_paper(req, res));
 
