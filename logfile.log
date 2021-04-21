@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {"level":"info","message":"Listening On 3001","timestamp":"2021-04-20T12:57:24.323Z"}
 {"level":"info","message":"Listening On 3001","timestamp":"2021-04-20T13:09:37.940Z"}
 {"level":"info","message":"Listening On 3001","timestamp":"2021-04-20T13:12:46.068Z"}
@@ -53,3 +54,5 @@
 >>>>>>> f3df46fc3113ac02b227efa70b671048a6004044
 {"level":"info","message":"Listening On 3001","timestamp":"2021-04-21T08:07:04.771Z"}
 {"level":"info","message":"Listening On 3001","timestamp":"2021-04-21T08:10:03.843Z"}
+=======
+>>>>>>> 5f190df199c7c8cdd66ec781c5345f69854ae83e
