@@ -23,14 +23,12 @@ var storage = multer.diskStorage({
   },
 });
 
+router.get("/all/:id", async (req, res) => await get_papers(req, res));
+
+router.get("/all",async (req,res) => await get_papers(req,res));
+
 let upload = multer({ storage: storage });
-
-router.get(
-  "/:id",
-  [auth, admin],
-  async (req, res) => await get_papers(req, res)
-);
-
+ 
 router.get(
   "/single/:id",
   [auth, admin],
