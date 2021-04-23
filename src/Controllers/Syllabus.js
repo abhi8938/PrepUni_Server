@@ -12,7 +12,7 @@ const post_syllabus = async (req, res) => {
     subject_id: req.body.subject_id,
   });
   if (duplicate_cheker)
-    throw new Error("Syllabus for this subject is aldredy defined");
+    throw new Error("Syllabus for this subject is already present");
 
   let subject = new Syllabus(req.body);
 
