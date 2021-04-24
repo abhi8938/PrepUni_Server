@@ -1,8 +1,8 @@
-const DUR = require("./common");
-const config = require("config");
-const jwt = require("jsonwebtoken");
-const Joi = require("joi");
-const mongoose = require("mongoose");
+const DUR =require("./common")
+const config=require("config")
+const jwt=require("jsonwebtoken")
+const Joi=require('joi')
+const mongoose=require('mongoose')
 
 const studentSchema = new mongoose.Schema({
   first_name: {
@@ -24,7 +24,7 @@ const studentSchema = new mongoose.Schema({
   },
   contact: {
     type: String,
-    unique: true,
+    unique:true,
     minlength: 10,
     maxlength: 10,
   },
@@ -157,10 +157,20 @@ const validateAuth = (student) => {
   return schema.validate(student);
 };
 
+const validatePassword=(student)=>{
+  const schema=Joi.object({
+    previous_password:Joi.string().required(),
+    new_password:Joi.string().required(),
+  })
+
+  return schema.validate(student)
+}
+
 // export default Student;
-module.exports = {
+module.exports={
   validateAuth,
   validateUpdate,
   validate,
-  Student,
-};
+  validatePassword,
+  Student
+}

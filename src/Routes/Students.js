@@ -8,7 +8,7 @@ const {
   post_student,
   reset_password,
   update_student,
-  all_data,
+  change_password,
 } =require("../Controllers/students");
 
 const auth=require("../Middlewares/auth")
@@ -19,14 +19,14 @@ const router = express.Router();
 
 router.put("/reset", async (req, res) => await reset_password(req, res));
 
+router.put("/update_password",auth,async(req,res)=>await change_password(req,res));
+
 router.get("/", async (req, res) => await get_students(req, res));
 
 router.post("/", async (req, res) => await post_student(req, res));
 
 router.put("/", auth, async (req, res) => await update_student(req, res));
 router.get("/me", auth, async (req, res) => await get_student(req, res));
-
-router.get("/all", auth, async (req, res) => await get_all(req, res));
 
 router.get("/all_data", auth, async (req, res) => await all_data(req, res));
 
