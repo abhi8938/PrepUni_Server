@@ -29,6 +29,7 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-redirect": "^1.2.2",
+    "forever-monitor": "^3.0.3",
     "jest-esm-transformer": "^1.0.0",
     "joi": "^17.3.0",
     "joi-objectid": "^3.0.1",

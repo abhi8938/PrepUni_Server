@@ -1,6 +1,7 @@
 const {Student}=require("../Validators/student")
 
 const checkLogin = async (req, res, next) => {
+console.log("req.body", req.body);
   let student
   if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(req.body.id)) {
     student = await Student.findOne({ email: req.body.id });
