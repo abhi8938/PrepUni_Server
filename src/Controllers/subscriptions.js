@@ -2,12 +2,12 @@ const {
   Subscript,
   validate,
   validateUpdate,
-} =require ("../Validators/subscription");
-const { generateKeywords, handleUpdate } =require ("../Services/algo");
+} = require("../Validators/subscription");
+const { generateKeywords, handleUpdate } = require("../Services/algo");
 
-const { Pack } =require ("../Validators/package");
+const { Pack } = require("../Validators/package");
 // const { Paper_Product } from "../Validators/paper_product";
-const { Student } =require ("../Validators/student");
+const { Student } = require("../Validators/student");
 
 const get_subscriptions = async (req, res) => {
   const subscriptions = await Subscript.find({});
@@ -36,7 +36,7 @@ const post_subscription = async (req, res) => {
     type: pack.type,
     program_id: student.program,
   };
-  subInstance.status = pack.type === "TRIAL" ? "ACTIVE" : "INACTIVE";
+  subInstance.status = "ACTIVE";
 
   let sub = new Subscript(subInstance);
 
@@ -91,5 +91,5 @@ module.exports = {
   update_subscription,
   post_subscription,
   get_subscription,
-  get_subscriptions
-}
+  get_subscriptions,
+};

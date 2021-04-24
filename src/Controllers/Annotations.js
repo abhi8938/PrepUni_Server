@@ -30,7 +30,7 @@ const post_annotations = async (req, res) => {
     STID: req.user._id,
   });
   if (duplicate)
-    throw new Error("Data is aldredy uplaoded under this paper try editing it");
+    throw new Error("Data is aldredy uploaded under this paper try editing it");
 
   let annotations = new Annotations(req.body);
 
@@ -51,12 +51,6 @@ const update_annotations = async (req, res) => {
     req.body,
     { new: true }
   );
-
-  // const annotations = await Annotations.findByIdAndUpdate(
-  //   req.params.id,
-  //   req.body,
-  //   { new: true }
-  // );
 
   if (!annotations)
     throw new Error("The annotations with the given id is not available");

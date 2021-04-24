@@ -4,7 +4,7 @@ const {
   get_syllabus,
   update_syllabus,
 } = require("../Controllers/Syllabus");
-
+const auth = require("../Middlewares/auth");
 const express = require("express");
 
 const router = express.Router();

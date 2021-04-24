@@ -110,7 +110,6 @@ studentSchema.method("generateAuthToken", function () {
     { _id: this._id, isAdmin: this.isAdmin },
     config.get("jwtPrivateKey")
   );
-  console.log("jwtPrivatekey", config.get("jwtPrivateKey"));
   return token;
 });
 
