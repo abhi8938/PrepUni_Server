@@ -11,6 +11,7 @@ const Session_Report=require('../Routes/Session_Report')
 const Students=require("../Routes/Students")
 const Subject=require("../Routes/Subject")
 const Subscriptions=require("../Routes/Subscriptions")
+const referal=require("../Routes/referals")
 const Syllabus=require("../Routes/Syllabus")
 const University=require("../Routes/University")
 const asyncMiddleware=require("../Middlewares/async")
@@ -30,6 +31,7 @@ const routes = (app) => {
   app.use("/api/subject", Subject); //done
   app.use("/api/paper", Paper);   //done
   app.use("/api/syllabus", Syllabus);   //done
+  app.use("/api/referal",referal);
 
   app.use(error);
 };
