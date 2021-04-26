@@ -4,13 +4,15 @@ const {
   validateAuth,
   validateUpdate,
   validatePassword,
-} =require("../Validators/student");
-const { generateKeywords, handleUpdate } =require ("../Services/algo");
+} = require("../Validators/student");
+const { generateKeywords, handleUpdate } = require("../Services/algo");
 
-const { BMessage } =require ("../Validators/extra");
-const { Subscript } =require("../Validators/subscription");
-const _ =require ("lodash");
-const bcrypt =require ("bcrypt");
+const { BMessage } = require("../Validators/extra");
+const { Subscript } = require("../Validators/subscription");
+const { University } = require("../Validators/University");
+const { Program } = require("../Validators/Program");
+const _ = require("lodash");
+const bcrypt = require("bcrypt");
 
 const get_students = async (req, res) => {
   const students = await Student.find().sort("first_name");
@@ -23,10 +25,26 @@ const get_student = async (req, res) => {
     throw new Error(
       "The student with givern id in not present OR wrong student doc id"
     );
+  var university_name = await University.findById(student["university"]);
+  var university_data = {
+    _id: student["university"],
+    name: university_name["name"],
+  };
 
-  res.status(200).send(student);
+  var program_name = await Program.findById(student["program"]);
+  var program_data = {
+    _id: student["program"],
+    name: program_name["name"],
+  };
+
+  const x = {
+    ...JSON.parse(JSON.stringify(student)),
+    university: university_data,
+    program: program_data,
+  };
+
+  res.status(200).send(x);
 };
-
 const post_student = async (req, res) => {
   const { error } = validate(req.body);
   if (error) throw new Error(error.details[0].message);
@@ -96,8 +114,8 @@ const reset_password = async (req, res) => {
   res.status(200).send("Password Updated");
 };
 
-const change_password=async(req,res)=>{
-console.log('change_password',req.body);
+
+const change_password = async (req, res) => {
   const { error } = validatePassword(req.body);
   if (error) throw new Error(error.details[0].message);
   let student = await Student.findById(req.user._id);
@@ -111,9 +129,9 @@ console.log('change_password',req.body);
   if (!validPassword) throw new Error("Invalid Password");
   const salt = await bcrypt.genSalt(13);
   student.password = await bcrypt.hash(req.body.new_password, salt);
-  student=await student.save();
+  student = await student.save();
   res.status(200).send("Password Updated");
-}
+};
 
 const authenticate = async (req, res) => {
   const { error } = validateAuth(req.body);
@@ -140,20 +158,6 @@ const authenticate = async (req, res) => {
   res.status(200).send(token);
 };
 
-const get_all = async (req, res) => {
-  //TODO: get student id from req.headers.token
-  const students = await Student.findById("id");
-  const subscription = await Subscript.findOne({ STID: "id" });
-
-  const broadcast = await BMessage.find();
-  res.status(200).send({
-    students: _.omit(students, ["password"]),
-    subscription,
-    // papers,
-    broadcast,
-  });
-};
-
 const logoutfromdevice = async (req, res) => {
   let student = await Student.findById(req.user._id);
   if (!student)
@@ -163,7 +167,6 @@ const logoutfromdevice = async (req, res) => {
   await Student.findByIdAndUpdate(req.user._id, { isloggedin: false });
   res.status(200).send({ message: "You are looged out succefully" });
 };
-
 
 module.exports = {
   logoutfromdevice,
