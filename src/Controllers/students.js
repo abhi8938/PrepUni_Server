@@ -97,6 +97,7 @@ const reset_password = async (req, res) => {
 };
 
 const change_password=async(req,res)=>{
+console.log('change_password',req.body);
   const { error } = validatePassword(req.body);
   if (error) throw new Error(error.details[0].message);
   let student = await Student.findById(req.user._id);
