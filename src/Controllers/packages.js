@@ -1,7 +1,20 @@
-const { Pack, validate, validateUpdate } =require("../Validators/package");
+const { Pack, validate, validateUpdate } = require("../Validators/package");
+const { Referals } = require("../Validators/referals");
 
 const get_packages = async (req, res) => {
-  const packs = await Pack.find().sort("life");
+  let packs = await Pack.find().sort("life");
+  let referal = await Referals.findOne({ STID: req.user._id });
+
+  if (referal) {
+    packs.map((item, index) => {
+      if (item.type === "PAID") {
+        packs[index] = {
+          ...JSON.parse(JSON.stringify(item)),
+          discount: referal.balance,
+        };
+      }
+    });
+  }
   return res.status(200).send(packs);
 };
 
@@ -36,5 +49,5 @@ module.exports = {
   update_package,
   post_package,
   get_package,
-  get_packages
-}
+  get_packages,
+};

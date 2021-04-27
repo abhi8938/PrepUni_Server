@@ -1,7 +1,6 @@
 //*Controller
 const {
   authenticate,
-  get_all,
   get_student,
   get_students,
   logoutfromdevice,
