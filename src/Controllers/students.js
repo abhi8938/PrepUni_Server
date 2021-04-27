@@ -170,7 +170,6 @@ const logoutfromdevice = async (req, res) => {
 
 module.exports = {
   logoutfromdevice,
-  get_all,
   authenticate,
   reset_password,
   update_student,
