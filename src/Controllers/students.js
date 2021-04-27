@@ -163,6 +163,7 @@ const reset_password = async (req, res) => {
   res.status(200).send("Password Updated");
 };
 
+
 const change_password = async (req, res) => {
   const { error } = validatePassword(req.body);
   if (error) throw new Error(error.details[0].message);
@@ -224,5 +225,5 @@ module.exports = {
   get_students,
   get_student,
   post_student,
-  change_password,
-};
+  change_password
+}
