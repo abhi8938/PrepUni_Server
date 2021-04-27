@@ -1,109 +1,105 @@
-const DUR =require("./common")
-const config=require("config")
-const jwt=require("jsonwebtoken")
-const Joi=require('joi')
-const mongoose=require('mongoose')
+const DUR = require("./common");
+const config = require("config");
+const jwt = require("jsonwebtoken");
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
-const studentSchema = new mongoose.Schema({
-  first_name: {
-    type: String,
-    required: true,
-    minlength: 2,
-    maxlength: 30,
+const studentSchema = new mongoose.Schema(
+  {
+    first_name: {
+      type: String,
+      required: true,
+      minlength: 2,
+      maxlength: 30,
+    },
+    last_name: {
+      type: String,
+      required: true,
+      minlength: 2,
+      maxlength: 30,
+    },
+    gender: {
+      type: String,
+      required: true,
+      enum: ["MALE", "FEMALE", "OTHERS", "RATHER NOT SAY"],
+    },
+    contact: {
+      type: String,
+      unique: true,
+      minlength: 10,
+      maxlength: 10,
+    },
+    user_name: {
+      type: String,
+      unique: true,
+      required: true,
+      maxlength: 30,
+    },
+    dob: {
+      type: Date,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      minlength: 5,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 5,
+      maxlength: 1024,
+    },
+    device_token: {
+      type: String,
+    },
+    program: {
+      // type: String,
+      type: mongoose.Schema.ObjectId,
+      required: true,
+      minlength: 3,
+    },
+    college: {
+      type: String,
+      required: true,
+      minlength: 3,
+    },
+    semester: {
+      type: Number,
+      required: true,
+    },
+    university: {
+      // type: String,
+      type: mongoose.Schema.ObjectId,
+      required: true,
+      minlength: 3,
+    },
+    specialization: {
+      type: String,
+    },
+    type: {
+      type: String,
+      enum: ["STU"],
+      default: "STU",
+    },
+    status: {
+      type: String,
+      enum: ["ACTIVE", "INACTIVE"],
+      default: "ACTIVE",
+    },
+    isloggedin: {
+      type: Boolean,
+      default: true,
+    },
+    isAdmin: Boolean,
+    keywords: [String],
+    DUR: [DUR],
   },
-  last_name: {
-    type: String,
-    required: true,
-    minlength: 2,
-    maxlength: 30,
-  },
-  gender: {
-    type: String,
-    required: true,
-    enum: ["MALE", "FEMALE", "OTHERS", "RATHER NOT SAY"],
-  },
-  contact: {
-    type: String,
-    unique:true,
-    minlength: 10,
-    maxlength: 10,
-  },
-  user_name: {
-    type: String,
-    unique: true,
-    required: true,
-    maxlength: 30,
-  },
-  dob: {
-    type: Date,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    minlength: 5,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 1024,
-  },
-  device_token: {
-    type: String,
-  },
-  program: {
-    // type: String,
-    type: mongoose.Schema.ObjectId,
-    required: true,
-    minlength: 3,
-  },
-  college: {
-    type: String,
-    required: true,
-    minlength: 3,
-  },
-  semester: {
-    type: Number,
-    required: true,
-  },
-  university: {
-    // type: String,
-    type: mongoose.Schema.ObjectId,
-    required: true,
-    minlength: 3,
-  },
-  specialization: {
-    type: String,
-  },
-  type: {
-    type: String,
-    enum: ["STU"],
-    default: "STU",
-  },
-  status: {
-    type: String,
-    enum: ["ACTIVE", "INACTIVE"],
-    default: "ACTIVE",
-  },
-  isloggedin: {
-    type: Boolean,
-    default: true,
-  },
-  isAdmin: Boolean,
-  created_at: {
-    type: Date,
-    default: Date.now(),
-  },
-  last_update: {
-    type: Date,
-    default: Date.now(),
-  },
-  keywords: [String],
-
-  DUR: [DUR],
-});
+  {
+    timestamps: true,
+  }
+);
 
 studentSchema.method("generateAuthToken", function () {
   const token = jwt.sign(
@@ -131,6 +127,7 @@ const validate = (student) => {
     semester: Joi.number().required(),
     university: Joi.string().required(),
     type: Joi.string().valid("STU"),
+    referal: Joi.string(),
   });
 
   return schema.validate(student);
@@ -157,20 +154,20 @@ const validateAuth = (student) => {
   return schema.validate(student);
 };
 
-const validatePassword=(student)=>{
-  const schema=Joi.object({
-    previous_password:Joi.string().required(),
-    new_password:Joi.string().required(),
-  })
+const validatePassword = (student) => {
+  const schema = Joi.object({
+    previous_password: Joi.string().required(),
+    new_password: Joi.string().required(),
+  });
 
-  return schema.validate(student)
-}
+  return schema.validate(student);
+};
 
 // export default Student;
-module.exports={
+module.exports = {
   validateAuth,
   validateUpdate,
   validate,
   validatePassword,
-  Student
-}
+  Student,
+};

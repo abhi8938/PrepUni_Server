@@ -1,6 +1,6 @@
-const DUR=require("../Validators/common")
-const Joi=require('joi')
-const mongoose=require('mongoose')
+const DUR = require("../Validators/common");
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
 const Subscript = mongoose.model(
   "subscription",
@@ -35,6 +35,10 @@ const Subscript = mongoose.model(
         enum: ["ACTIVE", "INACTIVE"],
         default: "INACTIVE",
       },
+      price: {
+        type: Number,
+        required: true,
+      },
       DUR: [DUR],
     },
     {
@@ -49,6 +53,7 @@ const validate = (subscription) => {
     program_id: Joi.string(),
     type: Joi.string(),
     PA_ID: Joi.string(),
+    price: Joi.string().required(),
     status: Joi.string(),
   });
 
@@ -59,7 +64,7 @@ const validateUpdate = (subscription) => {
   const schema = Joi.object({
     status: Joi.string().valid("ACTIVE", "INACTIVE"),
     subjects: Joi.array().items(Joi.string()),
-     PA_ID: Joi.string(),
+    PA_ID: Joi.string(),
   });
 
   return schema.validate(subscription);
@@ -68,5 +73,5 @@ const validateUpdate = (subscription) => {
 module.exports = {
   validateUpdate,
   validate,
-  Subscript
-}
+  Subscript,
+};

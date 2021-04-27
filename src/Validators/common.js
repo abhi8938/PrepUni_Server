@@ -1,23 +1,22 @@
-const Joi=require('joi')
-const mongoose=require('mongoose')
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
-const DUR = {
-  key: {
-    type: String,
-    required: true,
+const DUR = mongoose.Schema(
+  {
+    key: {
+      type: String,
+    },
+    prev: {
+      type: String,
+      // required: true,
+    },
+    current: {
+      type: String,
+    },
   },
-  prev: {
-    type: String,
-    // required: true,
-  },
-  current: {
-    type: String,
-    required: true,
-  },
-  created_At: {
-    type: Date,
-    default: Date.now(),
-  },
-};
+  {
+    timeStamps: true,
+  }
+);
 
-module.exports = DUR
+module.exports = DUR;

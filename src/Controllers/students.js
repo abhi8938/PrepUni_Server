@@ -11,6 +11,7 @@ const { BMessage } = require("../Validators/extra");
 const { Subscript } = require("../Validators/subscription");
 const { University } = require("../Validators/University");
 const { Program } = require("../Validators/Program");
+const { Referals } = require("../Validators/referals");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 
@@ -75,6 +76,54 @@ const post_student = async (req, res) => {
     .concat(generateKeywords(req.body.contact))
     .concat(generateKeywords(req.body.email));
   student.keywords = keywords;
+
+  if (req.body.referal) {
+    const referal_self = new Referals({
+      STID: student._id,
+      balance: 25, // initial balance
+      transactions: [
+        {
+          type: "C",
+          amount: 25,
+        },
+      ],
+    });
+    const referal_sharee = await Referals.findOne({ STID: req.body.referal });
+    if (referal_sharee) {
+      if (referal_sharee.balance + 25 > referal_sharee.limit)
+        throw new Error("Limit Reached");
+      referal_sharee.transactions = [
+        ...referal_sharee.transactions,
+        {
+          type: "C",
+          amount: 25,
+        },
+      ];
+
+      handleUpdate(referal_sharee, { balance: referal_sharee.balance + 25 }); //add balance
+      await referal_sharee.save();
+    } else {
+      const new_sharee_referal = new Referals({
+        STID: req.body.referal,
+        balance: 25, // initial balance
+        transactions: [
+          {
+            type: "C",
+            amount: 25,
+          },
+        ],
+      });
+      await new_sharee_referal.save();
+    }
+    await referal_self.save();
+  } else {
+    const referal_self = new Referals({
+      STID: student._id,
+      balance: 0, // initial balance
+      transaction: [],
+    });
+    await referal_self.save();
+  }
   student = await student.save();
   const token = student.generateAuthToken();
   return res
@@ -169,7 +218,6 @@ const logoutfromdevice = async (req, res) => {
 
 module.exports = {
   logoutfromdevice,
-  get_all,
   authenticate,
   reset_password,
   update_student,

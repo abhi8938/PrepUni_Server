@@ -1,59 +1,71 @@
-const mongoose = require('mongoose')
-const Joi=require('joi')
-const DUR =require("./common")
+const mongoose = require("mongoose");
+const Joi = require("joi");
+const DUR = require("./common");
 
-const referalSchema=new mongoose.Schema({
-    STID:{
-        type:mongoose.Schema.ObjectId,
-        required:true,
+const transactionSchema = mongoose.Schema(
+  {
+    type: {
+      type: String,
+      enum: ["C", "D"],
+      required: true,
     },
-    balance:{
-        type:Number,
-        required:true
+    amount: {
+      type: Number,
+      required: true,
     },
-    limit:{
-        type:Number,
-        required:true
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const referalSchema = new mongoose.Schema(
+  {
+    STID: {
+      type: mongoose.Schema.ObjectId,
+      required: true,
+      unique: true,
     },
-    transactions:{
-        type:String,
-        enum: ["C" , "D" , "CREDIT" , "DEBIT"],
+    balance: {
+      type: Number,
+      required: true,
     },
-    amount:{
-        type:Number,
-        required:true
+    limit: {
+      type: Number,
+      default: 100,
     },
-    DUR:[DUR]
-},{
-    timestamps:true,
-})
+    transactions: [transactionSchema],
+    DUR: [DUR],
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const Referals=mongoose.model("Referals",referalSchema)
+const Referals = mongoose.model("Referals", referalSchema);
 
-const validate=(referal)=>{
-    const schema=Joi.object({
-        balance:Joi.number().required(),
-        limit:Joi.number().required(),
-        transactions:Joi.string(),
-        amount:Joi.number().required(),
-    })
+const validate = (referal) => {
+  const schema = Joi.object({
+    balance: Joi.number().required(),
+    limit: Joi.number(),
+    transactions: Joi.string(),
+  });
 
-    return schema.validate(referal)
-}
+  return schema.validate(referal);
+};
 
-const validateUpdate=(referal)=>{
-    const schema=Joi.object({
-        balance:Joi.number(),
-        limit:Joi.number(),
-        transactions:Joi.string(),
-        amount:Joi.number(),
-    })
+const validateUpdate = (referal) => {
+  const schema = Joi.object({
+    balance: Joi.number(),
+    limit: Joi.number(),
+    transactions: Joi.string(),
+  });
 
-    return schema.validate(referal)
-}
+  return schema.validate(referal);
+};
 
-module.exports={
-    Referals,
-    validate,
-    validateUpdate
-}
+module.exports = {
+  Referals,
+  validate,
+  validateUpdate,
+};
