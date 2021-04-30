@@ -4,15 +4,17 @@ const {
   ValidateBMessage,
   ValidateLegal,
   validateLegalUpdate,
-} =require("../Validators/extra");
+  FAQ,
+  validateFAQ,
+} = require("../Validators/extra");
 const {
   generateKeywords,
   handleUpdate,
   sendMail,
   sendSMS,
-} =require("../Services/algo");
+} = require("../Services/algo");
 
-const { Student } =require("../Validators/student");
+const { Student } = require("../Validators/student");
 
 /*
  * *
@@ -58,42 +60,43 @@ const update_bmessage = async (req, res) => {
  * *
  * *
  */
+//* FAQ's
+const get_faq = async (req, res) => {
+  const faqs = await FAQ.find().sort("question");
+  res.status(200).send(faqs);
+};
 
+const post_faq = async (req, res) => {
+  const { error } = validateFAQ(req.body);
+  if (error) throw new Error(error.details[0].message);
+
+  let faq = new FAQ(req.body);
+
+  faq = await faq.save();
+
+  res.status(200).send(faq);
+};
+
+const update_faq = async (req, res) => {
+  const { error } = validateFAQ(req.body);
+  if (error) throw new Error(error.details[0].message);
+
+  const faq = await FAQ.findByIdAndUpdate(
+    req.params.id,
+    {
+      type: req.body.type,
+    },
+    { new: true }
+  );
+
+  if (!faq) throw new Error("The bmessage with the given id is not available");
+
+  res.status(200).send(faq);
+};
 /*
  * *
  * *
  */
-
-//* Legals
-const get_legal = async (req, res) => {
-  const legal = await Legal.findById(req.params.id);
-  if (!legal) throw new Error("The legal with the given id is not available");
-  res.status(200).send(legal);
-};
-
-const post_legal = async (req, res) => {
-  const { error } = ValidateLegal(req.body);
-  if (error) throw new Error(error.details[0].message);
-
-  let legal = new Legal(req.body);
-
-  legal = await legal.save();
-
-  res.status(200).send(legal);
-};
-
-const update_legal = async (req, res) => {
-  const { error } = validateLegalUpdate(req.body);
-  if (error) throw new Error(error.details[0].message);
-
-  const legal = await Legal.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
-
-  if (!legal) throw new Error("The legal with the given id is not available");
-
-  res.status(200).send(legal);
-};
 
 //* sendMESSAGE/ sendCODE / sendSMS
 
@@ -207,10 +210,10 @@ module.exports = {
   post_mail,
   post_sms,
   post_code,
-  update_legal,
   get_bmessage,
-  post_legal,
-  get_legal,
   post_bmessage,
-  update_bmessage
-}
+  update_bmessage,
+  get_faq,
+  post_faq,
+  update_faq,
+};
