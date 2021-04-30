@@ -76,7 +76,7 @@ const post_student = async (req, res) => {
     .concat(generateKeywords(req.body.contact))
     .concat(generateKeywords(req.body.email));
   student.keywords = keywords;
-
+   console.log('referal',req.body);
   if (req.body.referal) {
     const referal_self = new Referals({
       STID: student._id,

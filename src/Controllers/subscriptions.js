@@ -35,7 +35,7 @@ const post_subscription = async (req, res) => {
     STID: student._id,
     PID: pack._id,
     type: pack.type,
-    price: req.body.price,
+    price: req.body.price ? req.body.price : 0,
     program_id: student.program,
   };
   subInstance.status = "ACTIVE";

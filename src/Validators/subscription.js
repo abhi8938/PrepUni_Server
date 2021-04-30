@@ -53,7 +53,7 @@ const validate = (subscription) => {
     program_id: Joi.string(),
     type: Joi.string(),
     PA_ID: Joi.string(),
-    price: Joi.string().required(),
+    price: Joi.number().required(),
     status: Joi.string(),
   });
 
