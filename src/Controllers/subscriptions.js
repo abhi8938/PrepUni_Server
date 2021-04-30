@@ -51,7 +51,7 @@ const post_subscription = async (req, res) => {
     expiration.setMonth(expiration.getMonth() + 5);
   }
   sub.expiration = expiration;
-  const referal = await Referals.findOne({ STID: student._id });
+  let referal = await Referals.findOne({ STID: student._id });
   if (referal) {
     if (referal.balance !== 0) {
       handleUpdate(referal, { balance: 0 });
