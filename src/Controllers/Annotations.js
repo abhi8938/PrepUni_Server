@@ -58,9 +58,20 @@ const update_annotations = async (req, res) => {
   res.status(200).send(annotations);
 };
 
+
+const check_doc=async (req, res)=>{
+
+  const paper=Paper.findOne({_id:req.params.id,STID:req.user._id})
+
+  if(paper) res.status(200).send(true)
+  else res.status(200).send(false)
+}
+
+
 module.exports = {
   get_annotations,
   update_annotations,
   post_annotations,
   get_annotation,
+  check_doc
 };
