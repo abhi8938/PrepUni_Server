@@ -63,11 +63,7 @@ const Validate = (annotations) => {
   //TODO:Create Schema
   const schema = Joi.object({
     paper_id: Joi.string().required(),
-<<<<<<< HEAD
     ann: Joi.array().items(annValidationSchema)
-=======
-    ann: Joi.array().items(annValidationSchema).required(),
->>>>>>> 84d3a8499ee1d00b31222c9d89efa5fd5b02cc46
   });
 
   return schema.validate(annotations);
