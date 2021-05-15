@@ -10,6 +10,8 @@ const admin = require("../Middlewares/admin");
 const auth = require("../Middlewares/auth");
 const expres = require("express");
 const multer = require("multer");
+const jwt=require("jsonwebtoken")
+const config=require("config")
 
 const router = expres.Router();
 var storage = multer.diskStorage({
@@ -23,11 +25,20 @@ var storage = multer.diskStorage({
   },
 });
 
+var file_name=(name)=>{
+  const token = jwt.sign(
+    { name: name },
+    config.get("jwtPrivateKey")
+  );
+  
+  return token;
+}
+
 router.get("/all/:id", async (req, res) => await get_papers(req, res));
 
 router.get("/all",async (req,res) => await get_papers(req,res));
 
-let upload = multer({ storage: storage });
+let upload = multer({ dest: "uploads/" });
  
 router.get(
   "/single/:id",
@@ -40,7 +51,11 @@ router.post(
   // [auth, admin],
   upload.fields([{ name: "link", maxCount: 1 }]),
   async (req, res) => {
-    req.body.link = req.files["link"][0].filename;
+    const token=file_name(req.files["link"][0].filename)
+    // console.log(token)
+    // const decoded = jwt.verify(token, config.get("jwtPrivateKey"));
+    // console.log(decoded)
+    req.body.link = token;
     await post_paper(req, res);
   }
 );
@@ -51,7 +66,8 @@ router.put(
   upload.fields([{ name: "link", maxCount: 1 }]),
   async (req, res) => {
     if (req.files.length !== undefined) {
-      req.body.link = req.files["link"][0].filename;
+      const token=file_name(req.files["link"][0].filename)
+      req.body.link =token;
     }
     await update_paper(req, res);
   }

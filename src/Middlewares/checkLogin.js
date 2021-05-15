@@ -14,7 +14,7 @@ const checkLogin = async (req, res, next) => {
   }
   if (student.isloggedin === true)
     throw new Error("Please logout from other devices");
-  await Student.findByIdAndUpdate(student._id, { isloggedin: true });
+  // await Student.findByIdAndUpdate(student._id, { isloggedin: true });
   next();
 };
 
