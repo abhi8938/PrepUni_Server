@@ -1,24 +1,27 @@
-const DUR =require("../Validators/common");
-const Joi=require('joi')
-const mongoose=require('mongoose')
+const DUR = require("../Validators/common");
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
 const BMessage = mongoose.model(
   "BMessage",
-  new mongoose.Schema({
-    title: {
-      type: String,
-      required: true,
-      minlength: 2,
-      maxlength: 30,
+  new mongoose.Schema(
+    {
+      title: {
+        type: String,
+        required: true,
+        minlength: 2,
+        maxlength: 30,
+      },
+      body: {
+        type: String,
+        required: true,
+      },
+      actions: [String],
     },
-    body: {
-      type: String,
-      required: true,
-    },
-    actions: [String],
-  },{
-    timestamps:true
-  })
+    {
+      timestamps: true,
+    }
+  )
 );
 
 const ValidateBMessage = (bmessage) => {
@@ -64,29 +67,31 @@ const semester = new mongoose.Schema({
   ],
 });
 
-const Legal = mongoose.model(
-  "Legal",
-  new mongoose.Schema({
-    tandc: [{ type: String, required: true }],
-    about: [{ type: String, required: true }],
-    privacy: [{ type: String, required: true }],
-    created_At: {
-      type: Date,
-      defaul: Date.now(),
+const FAQ = mongoose.model(
+  "faqs",
+  new mongoose.Schema(
+    {
+      question: {
+        type: String,
+        required: true,
+        minlength: 2,
+        maxlength: 30,
+      },
+      answer: {
+        type: String,
+        required: true,
+      },
     },
-    last_update: {
-      type: Date,
-      default: Date.now(),
-    },
-    DUR: [DUR],
-  })
+    {
+      timestamps: true,
+    }
+  )
 );
 
-const ValidateLegal = (legal) => {
+const validateFAQ = (legal) => {
   const schema = Joi.object({
-    tandc: Joi.array().required(),
-    about: Joi.array().required(),
-    privacy: Joi.array().required(),
+    question: Joi.string().required(),
+    answer: Joi.string().required(),
   });
 
   return schema.validate(legal);
@@ -102,10 +107,10 @@ const validateLegalUpdate = (legal) => {
   return schema.validate(legal);
 };
 
-module.exports={
+module.exports = {
   validateLegalUpdate,
-  ValidateLegal,
-  Legal,
+  validateFAQ,
+  FAQ,
   ValidateBMessage,
-  BMessage
-}
+  BMessage,
+};

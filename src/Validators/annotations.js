@@ -1,16 +1,14 @@
-const DUR=require("../Validators/common")
-const Joi=require('joi')
-const mongoose=require('mongoose')
+const DUR = require("../Validators/common");
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
 const annotationSchema = mongoose.Schema({
   type: {
     type: String,
-    enum: ["HIGHLIGHT" , "BOOKMARK" , "UNDERLINE" , "EMPTY"],
-    required: true,
+    enum: ["HIGHLIGHT", "BOOKMARK", "UNDERLINE", "EMPTY"],
   },
   pageCfi: {
     type: String, //epubcfi(/6/14[chap05ref]!)
-    required: true,
   },
   location: { offsetX: Number, offsetY: Number },
   epubCfi: {
@@ -19,7 +17,6 @@ const annotationSchema = mongoose.Schema({
   color: String,
   text: {
     type: String,
-    required: true,
   },
   pageNumber: {
     type: String,
@@ -29,45 +26,47 @@ const annotationSchema = mongoose.Schema({
 
 const Annotations = mongoose.model(
   "Annotations",
-  new mongoose.Schema({
-    STID: {
-      type: mongoose.Schema.ObjectId,
-      required: true,
+  new mongoose.Schema(
+    {
+      STID: {
+        type: mongoose.Schema.ObjectId,
+        required: true,
+      },
+      paper_id: {
+        type: mongoose.Schema.ObjectId,
+        required: true,
+      },
+      ann: [annotationSchema],
+      DUR: [DUR],
     },
-    paper_id: {
-      type: mongoose.Schema.ObjectId,
-      required: true
-    },
-    ann: [annotationSchema],
-    DUR: [DUR],
-  },{
-    timestamps:true
-  })
+    {
+      timestamps: true,
+    }
+  )
 );
 
 const annValidationSchema = {
-  type: Joi.string().required(),
-  pageCfi: Joi.string().required(),
+  type: Joi.string(),
+  pageCfi: Joi.string(),
   location: {
     offsetX: Joi.number(),
     offsetY: Joi.number(),
   },
   epubCfi: Joi.string(),
   color: Joi.string(),
-  text: Joi.string().required(),
+  text: Joi.string(),
   note: Joi.string(),
-  pageNumber:Joi.number()
+  pageNumber: Joi.number(),
 };
-
 
 const Validate = (annotations) => {
   //TODO:Create Schema
   const schema = Joi.object({
     paper_id: Joi.string().required(),
-    ann: Joi.array().items(annValidationSchema).required()
+    ann: Joi.array().items(annValidationSchema).required(),
   });
 
-  return schema.validate(annotations)
+  return schema.validate(annotations);
 };
 
 const annUpdateSchema = {
@@ -81,20 +80,20 @@ const annUpdateSchema = {
   color: Joi.string(),
   text: Joi.string(),
   note: Joi.string(),
-  pageNumber:Joi.number()
+  pageNumber: Joi.number(),
 };
 
 const ValidateUpdate = (annotations) => {
   //TODO:Create Schema
   const schema = Joi.object({
-    ann: Joi.array().items(annUpdateSchema)
+    ann: Joi.array().items(annUpdateSchema),
   });
 
-  return schema.validate(annotations)
+  return schema.validate(annotations);
 };
 
-module.exports={
+module.exports = {
   ValidateUpdate,
   Validate,
-  Annotations
-}
+  Annotations,
+};

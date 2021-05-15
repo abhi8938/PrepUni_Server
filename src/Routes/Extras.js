@@ -9,6 +9,9 @@ const {
   post_sms,
   update_bmessage,
   update_legal,
+  get_faq,
+  post_faq,
+  update_faq,
 } = require("../Controllers/extras");
 
 const admin = require("../Middlewares/admin");
@@ -45,12 +48,6 @@ router.post(
   async (req, res) => await post_bmessage(req, res)
 );
 
-// router.put(
-//   "/bmessage/:id",
-//   [auth, admin],
-//   async (req, res) => await update_bmessage(req, res)
-// );
-
 /*
  * *
  * *
@@ -79,19 +76,11 @@ router.post(
 
 //* Legals
 
-router.get("/legals/:id", auth, async (req, res) => await get_legal(req, res));
+router.get("/faqs", auth, async (req, res) => await get_faq(req, res));
 
-router.post(
-  "/legals",
-  [auth, admin],
-  async (req, res) => await post_legal(req, res)
-);
+router.post("/faqs", [auth], async (req, res) => await post_faq(req, res));
 
-router.put(
-  "/legals/:id",
-  [auth, admin],
-  async (req, res) => await update_legal(req, res)
-);
+router.put("/faqs/:id", [auth], async (req, res) => await update_faq(req, res));
 
 /*
  * *

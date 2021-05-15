@@ -8,6 +8,7 @@ const { generateKeywords, handleUpdate } = require("../Services/algo");
 const { Pack } = require("../Validators/package");
 // const { Paper_Product } from "../Validators/paper_product";
 const { Student } = require("../Validators/student");
+const { Referals } = require("../Validators/referals");
 
 const get_subscriptions = async (req, res) => {
   const subscriptions = await Subscript.find({});
@@ -34,6 +35,7 @@ const post_subscription = async (req, res) => {
     STID: student._id,
     PID: pack._id,
     type: pack.type,
+    price: req.body.price,
     program_id: student.program,
   };
   subInstance.status = "ACTIVE";
@@ -49,7 +51,13 @@ const post_subscription = async (req, res) => {
     expiration.setMonth(expiration.getMonth() + 5);
   }
   sub.expiration = expiration;
-
+  let referal = await Referals.findOne({ STID: student._id });
+  if (referal) {
+    if (referal.balance !== 0) {
+      handleUpdate(referal, { balance: 0 });
+    }
+    await referal.save();
+  }
   try {
     sub = await sub.save();
   } catch (e) {
