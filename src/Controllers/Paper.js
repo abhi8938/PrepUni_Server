@@ -1,6 +1,6 @@
 const { Paper, validate, validateUpdate } = require("../Validators/Paper");
-const jwt=require("jsonwebtoken")
-const config=require("config")
+const jwt = require("jsonwebtoken");
+const config = require("config");
 
 const post_paper = async (req, res) => {
   const { error } = validate(req.body);
@@ -47,13 +47,12 @@ const download_file = (req, res) => {
   // console.log(decoded)
   // fileName=decoded.name
   // console.log(fileName)
-console.log('fileName',fileName)
+  console.log("fileName", fileName);
   res.download(`uploads/${fileName}`, (err) => {
     if (err) {
       throw new Error("File can not be downloaded: " + err);
     }
   });
-  res.status(200).send("Paper Downloaded")
 };
 
 module.exports = {
