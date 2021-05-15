@@ -37,7 +37,7 @@ const Subscript = mongoose.model(
       },
       price: {
         type: Number,
-        required: true,
+        default:0
       },
       DUR: [DUR],
     },
@@ -53,7 +53,7 @@ const validate = (subscription) => {
     program_id: Joi.string(),
     type: Joi.string(),
     PA_ID: Joi.string(),
-    price: Joi.number().required(),
+    price: Joi.number(),
     status: Joi.string(),
   });
 

@@ -43,10 +43,11 @@ const update_paper = async (req, res) => {
 
 const download_file = (req, res) => {
   var fileName = req.params.name;
-  const decoded = jwt.verify(fileName, config.get("jwtPrivateKey"));
+  // const decoded = jwt.verify(fileName, config.get("jwtPrivateKey"));
   // console.log(decoded)
-  fileName=decoded.name
+  // fileName=decoded.name
   // console.log(fileName)
+console.log('fileName',fileName)
   res.download(`uploads/${fileName}`, (err) => {
     if (err) {
       throw new Error("File can not be downloaded: " + err);
