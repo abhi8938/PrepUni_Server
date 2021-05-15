@@ -6,11 +6,9 @@ const annotationSchema = mongoose.Schema({
   type: {
     type: String,
     enum: ["HIGHLIGHT" , "BOOKMARK" , "UNDERLINE" , "EMPTY"],
-    required: true,
   },
   pageCfi: {
     type: String, //epubcfi(/6/14[chap05ref]!)
-    required: true,
   },
   location: { offsetX: Number, offsetY: Number },
   epubCfi: {
@@ -19,7 +17,6 @@ const annotationSchema = mongoose.Schema({
   color: String,
   text: {
     type: String,
-    required: true,
   },
   pageNumber: {
     type: String,
@@ -46,15 +43,15 @@ const Annotations = mongoose.model(
 );
 
 const annValidationSchema = {
-  type: Joi.string().required(),
-  pageCfi: Joi.string().required(),
+  type: Joi.string(),
+  pageCfi: Joi.string(),
   location: {
     offsetX: Joi.number(),
     offsetY: Joi.number(),
   },
   epubCfi: Joi.string(),
   color: Joi.string(),
-  text: Joi.string().required(),
+  text: Joi.string(),
   note: Joi.string(),
   pageNumber:Joi.number()
 };
@@ -64,7 +61,7 @@ const Validate = (annotations) => {
   //TODO:Create Schema
   const schema = Joi.object({
     paper_id: Joi.string().required(),
-    ann: Joi.array().items(annValidationSchema).required()
+    ann: Joi.array().items(annValidationSchema)
   });
 
   return schema.validate(annotations)
