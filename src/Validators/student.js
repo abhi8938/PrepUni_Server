@@ -28,6 +28,8 @@ const studentSchema = new mongoose.Schema(
       unique: true,
       minlength: 10,
       maxlength: 10,
+      required: false,
+      default: "NA",
     },
     user_name: {
       type: String,
