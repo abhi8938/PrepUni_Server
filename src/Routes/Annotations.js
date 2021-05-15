@@ -4,6 +4,7 @@ const {
   get_annotations,
   post_annotations,
   update_annotations,
+  check_doc
 }=require("../Controllers/Annotations");
 
 const auth=require("../Middlewares/auth")
@@ -22,5 +23,7 @@ router.put(
 );
 
 router.get("/:id", auth, async (req, res) => await get_annotation(req, res));
+
+router.get("/check/:id",auth,async(req,res)=>await check_doc(req,res))
 
 module.exports=router;

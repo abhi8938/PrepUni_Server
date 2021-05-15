@@ -1,11 +1,11 @@
-const DUR=require("../Validators/common")
-const Joi=require('joi')
-const mongoose=require('mongoose')
+const DUR = require("../Validators/common");
+const Joi = require("joi");
+const mongoose = require("mongoose");
 
 const annotationSchema = mongoose.Schema({
   type: {
     type: String,
-    enum: ["HIGHLIGHT" , "BOOKMARK" , "UNDERLINE" , "EMPTY"],
+    enum: ["HIGHLIGHT" , "BOOKMARK" , "UNDERLINE" , "EMPTY"]
   },
   pageCfi: {
     type: String, //epubcfi(/6/14[chap05ref]!)
@@ -26,20 +26,23 @@ const annotationSchema = mongoose.Schema({
 
 const Annotations = mongoose.model(
   "Annotations",
-  new mongoose.Schema({
-    STID: {
-      type: mongoose.Schema.ObjectId,
-      required: true,
+  new mongoose.Schema(
+    {
+      STID: {
+        type: mongoose.Schema.ObjectId,
+        required: true,
+      },
+      paper_id: {
+        type: mongoose.Schema.ObjectId,
+        required: true,
+      },
+      ann: [annotationSchema],
+      DUR: [DUR],
     },
-    paper_id: {
-      type: mongoose.Schema.ObjectId,
-      required: true
-    },
-    ann: [annotationSchema],
-    DUR: [DUR],
-  },{
-    timestamps:true
-  })
+    {
+      timestamps: true,
+    }
+  )
 );
 
 const annValidationSchema = {
@@ -53,18 +56,21 @@ const annValidationSchema = {
   color: Joi.string(),
   text: Joi.string(),
   note: Joi.string(),
-  pageNumber:Joi.number()
+  pageNumber: Joi.number(),
 };
-
 
 const Validate = (annotations) => {
   //TODO:Create Schema
   const schema = Joi.object({
     paper_id: Joi.string().required(),
+<<<<<<< HEAD
     ann: Joi.array().items(annValidationSchema)
+=======
+    ann: Joi.array().items(annValidationSchema).required(),
+>>>>>>> 84d3a8499ee1d00b31222c9d89efa5fd5b02cc46
   });
 
-  return schema.validate(annotations)
+  return schema.validate(annotations);
 };
 
 const annUpdateSchema = {
@@ -78,20 +84,20 @@ const annUpdateSchema = {
   color: Joi.string(),
   text: Joi.string(),
   note: Joi.string(),
-  pageNumber:Joi.number()
+  pageNumber: Joi.number(),
 };
 
 const ValidateUpdate = (annotations) => {
   //TODO:Create Schema
   const schema = Joi.object({
-    ann: Joi.array().items(annUpdateSchema)
+    ann: Joi.array().items(annUpdateSchema),
   });
 
-  return schema.validate(annotations)
+  return schema.validate(annotations);
 };
 
-module.exports={
+module.exports = {
   ValidateUpdate,
   Validate,
-  Annotations
-}
+  Annotations,
+};
